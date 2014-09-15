@@ -3,11 +3,13 @@ package co.edu.uniandes.valorAndes.fachada;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
 /**
- * Clase VideoAndes, que representa la fachada de comunicación entre
+ * Clase ValorAndes, que representa la fachada de comunicación entre
  * la interfaz y la conexión con la base de datos. Atiende todas
  * las solicitudes.
  */
@@ -79,7 +81,8 @@ public class ValorAndes
 	
 	public static void main( String[] args )
 	{
-		
+    	ValorAndes.darInstancia().inicializarRuta("F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent");
+
 		
 	}
 	

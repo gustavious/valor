@@ -1,13 +1,4 @@
-/**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * $Id: ServletTemplate.java,v 1.0 
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
- *
- * Ejercicio: VideoAndes
- * Autor: Juan Diego Toro - 1-Marzo-2010
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
+
 package co.edu.uniandes.valorAndes.servlets;
 
 import java.io.IOException;

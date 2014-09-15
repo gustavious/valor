@@ -33,7 +33,7 @@ public class ConsultaDAO {
 	/**
 	 * ruta donde se encuentra el archivo de conexión.
 	 */
-	private static final String ARCHIVO_CONEXION = "/../conexion.properties";
+	private static final String ARCHIVO_CONEXION = "/conexion.properties";
 	
 	/**
 	 * nombre de la tabla videos
@@ -98,7 +98,7 @@ public class ConsultaDAO {
     // -------------------------------------------------
 
 	/**
-	 * obtiene ls datos necesarios para establecer una conexion
+	 * obtiene los datos necesarios para establecer una conexion
 	 * Los datos se obtienen a partir de un archivo properties.
 	 * @param path ruta donde se encuentra el archivo properties.
 	 */
