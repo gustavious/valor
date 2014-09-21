@@ -16,9 +16,11 @@ public class ValorValue
 	
 	public int idUsuario;
 	
-	public String tipo;
+	public int tipoValor;
 	
 	public String negociado;
+	
+	public int idRentabilidad;
 	
 	public ValorValue()
 	{
@@ -65,20 +67,28 @@ public class ValorValue
 		this.idUsuario = idUsuario;
 	}
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public String getNegociado() {
 		return negociado;
 	}
 
 	public void setNegociado(String negociado) {
 		this.negociado = negociado;
+	}
+
+	public int getTipoValor() {
+		return tipoValor;
+	}
+
+	public void setTipoValor(int tipoValor) {
+		this.tipoValor = tipoValor;
+	}
+
+	public int getIdRentabilidad() {
+		return idRentabilidad;
+	}
+
+	public void setIdRentabilidad(int idRentabilidad) {
+		this.idRentabilidad = idRentabilidad;
 	}
 	
 	
