@@ -21,6 +21,7 @@ import java.util.Properties;
 
 
 
+
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
@@ -216,16 +217,16 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIDOferente)
+    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIDOferente) throws Exception
     {
     	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
     	PreparedStatement prepStmt = null;
+    	String consulta = "SELECT *, FROM" + USUARIO + "WHERE TIPO =" + nTipoValor;
     	
     	ValorValue  valorV = new ValorValue();
     	try 
     	{
 			establecerConexion(cadenaConexion, usuario, clave);
-			String consulta = "SELECT *, FROM" + USUARIO + "WHERE TIPO =" + nTipoValor;
 			prepStmt = conexion.prepareStatement(consulta);
 			
 			ResultSet rs = prepStmt.executeQuery();
@@ -241,6 +242,7 @@ public class ConsultaDAO {
 				
 				valorV.setId(id);
 				valorV.setNombre(nombre);
+				valorV.setValor(valor);
 				valorV.setFechaExpiracion(fechaExp);
 				valorV.setIdUsuario(idUsuario);
 				valorV.setTipo(tipo);
@@ -252,13 +254,24 @@ public class ConsultaDAO {
 							
 			}
     	}
-    	catch(Exception e)
+    	catch(SQLException e)
     	{
-    		
+    		e.printStackTrace();
+			System.out.println(consulta);
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
     	}
     	finally
     	{
-    		
+    		if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
     	}
     	
     	return valores;
