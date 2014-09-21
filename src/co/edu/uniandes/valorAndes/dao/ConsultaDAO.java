@@ -46,7 +46,7 @@ public class ConsultaDAO {
 	/**
 	 * Consulta que devuelve isan, titulo, y año de los videos en orden alfabetico
 	 */
-	private static final String consultaVideosDefault="SELECT *, FROM "+tablaVideo;
+	private static final String consultaVideosDefault="SELECT *, FROM ";
 	
 	
 
@@ -241,8 +241,8 @@ public class ConsultaDAO {
 			ResultSet rs = prepStmt.executeQuery();
 			
 			while(rs.next()){
-				String titVid = rs.getString(tituloVideo);
-				int anyoVid = rs.getInt(anyoVideo);
+				String titVid = rs.getString("titulo");
+				int anyoVid = rs.getInt("anio");
 				
 				vidValue.setTituloOriginal(titVid);
 				vidValue.setAnyo(anyoVid);	
@@ -294,8 +294,8 @@ public class ConsultaDAO {
 			ResultSet rs = prepStmt.executeQuery();
 			
 			while(rs.next()){
-				String titVid = rs.getString(tituloVideo);
-				int anyoVid = rs.getInt(anyoVideo);
+				String titVid = rs.getString("titulo");
+				int anyoVid = rs.getInt("anio");
 				
 				vidValue.setTituloOriginal(titVid);
 				vidValue.setAnyo(anyoVid);	
