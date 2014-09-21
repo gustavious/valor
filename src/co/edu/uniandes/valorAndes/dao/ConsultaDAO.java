@@ -163,7 +163,13 @@ public class ConsultaDAO {
     	PreparedStatement prepStmt = null;
     	String consultaR = "(SELECT ID FROM RENTABILIDAD WHERE NOMBRE="+ nTipoRentabilidad+")";
     	String tipoValor = "(SELECT ID FROM TIPO_VALOR WHERE NOMBRE="+ nTipoValor+")";
-    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE TIPO_VALOR="+tipoValor+" AND NEGOCIADO=" +nNegociado+ " AND FECHA_EXPIRACION=" +nFechaExpiracion + " AND ID_RENTABILIDAD="+ consultaR ;
+    	String idUsuarioOferente = "(SELECT ID_USUARIO FROM OFERENTE WHERE ID="+nIdOferente+")";
+    	String idUsuarioComisionista = "(SELECT ID_USUARIO FROM COMISIONISTA WHERE ID="+nIdComisionista+")";
+    	String idUsuarioInversionista = "(SELECT ID_USUARIO FROM INVERSIONISTA WHERE ID="+nIdInversionista+")";
+    	String idsValor = "(SELECT ID_INS_FIN FROM OPERACION_BURSATIL WHERE (ID_USUARIO_1="+idUsuarioOferente +" OR ID_USUARIO_2="+idUsuarioOferente+") AND (ID_USUARIO_1="+idUsuarioInversionista+" OR ID_USUARIO_2="+idUsuarioInversionista+") AND (ID_COMISIONISTA_1= "+idUsuarioComisionista+" OR ID_COMISIONISTA_2="+idUsuarioComisionista+"))";
+    	String consultaG = "(SELECT * FROM INSTRUMENTO_FINANCIERO WHERE TIPO_VALOR="+tipoValor+" AND NEGOCIADO=" +nNegociado+ " AND FECHA_EXPIRACION=" +nFechaExpiracion + " AND ID_RENTABILIDAD="+ consultaR+")" ;
+    	
+    	String consulta = "SELECT * FROM "+consultaG+" CG INNER JOIN " + idsValor+ " IDS ON IDS.ID_INS_FIN=CG.ID GROUP BY CG.ID; ";
     	
     	ValorValue  valorV = new ValorValue();
     	try 
