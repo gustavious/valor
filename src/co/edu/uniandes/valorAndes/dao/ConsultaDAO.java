@@ -20,6 +20,8 @@ import java.util.Properties;
 
 
 
+
+import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
 /**
@@ -214,9 +216,52 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    public ArrayList darValoresEscogidos()
+    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIDOferente)
     {
+    	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
+    	PreparedStatement prepStmt = null;
     	
+    	ValorValue  valorV = new ValorValue();
+    	try 
+    	{
+			establecerConexion(cadenaConexion, usuario, clave);
+			String consulta = "SELECT *, FROM" + USUARIO + "WHERE TIPO =" + nTipoValor;
+			prepStmt = conexion.prepareStatement(consulta);
+			
+			ResultSet rs = prepStmt.executeQuery();
+			while(rs.next())
+			{
+				int id = rs.getInt("ID");
+				String nombre = rs.getString("NOMBRE");
+				int valor = rs.getInt("VALOR");
+				Date fechaExp= rs.getDate("FECHA_EXPIRACION");
+				int idUsuario = rs.getInt("ID_USUARIO");
+				String tipo = rs.getString("TIPO");
+				String negociado = rs.getString("NEGOCIADO");
+				
+				valorV.setId(id);
+				valorV.setNombre(nombre);
+				valorV.setFechaExpiracion(fechaExp);
+				valorV.setIdUsuario(idUsuario);
+				valorV.setTipo(tipo);
+				valorV.setNegociado(negociado);
+				
+				valores.add(valorV);
+				
+				valorV = new ValorValue();
+							
+			}
+    	}
+    	catch(Exception e)
+    	{
+    		
+    	}
+    	finally
+    	{
+    		
+    	}
+    	
+    	return valores;
     }
     
     
