@@ -105,6 +105,8 @@ public class ConsultaDAO {
 	 */
 	private static final String consultaVideosDefault="SELECT *, FROM "+tablaVideo;
 	
+	
+
 
 	//----------------------------------------------------
 	//Atributos
@@ -112,7 +114,7 @@ public class ConsultaDAO {
 	/**
 	 * conexion con la base de datos
 	 */
-	public Connection conexion2;
+	public Connection conexion;
 	
 	/**
 	 * nombre del usuario para conectarse a la base de datos.
@@ -234,6 +236,59 @@ public class ConsultaDAO {
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 			prepStmt = conexion.prepareStatement(consultaVideosDefault);
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				String titVid = rs.getString(tituloVideo);
+				int anyoVid = rs.getInt(anyoVideo);
+				
+				vidValue.setTituloOriginal(titVid);
+				vidValue.setAnyo(anyoVid);	
+			
+				videos.add(vidValue);
+				vidValue = new VideosValue();
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(consultaVideosDefault);
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return videos;
+    }
+    
+    
+    
+    /**
+     * Método que se encarga de realizar ordenar la compra o venta de una nueva operacion bursatil
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepción si ocurre un error en
+     * la conexión o en la consulta. 
+     */
+    public boolean ordenarOperacion() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList<VideosValue> videos = new ArrayList<VideosValue>();
+		VideosValue vidValue = new VideosValue();
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("");
 			
 			ResultSet rs = prepStmt.executeQuery();
 			
