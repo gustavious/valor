@@ -212,7 +212,10 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    
+    public ArrayList darValoresEscogidos()
+    {
+    	
+    }
     
     
     
