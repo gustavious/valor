@@ -282,7 +282,113 @@ public class ConsultaDAO {
 		return videos;
     }
     
+    /**
+     * Método que se encarga de realizar ordenar la compra o venta de una nueva operacion bursatil
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepción si ocurre un error en
+     * la conexión o en la consulta. 
+     */
+    public boolean ordenarOperacion( int id, String tipo, Double valor, int idUsuario1, int idComisionista1, int idInstrumento, String fechaInic) throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			String query = " INSERT INTO OPERACION_BURSATIL (ID, TIPO, VALOR,  ID_USUARIO_1, ID_COMISIONISTA_1, ID_INS_FIN,  FECHA_INICIAL) VALUES ( " + id + ", '" + tipo + "', "+ valor +", "+ idUsuario1 +", "+ idComisionista1+", "+ idInstrumento+ ", TO_DATE('" +  fechaInic +"', 'YYYYMMDDHH24MI'))  ";
+			
+		System.out.println(query);			
+			
+			
+			prepStmt = conexion.prepareStatement(query );
+			
+			System.out.println(prepStmt);
+			
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			
+			
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(consultaVideosDefault);
+			
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+			
+		}
+		return true;
+		
+    }
     
+    
+    
+    /**
+     * Método que se encarga de cancelar la compra de una operacion bursatil
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepción si ocurre un error en
+     * la conexión o en la consulta. 
+     */
+    public boolean cancelarOperacion( int id,  int idComisionista1) throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			String query = " DELETE OPERACION_BURSATIL WHERE ID LIKE '" + id + "' AND ID_COMISIONISTA_1 LIKE '" + idComisionista1+"' ";
+			
+		System.out.println(query);			
+			
+			
+			prepStmt = conexion.prepareStatement(query );
+			
+			System.out.println(prepStmt);
+			
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			
+			
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(consultaVideosDefault);
+			
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+			
+		}
+		return true;
+		
+    }
     
     
 }
