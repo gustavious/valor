@@ -112,7 +112,7 @@ public class ConsultaDAO {
 	/**
 	 * conexion con la base de datos
 	 */
-	public Connection conexion;
+	public Connection conexion2;
 	
 	/**
 	 * nombre del usuario para conectarse a la base de datos.
