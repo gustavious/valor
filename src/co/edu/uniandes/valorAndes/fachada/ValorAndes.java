@@ -1,11 +1,13 @@
 
 package co.edu.uniandes.valorAndes.fachada;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
+import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
 /**
@@ -67,6 +69,12 @@ public class ValorAndes
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
+	
+	public ArrayList<ValorValue> darValoresEscogidos(String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente)throws Exception
+	{
+		return dao.darValoresEscogidos(nTipoValor, nTipoRentabilidad, nNegociado, nFechaExpiracion, nIdInversionista, nIdComisionista, nIdOferente);
+	}
+	
 	/**
 	 * método que retorna los videos en orden alfabético.
 	 * invoca al DAO para obtener los resultados.
