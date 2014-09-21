@@ -157,11 +157,13 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIDOferente) throws Exception
+    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente) throws Exception
     {
     	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
     	PreparedStatement prepStmt = null;
-    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE TIPO="+nTipoValor+" AND NEGOCIADO=" +nNegociado+ " AND FECHA_EXPIRACION=" +nFechaExpiracion ;
+    	String consultaR = "(SELECT ID FROM RENTABILIDAD WHERE NOMBRE="+ nTipoRentabilidad+")";
+    	String tipoValor = "(SELECT ID FROM TIPO_VALOR WHERE NOMBRE="+ nTipoValor+")";
+    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE TIPO_VALOR="+tipoValor+" AND NEGOCIADO=" +nNegociado+ " AND FECHA_EXPIRACION=" +nFechaExpiracion + " AND ID_RENTABILIDAD="+ consultaR ;
     	
     	ValorValue  valorV = new ValorValue();
     	try 
@@ -177,16 +179,18 @@ public class ConsultaDAO {
 				int valor = rs.getInt("VALOR");
 				Date fechaExp= rs.getDate("FECHA_EXPIRACION");
 				int idUsuario = rs.getInt("ID_USUARIO");
-				String tipo = rs.getString("TIPO");
+				int tipo = rs.getInt("TIPO");
 				String negociado = rs.getString("NEGOCIADO");
+				int idRentabilidad = rs.getInt("ID_RENTABILIDAD");
 				
 				valorV.setId(id);
 				valorV.setNombre(nombre);
 				valorV.setValor(valor);
 				valorV.setFechaExpiracion(fechaExp);
 				valorV.setIdUsuario(idUsuario);
-				valorV.setTipo(tipo);
+				valorV.setTipoValor(tipo);
 				valorV.setNegociado(negociado);
+				valorV.setIdRentabilidad(idRentabilidad);
 				
 				valores.add(valorV);
 				
