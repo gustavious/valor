@@ -51,6 +51,50 @@ public class ConsultaDAO {
 	 */
 	private static final String anyoVideo = "anyo";
 	
+	/**
+	 * Nombre de la tabla de comisionistas
+	 */
+	private static final String COMISIONISTA = "COMISIONISTA";
+	
+	/**
+	 * Nombre de la tabla de inversionistas
+	 */
+	private static final String INVERSIONISTA = "INVERSIONISTA";
+	
+	/**
+	 * Nombre de la tabla de oferentes
+	 */
+	private final static String OFERENTE = "OFERENTE";
+	
+	/**
+	 * Nombre de la tabla de instrumentos financieros
+	 */
+	private final static String IN_FINANCIERO = "INSTRUMENTO_FINANCIERO";
+	
+	/**
+	 * Nombre de la tabala de acciones
+	 */
+	private final static String ACCION = "ACCION";
+	
+	/**
+	 * Nombre de la tabla de bonos
+	 */
+	private final static String BONO = "BONO";
+	
+	/**
+	 * Nombre de la tabla de letras al cambio
+	 */
+	private final static String LETRA_CAMBIO = "LETRA_CAMBIO";
+	
+	/**
+	 * Nombre de la tabla de los certificados
+	 */
+	private final static String CERTIFICADO = "CERTIFICADO";
+	
+	/**
+	 * Nombre de la tabla de los usuarios
+	 */
+	private final static String USUARIO = "USUARIO";
 
 	//----------------------------------------------------
 	//Consultas
@@ -167,6 +211,10 @@ public class ConsultaDAO {
     // ---------------------------------------------------
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
+    
+    
+    
+    
     
     /**
      * Método que se encarga de realizar la consulta en la base de datos
