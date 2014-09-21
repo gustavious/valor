@@ -18,12 +18,28 @@ import co.edu.uniandes.valorAndes.fachada.ValorAndes;
 public abstract class ServletTemplate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	protected ValorAndes valorAndes;
+	
     /**
      * constructor de la clase. Llama al constructor de 
      * su padre.
      */
-    public ServletTemplate() {
+    public ServletTemplate() 
+    {
         super();
+
+    }
+    public void init( ) throws ServletException
+    {
+        try 
+        {
+			valorAndes = ValorAndes.darInstancia();
+		} 
+        catch (Exception e)
+        {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 
     }
 
