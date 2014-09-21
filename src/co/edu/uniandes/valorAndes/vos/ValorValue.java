@@ -6,21 +6,21 @@ public class ValorValue
 {
 	//Atributos
 	
-	public String nombre;
+	private String nombre;
 	
-	public Date fechaExpiracion;
+	private Date fechaExpiracion;
 	
-	public int id;
+	private int id;
 	
-	public double valor;
+	private double valor;
 	
-	public int idUsuario;
+	private int idUsuario;
 	
-	public int tipoValor;
+	private int tipoValor;
 	
-	public String negociado;
+	private String negociado;
 	
-	public int idRentabilidad;
+	private int idRentabilidad;
 	
 	public ValorValue()
 	{
