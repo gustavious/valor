@@ -19,8 +19,21 @@
     <servlet-name>ServletPlantilla</servlet-name>
     <servlet-class>co.edu.uniandes.videoAndes.servlets.ServletPlantilla</servlet-class>
   </servlet>
+  
+  
+  <servlet>
+      <servlet-name>ServletOrdenar</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletOrdenar</servlet-class>
+   </servlet>
+  
+  
+  
   <servlet-mapping>
-    <servlet-name>ServletPlantilla</servlet-name>
-    <url-pattern>/videosdefault.htm</url-pattern>
+    <servlet-name>ServletOrdenar</servlet-name>
+    <url-pattern>/ordenar.htm</url-pattern>
   </servlet-mapping>
+  
+  
+  
+  
 </web-app>

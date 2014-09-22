@@ -100,12 +100,12 @@
     
     <div class="container">
     <div class="row">
-        <form role="form"  id="form1" name="form1" method="post" action="registrar.htm">
+        <form role="form"  id="form1" name="form1" method="post" action="ordenar.htm">
             
                 <div class="form-group">
                     <label for="InputName">ID</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="id" id="InputName" placeholder="El identificador de la orden en el sistema de la bolsa de valores" required>
+                        <input type="number" class="form-control" name="id" id="InputName" placeholder="El identificador de la orden en el sistema de la bolsa de valores" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                 <div class="form-group">
                     <label for="InputEmail">Valor</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="InputEmailSecond" name="valor" placeholder="Valor comercial de esta orden" required>
+                        <input type="double" class="form-control" id="InputEmailSecond" name="valor" placeholder="Valor comercial de esta orden" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -128,7 +128,7 @@
                  <div class="form-group">
                     <label for="InputEmail">ID del comisionista</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="InputEmailSecond" name="idComisionista" placeholder="El identificador del intermediario que solicita esta orden" required>
+                        <input type="number" class="form-control" id="InputEmailSecond" name="idComisionista" placeholder="El identificador del intermediario que solicita esta orden" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -136,7 +136,7 @@
                  <div class="form-group">
                     <label for="InputEmail">ID del usuario</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="InputEmailSecond" name="idUsuario" placeholder="Identificador del usuario que solicito la orden" required>
+                        <input type="number" class="form-control" id="InputEmailSecond" name="idUsuario" placeholder="Identificador del usuario que solicito la orden" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -144,7 +144,7 @@
                 <div class="form-group">
                     <label for="InputEmail">ID del instrumento financiero</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="InputEmailSecond" name="idInstumento" placeholder="Identificador del instrumento financiero" required>
+                        <input type="number" class="form-control" id="InputEmailSecond" name="idInstrumento" placeholder="Identificador del instrumento financiero" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>

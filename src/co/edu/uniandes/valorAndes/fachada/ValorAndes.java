@@ -65,6 +65,12 @@ public class ValorAndes
 		dao.inicializar(ruta);
 	}
 	
+	
+	public ConsultaDAO dao()
+	{
+		return dao;
+	}
+	
     // ---------------------------------------------------
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------

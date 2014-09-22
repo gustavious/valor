@@ -16,6 +16,7 @@ package co.edu.uniandes.valorAndes.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class ServletOrdenar extends ServletTemplate
 	/**
 	 * mundo para realizar las operaciones
 	 */
-	private ValorAndes valor;
+	private ValorAndes cupi;
 
 	// -----------------------------------------------------------------
 	// Métodos
@@ -51,7 +52,7 @@ public class ServletOrdenar extends ServletTemplate
 	public void init( ) throws ServletException
 	{
 
-		valor = ValorAndes.darInstancia();		
+		cupi = ValorAndes.darInstancia();		
 
 	}
 
@@ -75,21 +76,37 @@ public class ServletOrdenar extends ServletTemplate
 
 
 		String id = request.getParameter( "id" );
-		String tipo = request.getParameter( "id" );
-		String valor = request.getParameter( "id" );
-		String idUsuario = request.getParameter( "id" );
-		String idComisionista = request.getParameter( "id" );
+		String tipo = request.getParameter( "tipo" );
+		String valor = request.getParameter( "valor" );
+		String idUsuario = request.getParameter( "idUsuario" );
+		String idComisionista = request.getParameter( "idComisionista" );
+		String idInstrumento = request.getParameter( "idInstrumento" );
+		
+		int id1 = Integer.parseInt(id);
+		Double valor1 = Double.parseDouble(valor);
+		int idUsuario1 = Integer.parseInt(idUsuario);
+		int idComisionista1 = Integer.parseInt(idComisionista);
+		int idInstrumento1 = Integer.parseInt(idInstrumento);
 		
 
-		Boolean seActualiza = false;
+	
 
-		
-		
-
-
-		if(seActualiza == false ){
+		if(id != null && tipo != null && valor != null && idUsuario != null && idComisionista != null && idInstrumento != null){
 
 			error(respuesta);
+			
+			Date fecha = new Date();
+			
+			@SuppressWarnings("deprecation")
+			String fechaInic = fecha.getYear() + fecha.getMonth() + fecha.getDay() + fecha.getHours() + fecha.getMinutes() + "";
+	
+			try {
+				cupi.dao().ordenarOperacion(id1, tipo, valor1, idUsuario1, idComisionista1, idInstrumento1, fechaInic);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 
 		}
 
@@ -150,7 +167,7 @@ public class ServletOrdenar extends ServletTemplate
 
 
 		
-
+		respuesta.write("          <p>&nbsp;</p>");
 
 		respuesta.write("          <p>&nbsp;</p>");
 
@@ -159,6 +176,7 @@ public class ServletOrdenar extends ServletTemplate
 
 
 
+		respuesta.write("          <p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p>");
 		
 	}
