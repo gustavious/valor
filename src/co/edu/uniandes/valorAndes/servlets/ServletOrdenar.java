@@ -75,6 +75,10 @@ public class ServletOrdenar extends ServletTemplate
 
 
 		String id = request.getParameter( "id" );
+		String tipo = request.getParameter( "id" );
+		String valor = request.getParameter( "id" );
+		String idUsuario = request.getParameter( "id" );
+		String idComisionista = request.getParameter( "id" );
 		
 
 		Boolean seActualiza = false;
