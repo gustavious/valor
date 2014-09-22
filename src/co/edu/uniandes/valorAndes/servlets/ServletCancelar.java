@@ -78,39 +78,27 @@ public class ServletCancelar extends ServletTemplate
 
 
 		String id = request.getParameter( "id" );
-		String tipo = request.getParameter( "tipo" );
-		String valor = request.getParameter( "valor" );
-		String idUsuario = request.getParameter( "idUsuario" );
+		
 		String idComisionista = request.getParameter( "idComisionista" );
-		String idInstrumento = request.getParameter( "idInstrumento" );
+	
 		
 		int id1 = Integer.parseInt(id);
-		Double valor1 = Double.parseDouble(valor);
-		int idUsuario1 = Integer.parseInt(idUsuario);
-		int idComisionista1 = Integer.parseInt(idComisionista);
-		int idInstrumento1 = Integer.parseInt(idInstrumento);
 		
+		int idComisionista1 = Integer.parseInt(idComisionista);
+	
 
 	
 
-		if(id != null && tipo != null && valor != null && idUsuario != null && idComisionista != null && idInstrumento != null){
+		if(id != null && idComisionista != null ){
 
 			
 			
 			Calendar fecha = new GregorianCalendar();
 	        
-	        int año = fecha.get(Calendar.YEAR);
-	        int mes = fecha.get(Calendar.MONTH) + 1;
-	        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-	        int hora = fecha.get(Calendar.HOUR_OF_DAY);
-	        int minuto = fecha.get(Calendar.MINUTE);
-	        
 	       
-	        
-	        String fechaInic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
 	
 			try {
-				cupi.dao().ordenarOperacion(id1, tipo, valor1, idUsuario1, idComisionista1, idInstrumento1, fechaInic);
+				cupi.dao().cancelarOperacion(id1, idComisionista1);
 				escribirContenido(respuesta);
 				
 			} catch (Exception e) {
@@ -155,13 +143,15 @@ public class ServletCancelar extends ServletTemplate
 
 		
 		respuesta.write("          <p>&nbsp;</p>");
-		respuesta.write("          <p>&nbsp;</p>");
+		respuesta.write("          <p>&nbsp;</p> <div class=\"col-lg-12\">");
+		
+		
 
-		respuesta.write("         <h2>se actualizo correctamente</h2>");
+		respuesta.write("         <h2>se cancelo la operación de manera exitosa</h2>");
 
 
 
-		respuesta.write("          <p>&nbsp;</p>");
+		respuesta.write("          </div><p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p>");
 		
 	}

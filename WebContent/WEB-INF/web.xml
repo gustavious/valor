@@ -21,9 +21,21 @@
   </servlet>
   
   
+  
+  
   <servlet>
       <servlet-name>ServletOrdenar</servlet-name>
       <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletOrdenar</servlet-class>
+   </servlet>
+   
+   <servlet>
+      <servlet-name>ServletCancelar</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletCancelar</servlet-class>
+   </servlet>
+   
+   <servlet>
+      <servlet-name>ServletRegistrar</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRegistrar</servlet-class>
    </servlet>
   
   
@@ -31,6 +43,16 @@
   <servlet-mapping>
     <servlet-name>ServletOrdenar</servlet-name>
     <url-pattern>/ordenar.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletCancelar</servlet-name>
+    <url-pattern>/cancelar.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletRegistrar</servlet-name>
+    <url-pattern>/registrar.htm</url-pattern>
   </servlet-mapping>
   
   

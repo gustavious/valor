@@ -283,7 +283,7 @@ public class ConsultaDAO {
     }
     
     /**
-     * Método que se encarga de realizar ordenar la compra o venta de una nueva operacion bursatil
+     * Método que se encarga de ordenar la compra o venta de una nueva operacion bursatil
      * @return true si se pudo, false de lo contrario
      * @throws Exception se lanza una excepción si ocurre un error en
      * la conexión o en la consulta. 
@@ -370,6 +370,59 @@ public class ConsultaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(consultaVideosDefault);
+			
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+			
+		}
+		return true;
+		
+    }
+    
+    
+    /**
+     * Método que se encarga de registrar una operacion bursatil entre dos comisionistas
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepción si ocurre un error en
+     * la conexión o en la consulta. 
+     */
+    public boolean registrarOperacion( int id,  int idComisionista1, int idComisionista2,Double valor, String fechaFin) throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			String query = " INSERT INTO OPERACION_BURSATIL (  ID_COMISIONISTA_2,  FECHA_FINAL) VALUES ( '" +  idComisionista2+ ", TO_DATE('" +  fechaFin +"', 'YYYYMMDDHH24MI')) WHERE ID LIKE '" + id + "' ";
+			
+		System.out.println(query);			
+			
+			
+			prepStmt = conexion.prepareStatement(query );
+			
+			System.out.println(prepStmt);
+			
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
 			
 			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
 		}finally 

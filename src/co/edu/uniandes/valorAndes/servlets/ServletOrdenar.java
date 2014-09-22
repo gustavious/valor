@@ -155,13 +155,15 @@ public class ServletOrdenar extends ServletTemplate
 
 		
 		respuesta.write("          <p>&nbsp;</p>");
-		respuesta.write("          <p>&nbsp;</p>");
+		respuesta.write("          <p>&nbsp;</p> <div class=\"col-lg-12\">");
+		
+		
 
-		respuesta.write("         <h2>se actualizo correctamente</h2>");
+		respuesta.write("         <h2>se ordeno la operación brsatil de manera exitosa</h2>");
 
 
 
-		respuesta.write("          <p>&nbsp;</p>");
+		respuesta.write("          </div><p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p>");
 		
 	}
