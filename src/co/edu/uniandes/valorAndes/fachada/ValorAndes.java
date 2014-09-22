@@ -1,8 +1,13 @@
 
 package co.edu.uniandes.valorAndes.fachada;
 
+
+
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +28,7 @@ public class ValorAndes
 	private ConsultaDAO dao;
 	
 	
-	public static final String RUTA = "./WebContent";
+	public static final String RUTA = "F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent";
 
     
     // -----------------------------------------------------------------
@@ -95,9 +100,38 @@ public class ValorAndes
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	public static void main( String[] args )
 	{
-    	ValorAndes.darInstancia().inicializarRuta("./WebContent");
+    	ValorAndes.darInstancia().inicializarRuta("F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent");
+    	
+    	
+    	Calendar fecha = new GregorianCalendar();
+        
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minuto = fecha.get(Calendar.MINUTE);
+        
+       
+        
+        String fechainic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
+        
+      
+        
+      
+
+		
+		
+		
+    	
+//    	try {
+//			ValorAndes.darInstancia().dao.ordenarOperacion(4, "Compra", (double) 6000, 1,1, 2, "200203151215");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		
 	}

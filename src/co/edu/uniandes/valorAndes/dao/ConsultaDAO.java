@@ -135,7 +135,7 @@ public class ConsultaDAO {
         }
         catch( SQLException exception )
         {
-            throw new SQLException( "ERROR: ConsultaDAO obteniendo una conexi—n." );
+            throw new SQLException( "ERROR: ConsultaDAO obteniendo una conexion." );
         }
     }
     

@@ -109,7 +109,7 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("");
         out.println("<head>");
         out.println("");
-        out.println("    <meta charset=\"utf-8\">");
+        out.println("    <meta charset=\"ISO-8859-1\">");
         out.println("    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">");
         out.println("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
         out.println("    <meta name=\"description\" content=\"\">");
@@ -258,10 +258,10 @@ public abstract class ServletTemplate extends HttpServlet {
      * @param titulo Título del error
      * @param mensaje Mensaje del error
      */
-    protected void imprimirMensajeError( PrintWriter respuesta, String titulo, String mensaje )
+    protected void imprimirMensajeError( PrintWriter respuesta, String mensaje )
     {
         respuesta.println( "                      <p class=\"error\"><b>Ha ocurrido un error!:<br>" );
-        respuesta.println( "                      </b>" + titulo + "</p><p>" + mensaje + ". </p>" );
+        respuesta.println( "                      </b></p><p>" + mensaje + ". </p>" );
         respuesta.println( "                      <p>Intente la " );
         respuesta.println( "                      operación nuevamente. Si el problema persiste, contacte " );
         respuesta.println( "                      al administrador del sistema.</p>" );

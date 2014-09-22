@@ -16,7 +16,9 @@ package co.edu.uniandes.valorAndes.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -93,18 +95,28 @@ public class ServletOrdenar extends ServletTemplate
 
 		if(id != null && tipo != null && valor != null && idUsuario != null && idComisionista != null && idInstrumento != null){
 
-			error(respuesta);
 			
-			Date fecha = new Date();
 			
-			@SuppressWarnings("deprecation")
-			String fechaInic = fecha.getYear() + fecha.getMonth() + fecha.getDay() + fecha.getHours() + fecha.getMinutes() + "";
+			Calendar fecha = new GregorianCalendar();
+	        
+	        int año = fecha.get(Calendar.YEAR);
+	        int mes = fecha.get(Calendar.MONTH) + 1;
+	        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+	        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+	        int minuto = fecha.get(Calendar.MINUTE);
+	        
+	       
+	        
+	        String fechaInic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
 	
 			try {
 				cupi.dao().ordenarOperacion(id1, tipo, valor1, idUsuario1, idComisionista1, idInstrumento1, fechaInic);
+				escribirContenido(respuesta);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				this.imprimirMensajeError(respuesta, "Alguno de los id no existe dentro de la base de datos ");
 			}
 			
 
@@ -113,9 +125,8 @@ public class ServletOrdenar extends ServletTemplate
 		else{
 
 
-
 			
-			imprimirContendio( respuesta );	
+			this.imprimirMensajeError(respuesta, "Alguno de los id no existe dentro de la base de datos ");
 
 		}   
 
@@ -127,31 +138,7 @@ public class ServletOrdenar extends ServletTemplate
 
 	}
 
-	private void error(PrintWriter respuesta) {
 
-		respuesta.write("  <div class=\"content\">");
-		respuesta.write("    <div class=\"content_resize\">");
-		respuesta.write("      <div class=\"mainbar\">");
-		respuesta.write("        <div class=\"article\">");
-
-
-		respuesta.write("          <h2No se pudo</h2>");
-
-
-		respuesta.write("          <p>&nbsp;</p>");
-		respuesta.write("        </div>");
-		respuesta.write("        <div class=\"header\">");
-		
-		respuesta.write("        </div>");
-		respuesta.write("        <div class=\"clr\"></div>");
-		respuesta.write("        <div class=\"clr\"></div>");
-		respuesta.write("      </div>");
-		respuesta.write("      <div class=\"clr\"></div>");
-		respuesta.write("    </div>");
-		respuesta.write("  </div>");
-
-
-	}
 
 
 
@@ -161,18 +148,16 @@ public class ServletOrdenar extends ServletTemplate
 	 * Imprime el contenido con la información especificada
 	 * @param respuesta Respuesta al cliente
 	 */
-	private void imprimirContendio( PrintWriter respuesta )
+	private void escribirContenido( PrintWriter respuesta )
 	{
 
 
 
 		
 		respuesta.write("          <p>&nbsp;</p>");
-
 		respuesta.write("          <p>&nbsp;</p>");
 
 		respuesta.write("         <h2>se actualizo correctamente</h2>");
-
 
 
 
