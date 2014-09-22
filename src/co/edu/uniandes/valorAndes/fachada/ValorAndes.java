@@ -22,6 +22,8 @@ public class ValorAndes
 	 */
 	private ConsultaDAO dao;
 	
+	
+	public static final String RUTA = "./WebContent";
 
     
     // -----------------------------------------------------------------
@@ -95,7 +97,7 @@ public class ValorAndes
 	
 	public static void main( String[] args )
 	{
-    	ValorAndes.darInstancia().inicializarRuta("F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent");
+    	ValorAndes.darInstancia().inicializarRuta("./WebContent");
 
 		
 	}
