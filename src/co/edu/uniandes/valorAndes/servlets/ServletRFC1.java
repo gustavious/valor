@@ -41,7 +41,7 @@ public class ServletRFC1 extends ServletTemplate
 		int nIdInversionista = Integer.parseInt(nIdI);
 		String nIdC = request.getParameter("nIdComisionista");
 		int nIdComisionista = Integer.parseInt(nIdC);
-		String nIdO = request.getParameter("nIdIOferente");
+		String nIdO = request.getParameter("nIdOferente");
 		int nIdOferente = Integer.parseInt(nIdO);
 		
 		ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
