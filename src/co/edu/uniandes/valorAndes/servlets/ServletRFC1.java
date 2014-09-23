@@ -31,13 +31,17 @@ public class ServletRFC1 extends ServletTemplate
 	{
 		
 		PrintWriter out = response.getWriter( );
-		String nTipoValor = "";
-		String nTipoRentabilidad = "";
-		String nNegociado = "";
-		Date nFechaExpiracion = null;
-		int nIdInversionista = 0;
-		int nIdComisionista = 0;
-		int nIdOferente = 0;
+		String nTipoValor = request.getParameter("nTipoValor");
+		String nTipoRentabilidad = request.getParameter("nTipoRentabilidad");
+		String nNegociado = request.getParameter("nNegociado");
+		String Fecha = request.getParameter("nFechaExpiracion");
+		Date nFechaExpiracion = Date.valueOf(Fecha);
+		String nIdI = request.getParameter("nIdInversionista");
+		int nIdInversionista = Integer.parseInt(nIdI);
+		String nIdC = request.getParameter("nIdComisionista");
+		int nIdComisionista = Integer.parseInt(nIdC);
+		String nIdO = request.getParameter("nIdIOferente");
+		int nIdOferente = Integer.parseInt(nIdO);
 		
 		ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
 		try 
