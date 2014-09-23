@@ -22,6 +22,8 @@ import java.util.Properties;
 
 
 
+
+import co.edu.uniandes.valorAndes.vos.OperacionValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
@@ -225,6 +227,73 @@ public class ConsultaDAO {
     	}
     	
     	return valores;
+    }
+    
+    
+    public ArrayList<OperacionValue> darOperaciones( String nTipoUsuario, String nTipoOperacion, Date nFechaInicial, Date nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+    {
+    	ArrayList<OperacionValue> operaciones = new ArrayList<OperacionValue>();
+    	PreparedStatement prepStmt = null;
+    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE "+nTipoOperacion+" AND COSTO LIKE "+ nCosto + "AND (FECHA_INICIAL BETWEEN + "+nFechaInicial+" AND "+nFechaFinal+" ) AND (FECHA_FINAL BETWEEN + "+nFechaInicial+" AND "+nFechaFinal+" ) ";
+    	OperacionValue  operacionV = new OperacionValue();
+    	try 
+    	{
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement(consulta);
+			
+			ResultSet rs = prepStmt.executeQuery();
+			while(rs.next())
+			{
+			
+				
+				int id = rs.getInt("ID");
+				String tipo = rs.getString("TIPO");
+				Double valor = rs.getDouble("VALOR");
+				int idUsuario1 = rs.getInt("ID_USUARIO_1");
+				int idComisionista1 = rs.getInt("ID_COMISIONISTA_1");
+				int idUsuario2 = rs.getInt("ID_USUARIO_2");
+				int idComisionista2 = rs.getInt("ID_COMISIONISTA_2");
+				int idValor = rs.getInt("ID_INS_FIN");
+				Date fechaInicial= rs.getDate("FECHA_INICIAL");
+				Date fechaFinal= rs.getDate("FECHA_FINAL");
+				
+				operacionV.setId(id);
+				operacionV.setTipo(tipo);
+				operacionV.setValor(valor);
+				operacionV.setIdUsuario1(idUsuario1);
+				operacionV.setIdUsuario2(idUsuario2);
+				operacionV.setIdComisionista1(idComisionista1);
+				operacionV.setIdComisionista2(idComisionista2);
+				operacionV.setIdInstrumento(idValor);
+				operacionV.setFechaFin(fechaFinal);
+				operacionV.setFechaInic(fechaInicial);
+				
+				operaciones.add(operacionV);
+				operacionV = new OperacionValue();
+							
+			}
+    	}
+    	catch(SQLException e)
+    	{
+    		e.printStackTrace();
+			System.out.println(consulta);
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+    	}
+    	finally
+    	{
+    		if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+    	}
+    	
+    	return operaciones;
     }
     
     

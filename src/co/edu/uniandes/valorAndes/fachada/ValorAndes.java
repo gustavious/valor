@@ -6,12 +6,12 @@ package co.edu.uniandes.valorAndes.fachada;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.GregorianCalendar;
 
 import javax.servlet.http.HttpServletRequest;
 
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
+import co.edu.uniandes.valorAndes.vos.OperacionValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
@@ -86,6 +86,12 @@ public class ValorAndes
 	public ArrayList<ValorValue> darValoresEscogidos(String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente)throws Exception
 	{
 		return dao.darValoresEscogidos(nTipoValor, nTipoRentabilidad, nNegociado, nFechaExpiracion, nIdInversionista, nIdComisionista, nIdOferente);
+	}
+	
+	
+	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, Date nFechaInicial, Date nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+	{
+		return dao.darOperaciones(nTipoUsuario, nTipoOperacion, nFechaInicial, nFechaFinal, nCosto, nRentabilidad);
 	}
 	
 	/**

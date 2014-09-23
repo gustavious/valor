@@ -46,6 +46,11 @@ public class OperacionValue
 		this.idInstrumento = idInstrumento;
 		this.fechaInic = fechaInic;
 	}
+	
+	public OperacionValue()
+	{
+		
+	}
 
 
 	public int getId() {
