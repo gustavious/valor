@@ -100,12 +100,12 @@
     
     <div class="container">
     <div class="row">
-        <form role="form"  id="form1" name="form1" method="post" action="registrar.htm">
+        <form role="form"  id="form1" name="form1" method="post" action="rcf1.htm">
             
                 <div class="form-group">
                     <label for="InputEmail">Tipo del Instrumento Financiero(Puede ser Bono Publico, Bono Privado, Certificado o Titulo)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Indica de que tipo es el instrumento financiero" required>
+                        <input type="text" class="form-control" id="InputEmailFirst" name="nTipoValor" placeholder="Indica de que tipo es el instrumento financiero" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                 <div class="form-group">
                     <label for="InputEmail">Tipo de rentabilidad (Puede ser rentabilidadff, rentabilidadfi, rentabilidadif, rentabilidadii)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Tipo de rentabilidad del intsrumento financiero" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nTipoRentabilidad" placeholder="Tipo de rentabilidad del intsrumento financiero" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -121,15 +121,15 @@
 				<div class="form-group">
                     <label for="InputEmail">Estan negociados(Si, No)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique si los instrumentos que quiere consultar estan siendo negociados" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nNegociado" placeholder="Indique si los instrumentos que quiere consultar estan siendo negociados" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
 				
 				<div class="form-group">
-                    <label for="InputEmail">Fecha de expiraci&oacute;n del instrumento financiero(dd/mm/yyyy)</label>
+                    <label for="InputEmail">Fecha de expiraci&oacute;n del instrumento financiero(dd-mm-yyyy)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique la fecha de expiraci[on del instrumento financiero" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nFechaExpiracion" placeholder="Indique la fecha de expiraci[on del instrumento financiero" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -137,7 +137,7 @@
                  <div class="form-group">
                     <label for="InputEmail">ID del comisionista</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="El identificador del intermediario " required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nIdComisionista" placeholder="El identificador del intermediario " required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -145,7 +145,7 @@
                  <div class="form-group">
                     <label for="InputEmail">ID del oferente</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Identificador del oferente" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nIdOferente" placeholder="Identificador del oferente" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -153,7 +153,7 @@
                 <div class="form-group">
                     <label for="InputEmail">ID del inversionista</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Identificador del inversionista" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nIdInversionista" placeholder="Identificador del inversionista" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -163,9 +163,9 @@
                 <a href="rcf1.htm"><input type="submit" name="submit" id="submit" value="Consultar Valores" class="btn btn-info pull-right"></a>
            
         
-   
-    
-    
+    </form>
+     </div>
+     </div>
     
     
     <p>&nbsp;</p>

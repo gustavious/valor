@@ -100,12 +100,12 @@
     
     <div class="container">
     <div class="row">
-        <form role="form"  id="form1" name="form1" method="post" action="registrar.htm">
+        <form role="form"  id="form1" name="form1" method="post" action="rcf2.htm">
             
                 <div class="form-group">
                     <label for="InputEmail">Tipo de Usuario(Puede ser Oferente, Comisionista, Inversionista)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Indica el tipo de usuario" required>
+                        <input type="text" class="form-control" id="InputEmailFirst" name="nTipoUsuario" placeholder="Indica el tipo de usuario" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -113,23 +113,23 @@
                 <div class="form-group">
                     <label for="InputEmail">Tipo de operaci&oacute;n (Puede ser Compra o Venta)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique el tipo de operaci&oacute;n" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nTipoOperacion" placeholder="Indique el tipo de operaci&oacute;n" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
 				
 				<div class="form-group">
-                    <label for="InputEmail">Fecha Inicial(dd/mm/yyyy)</label>
+                    <label for="InputEmail">Fecha Inicial(dd-mm-yyyy)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique la fecha inicial" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nFechaInicial" placeholder="Indique la fecha inicial" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
 				
 				<div class="form-group">
-                    <label for="InputEmail">Fecha final(dd/mm/yyyy)</label>
+                    <label for="InputEmail">Fecha final(dd-mm-yyyy)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique la fecha final" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nFechaFinal" placeholder="Indique la fecha final" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -137,7 +137,7 @@
                  <div class="form-group">
                     <label for="InputEmail">Costo de la operaci&oacute;n</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Indique el costo de la operaci&oacute;n. Si requiere de decimales, use una coma" required>
+                        <input type="text" class="form-control"  name="nCosto" placeholder="Indique el costo de la operaci&oacute;n. Si requiere de decimales, use una coma" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
@@ -145,7 +145,7 @@
                 <div class="form-group">
                     <label for="InputEmail">Tipo de rentabilidad (Puede ser rentabilidadff, rentabilidadfi, rentabilidadif, rentabilidadii)</label>
                     <div class="input-group">
-                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Tipo de rentabilidad del intsrumento financiero" required>
+                        <input type="text" class="form-control" id="InputEmailSecond" name="nRentabilidad" placeholder="Tipo de rentabilidad del instrumento financiero" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div> 
@@ -155,8 +155,9 @@
                 <a href="rcf2.htm"><input type="submit" name="submit" id="submit" value="Consultar Operaciones" class="btn btn-info pull-right"></a>
            
         
-   
-    
+   </form> 
+    </div> 
+    </div> 
     
     
     
