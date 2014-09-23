@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 
+@SuppressWarnings("serial")
 public class ServletRFC1 extends ServletTemplate
 {
 

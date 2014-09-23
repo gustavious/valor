@@ -40,7 +40,7 @@
   
    <servlet>
       <servlet-name>ServletRCF1</servlet-name>
-      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRCF1</servlet-class>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRFC1</servlet-class>
    </servlet>
    
    <servlet>
