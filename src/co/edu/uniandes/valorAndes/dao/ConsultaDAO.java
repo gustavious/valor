@@ -473,8 +473,7 @@ public class ConsultaDAO {
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 			
-			String query = " INSERT INTO OPERACION_BURSATIL (  ID_COMISIONISTA_2,  FECHA_FINAL) VALUES ( '" +  idComisionista2+ ", TO_DATE('" +  fechaFin +"', 'YYYYMMDDHH24MI')) WHERE ID LIKE '" + id + "' ";
-			
+			String query = " UPDATE OPERACION_BURSATIL  SET ID_COMISIONISTA_2 =" + idComisionista2 +",  FECHA_FINAL = TO_DATE('" + fechaFin + "', 'YYYYMMDDHH24MI')  WHERE ID LIKE" + id ;
 		System.out.println(query);			
 			
 			

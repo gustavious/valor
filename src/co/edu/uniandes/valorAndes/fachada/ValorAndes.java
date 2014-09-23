@@ -27,6 +27,10 @@ public class ValorAndes
 	 */
 	private ConsultaDAO dao;
 	
+//	Constrante que se debe cambiar
+	/**
+	 * Cosntante que indica la ruta del archivo conexion
+	 */
 	
 	public static final String RUTA = "F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent";
 
