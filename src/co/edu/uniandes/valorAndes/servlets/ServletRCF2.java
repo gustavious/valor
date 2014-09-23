@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
-import co.edu.uniandes.valorAndes.vos.ValorValue;
 
+@SuppressWarnings("serial")
 public class ServletRCF2 extends ServletTemplate
 {
 
