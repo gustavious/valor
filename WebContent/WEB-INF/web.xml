@@ -38,6 +38,15 @@
       <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRegistrar</servlet-class>
    </servlet>
   
+   <servlet>
+      <servlet-name>ServletRCF1</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRCF1</servlet-class>
+   </servlet>
+   
+   <servlet>
+      <servlet-name>ServletRCF2</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRCF2</servlet-class>
+   </servlet>
   
   
   <servlet-mapping>
@@ -55,6 +64,15 @@
     <url-pattern>/registrar.htm</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>ServletRCF1</servlet-name>
+    <url-pattern>/rcf1.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletRCF2</servlet-name>
+    <url-pattern>/rcf2.htm</url-pattern>
+  </servlet-mapping>
   
   
   
