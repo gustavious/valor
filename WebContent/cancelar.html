@@ -73,7 +73,7 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>Valores De Los Andes</h1>
-                        <h3>Registra una nueva operación buersatil</h3>
+                        <h3>Cancela una de tus operaciónes actuales</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
@@ -100,49 +100,37 @@
     
     <div class="container">
     <div class="row">
-        <form role="form"  id="form1" name="form1" method="post" action="registrar.htm">
+        <form role="form"  id="form1" name="form1" method="post" action="cancelar.htm">
             
                 <div class="form-group">
-                    <label for="InputName">ID</label>
-de la opercaion negociada                   
-<div class="input-group">
-                        <input type="text" class="form-control" name="id" id="InputName" placeholder="El identificador de la orden en el sistema de la bolsa de valores" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="InputEmail">ID del comisionista 1</label>
+                    <label for="InputName">ID de la orden a cancelar</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="InputEmailFirst" name="idComisionista1" placeholder="Identificador del comisionista que ofrecio esta orden" required>
+                        <input type="number" class="form-control" name="id" id="InputName" placeholder="El identificador de la orden en el sistema de la bolsa de valores" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 
                 
-                <div class="form-group">
-                    <label for="InputEmail">ID del comisionista 2</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="InputEmailFirst" name="idComisionista2" placeholder="Identificador del comisionista que acepto esta orden" required>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
+               
                 
-                <div class="form-group">
-                    <label for="InputEmail">Monto negociado</label>
+                 <div class="form-group">
+                    <label for="InputEmail">ID del comisionista</label>
                     <div class="input-group">
-                        <input type="double" class="form-control" id="InputEmailSecond" name="valor" placeholder="Monto por el cual se registra la operación" required>
+                        <input type="number" class="form-control" id="InputEmailSecond" name="idComisionista" placeholder="El identificador del intermediario que solicita esta orden" required>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                 </div>
                 
-              
+                 
+                <p>&nbsp;</p>
+                
 
                     
                 
-                <input type="submit" name="submit" id="submit" value="Ordenar Operacion" class="btn btn-info pull-right">
+                <input type="submit" name="submit" id="submit" value="Cancelar Operacion" class="btn btn-info pull-right">
            
         
-   
+    
     
     
     

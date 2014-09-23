@@ -149,7 +149,7 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("                    <span class=\"icon-bar\"></span>");
         out.println("                    <span class=\"icon-bar\"></span>");
         out.println("                </button>");
-        out.println("                <a class=\"navbar-brand\" href=\"#\">Inicio</a>");
+        out.println("                <a class=\"navbar-brand\" href=\"index.html\">Inicio</a>");
         out.println("            </div>");
         out.println("            <!-- Collect the nav links, forms, and other content for toggling -->");
         out.println("            <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">");
@@ -161,7 +161,7 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("                        <a href=\"#\">Servicios</a>");
         out.println("                    </li>");
         out.println("                    <li>");
-        out.println("                        <a href=\"#\">Contactenos</a>");
+        out.println("                        <a href=\"mp.mancipe10@uniandes.edu.co?Subject=Programa%20quejas\">Contactenos</a>");
         out.println("                    </li>");
         out.println("                </ul>");
         out.println("            </div>");
@@ -179,7 +179,7 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("                <div class=\"col-lg-12\">");
         out.println("                    <div class=\"intro-message\">");
         out.println("                        <h1>Valores De Los Andes</h1>");
-        out.println("                        <h3>Mi pequeño trabajo de este semestre</h3>");
+        out.println("                        <h3>Gracias por confiar en nosotros</h3>");
         out.println("                        <hr class=\"intro-divider\">");
         out.println("                        <ul class=\"list-inline intro-social-buttons\">");
         out.println("                            <li>");

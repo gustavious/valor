@@ -15,7 +15,9 @@ package co.edu.uniandes.valorAndes.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -31,7 +33,7 @@ import co.edu.uniandes.valorAndes.fachada.ValorAndes;
 
 
 @SuppressWarnings("serial")
-public class ServletOrdenar extends ServletTemplate
+public class ServletRegistrar extends ServletTemplate
 {
 	// -----------------------------------------------------------------
 	// Atributos
@@ -76,22 +78,23 @@ public class ServletOrdenar extends ServletTemplate
 
 
 		String id = request.getParameter( "id" );
-		String tipo = request.getParameter( "tipo" );
+		String idComisionista1 = request.getParameter( "idComisionista1" );
+		String idComisionista2 = request.getParameter( "idComisionista2" );
 		String valor = request.getParameter( "valor" );
-		String idUsuario = request.getParameter( "idUsuario" );
-		String idComisionista = request.getParameter( "idComisionista" );
-		String idInstrumento = request.getParameter( "idInstrumento" );
+		
+
 		
 		int id1 = Integer.parseInt(id);
 		Double valor1 = Double.parseDouble(valor);
-		int idUsuario1 = Integer.parseInt(idUsuario);
-		int idComisionista1 = Integer.parseInt(idComisionista);
-		int idInstrumento1 = Integer.parseInt(idInstrumento);
+	
+		int idComisionistaUno = Integer.parseInt(idComisionista1);
+		int idComisionistaDos = Integer.parseInt(idComisionista2);
+		
 		
 
 	
 
-		if(id != null && tipo != null && valor != null && idUsuario != null && idComisionista != null && idInstrumento != null){
+		if(id != null && valor != null && idComisionista2 != null && idComisionista1 != null){
 
 			
 			
@@ -105,10 +108,10 @@ public class ServletOrdenar extends ServletTemplate
 	        
 	       
 	        
-	        String fechaInic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
+	        String fechaFin = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
 	
 			try {
-				cupi.dao().ordenarOperacion(id1, tipo, valor1, idUsuario1, idComisionista1, idInstrumento1, fechaInic);
+				cupi.dao().registrarOperacion(id1, idComisionistaDos, idComisionistaUno, valor1, fechaFin);
 				escribirContenido(respuesta);
 				
 			} catch (Exception e) {
@@ -157,7 +160,7 @@ public class ServletOrdenar extends ServletTemplate
 		
 		
 
-		respuesta.write("         <h2>se ordeno la operación bursatil de manera exitosa</h2>");
+		respuesta.write("         <h2>se registró la operación bursatil de manera exitosa</h2>");
 
 
 
