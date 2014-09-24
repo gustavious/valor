@@ -35,8 +35,8 @@ public class ServletRFC1 extends ServletTemplate
 		String nTipoValor = request.getParameter("nTipoValor");
 		String nTipoRentabilidad = request.getParameter("nTipoRentabilidad");
 		String nNegociado = request.getParameter("nNegociado");
-		String Fecha = request.getParameter("nFechaExpiracion");
-		Date nFechaExpiracion = Date.valueOf(Fecha);
+		System.out.println(nNegociado);
+		String nFechaExpiracion = request.getParameter("nFechaExpiracion");
 		String nIdI = request.getParameter("nIdInversionista");
 		int nIdInversionista = Integer.parseInt(nIdI);
 		String nIdC = request.getParameter("nIdComisionista");

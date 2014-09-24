@@ -33,10 +33,8 @@ public class ServletRCF2 extends ServletTemplate
 		PrintWriter out = response.getWriter( );
 		String nTipoUsuario = request.getParameter("nTipoUsuario");
 		String nTipoOperacion = request.getParameter("nTipoOperacion");
-		String Fecha1 = request.getParameter("nFechaInicial");
-		Date nFechaInicial = Date.valueOf(Fecha1);
-		String Fecha2 = request.getParameter("nFechaFinal");
-		Date nFechaFinal = Date.valueOf(Fecha2);
+		String nFechaInicial = request.getParameter("nFechaInicial");
+		String nFechaFinal = request.getParameter("nFechaFinal");
 		String costo = request.getParameter("nCosto");
 		Double nCosto = Double.parseDouble(costo);
 		String nRentabilidad = request.getParameter("nRentabilidad");

@@ -87,13 +87,13 @@ public class ValorAndes
     // ---------------------------------------------------
     
 	
-	public ArrayList<ValorValue> darValoresEscogidos(String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente)throws Exception
+	public ArrayList<ValorValue> darValoresEscogidos(String nTipoValor, String nTipoRentabilidad, String nNegociado, String nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente)throws Exception
 	{
 		return dao.darValoresEscogidos(nTipoValor, nTipoRentabilidad, nNegociado, nFechaExpiracion, nIdInversionista, nIdComisionista, nIdOferente);
 	}
 	
 	
-	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, Date nFechaInicial, Date nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
 	{
 		return dao.darOperaciones(nTipoUsuario, nTipoOperacion, nFechaInicial, nFechaFinal, nCosto, nRentabilidad);
 	}

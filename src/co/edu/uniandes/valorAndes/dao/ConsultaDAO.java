@@ -159,25 +159,31 @@ public class ConsultaDAO {
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
-    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, Date nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente) throws Exception
+    public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, String nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente) throws Exception
     {
     	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
     	PreparedStatement prepStmt = null;
-    	String consultaR = "(SELECT ID FROM RENTABILIDAD WHERE NOMBRE="+ nTipoRentabilidad+")";
-    	String tipoValor = "(SELECT ID FROM TIPO_VALOR WHERE NOMBRE="+ nTipoValor+")";
-    	String idUsuarioOferente = "(SELECT ID_USUARIO FROM OFERENTE WHERE ID="+nIdOferente+")";
-    	String idUsuarioComisionista = "(SELECT ID_USUARIO FROM COMISIONISTA WHERE ID="+nIdComisionista+")";
-    	String idUsuarioInversionista = "(SELECT ID_USUARIO FROM INVERSIONISTA WHERE ID="+nIdInversionista+")";
-    	String idsValor = "(SELECT ID_INS_FIN FROM OPERACION_BURSATIL WHERE (ID_USUARIO_1="+idUsuarioOferente +" OR ID_USUARIO_2="+idUsuarioOferente+") AND (ID_USUARIO_1="+idUsuarioInversionista+" OR ID_USUARIO_2="+idUsuarioInversionista+") AND (ID_COMISIONISTA_1= "+idUsuarioComisionista+" OR ID_COMISIONISTA_2="+idUsuarioComisionista+"))";
-    	String consultaG = "(SELECT * FROM INSTRUMENTO_FINANCIERO WHERE TIPO_VALOR="+tipoValor+" AND NEGOCIADO=" +nNegociado+ " AND FECHA_EXPIRACION=" +nFechaExpiracion + " AND ID_RENTABILIDAD="+ consultaR+")" ;
     	
-    	String consulta = "SELECT * FROM "+consultaG+" CG INNER JOIN " + idsValor+ " IDS ON IDS.ID_INS_FIN=CG.ID GROUP BY CG.ID; ";
+    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE FECHA_EXPIRACION LIKE TO_DATE ('" +nFechaExpiracion+"','dd/mm/yyyy') AND NEGOCIADO LIKE '" +nNegociado+"' AND TIPO_VALOR LIKE ";
+
+    	
     	
     	ValorValue  valorV = new ValorValue();
     	try 
     	{
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement(consulta);
+			
+			// -------- Aquí se extrae el ID del tipo del valor
+			PreparedStatement prepStmt1 = null;
+			String consulta1 = "SELECT ID FROM TIPO_VALOR WHERE NOMBRE LIKE '" +nTipoValor+ "'";
+			prepStmt1 = conexion.prepareStatement(consulta1);
+			ResultSet rs1 = prepStmt1.executeQuery();
+			rs1.next();
+			int tipoValor = rs1.getInt("ID");
+			
+
+			
+			prepStmt = conexion.prepareStatement(consulta + tipoValor);
 			
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next())
@@ -187,7 +193,7 @@ public class ConsultaDAO {
 				int valor = rs.getInt("VALOR");
 				Date fechaExp= rs.getDate("FECHA_EXPIRACION");
 				int idUsuario = rs.getInt("ID_USUARIO");
-				int tipo = rs.getInt("TIPO");
+				int tipo = rs.getInt("TIPO_VALOR");
 				String negociado = rs.getString("NEGOCIADO");
 				int idRentabilidad = rs.getInt("ID_RENTABILIDAD");
 				
@@ -229,12 +235,22 @@ public class ConsultaDAO {
     	return valores;
     }
     
-    
-    public ArrayList<OperacionValue> darOperaciones( String nTipoUsuario, String nTipoOperacion, Date nFechaInicial, Date nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+    /**
+     * 
+     * @param nTipoUsuario
+     * @param nTipoOperacion
+     * @param nFechaInicial
+     * @param nFechaFinal
+     * @param nCosto
+     * @param nRentabilidad
+     * @return
+     * @throws Exception
+     */
+    public ArrayList<OperacionValue> darOperaciones( String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
     {
     	ArrayList<OperacionValue> operaciones = new ArrayList<OperacionValue>();
     	PreparedStatement prepStmt = null;
-    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE "+nTipoOperacion+" AND COSTO LIKE "+ nCosto + "AND (FECHA_INICIAL BETWEEN + "+nFechaInicial+" AND "+nFechaFinal+" ) AND (FECHA_FINAL BETWEEN + "+nFechaInicial+" AND "+nFechaFinal+" ) ";
+    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE '"+nTipoOperacion+"' AND COSTO LIKE "+ nCosto + "AND (FECHA_INICIAL BETWEEN TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') AND TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')) AND (FECHA_FINAL BETWEEN TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') AND TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')) ";
     	OperacionValue  operacionV = new OperacionValue();
     	try 
     	{
@@ -244,7 +260,6 @@ public class ConsultaDAO {
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next())
 			{
-			
 				
 				int id = rs.getInt("ID");
 				String tipo = rs.getString("TIPO");
@@ -295,8 +310,6 @@ public class ConsultaDAO {
     	
     	return operaciones;
     }
-    
-    
     
     /**
      * Método que se encarga de realizar la consulta en la base de datos
