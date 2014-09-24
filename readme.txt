@@ -27,3 +27,12 @@ Ejemplos requerimientos funcionales
 3.2.LLene los campos, indicando el ID de la operacion ha registrar, el ID de su comisionista, el ID del segundo comisionista y el monto que se negocio.
 3.3.Oprima el boton de enviar y debe de aprecer una ventana indicando que la operacion fue exitosa
 
+4.Para hacer una consulta sobre los valores disponibles:
+4.1 Seleccione el link que dice consulta la existencia de valores
+4.2 Llene los campos, indicando el tipo del valor, el tipo de rentabilidad, si está siendo negociado, la fecha de expiración, el id del comisionista, el id del oferente y el id del inversionista.
+4.3 Haga clic en el botón consultar
+
+5. Para hacer una consulta sobre las operaciones disponibles:
+5.1 Seleccione el link que dice Consulta las operaciones 
+5.2 Llene los campos, indicando tipo de usuario, tipo de operación, fecha inicial, fecha final, costo de la operación y el tipo de la rentabilidad
+5.3 Haga clic en el botón Consultar operaciones
