@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: ConsultaDAO.java,v 1.10 
- * Universidad de los Andes (Bogot· - Colombia)
- * Departamento de IngenierÌa de Sistemas y ComputaciÛn 
+ * Universidad de los Andes (Bogot√° - Colombia)
+ * Departamento de Ingenier√≠a de Sistemas y Computaci√≥n 
  *
  * Ejercicio: VideoAndes
  * Autor: Juan Diego Toro - 1-Marzo-2010
@@ -28,7 +28,7 @@ import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
 /**
- * Clase ConsultaDAO, encargada de hacer las consultas b·sicas para el cliente
+ * Clase ConsultaDAO, encargada de hacer las consultas b√°sicas para el cliente
  */
 public class ConsultaDAO {
 
@@ -36,7 +36,7 @@ public class ConsultaDAO {
 	//Constantes
 	//----------------------------------------------------
 	/**
-	 * ruta donde se encuentra el archivo de conexiÛn.
+	 * ruta donde se encuentra el archivo de conexi√≥n.
 	 */
 	private static final String ARCHIVO_CONEXION = "/conexion.properties";
 	
@@ -46,7 +46,7 @@ public class ConsultaDAO {
 	//----------------------------------------------------
 	
 	/**
-	 * Consulta que devuelve isan, titulo, y aÒo de los videos en orden alfabetico
+	 * Consulta que devuelve isan, titulo, y a√±o de los videos en orden alfabetico
 	 */
 	private static final String consultaVideosDefault="SELECT *, FROM ";
 	
@@ -67,7 +67,7 @@ public class ConsultaDAO {
 	private String usuario;
 	
 	/**
-	 * clave de conexiÛn a la base de datos.
+	 * clave de conexi√≥n a la base de datos.
 	 */
 	private String clave;
 	
@@ -85,7 +85,7 @@ public class ConsultaDAO {
 	}
 	
 	// -------------------------------------------------
-    // MÈtodos
+    // M√©todos
     // -------------------------------------------------
 
 	/**
@@ -122,12 +122,12 @@ public class ConsultaDAO {
 	
 
 	/**
-	 * MÈtodo que se encarga de crear la conexiÛn con el Driver Manager
+	 * M√©todo que se encarga de crear la conexi√≥n con el Driver Manager
 	 * a partir de los parametros recibidos.
 	 * @param url direccion url de la base de datos a la cual se desea conectar
 	 * @param usuario nombre del usuario que se va a conectar a la base de datos
 	 * @param clave clave de acceso a la base de datos
-	 * @throws SQLException si ocurre un error generando la conexiÛn con la base de datos.
+	 * @throws SQLException si ocurre un error generando la conexi√≥n con la base de datos.
 	 */
     private void establecerConexion(String url, String usuario, String clave) throws SQLException
     {
@@ -142,21 +142,21 @@ public class ConsultaDAO {
     }
     
     /**
- 	 *Cierra la conexiÛn activa a la base de datos. Adem·s, con=null.
-     * @param con objeto de conexiÛn a la base de datos
-     * @throws SistemaCinesException Si se presentan errores de conexiÛn
+ 	 *Cierra la conexi√≥n activa a la base de datos. Adem√°s, con=null.
+     * @param con objeto de conexi√≥n a la base de datos
+     * @throws SistemaCinesException Si se presentan errores de conexi√≥n
      */
     public void closeConnection(Connection connection) throws Exception {        
 		try {
 			connection.close();
 			connection = null;
 		} catch (SQLException exception) {
-			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexiÛn.");
+			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexi√≥n.");
 		}
     } 
     
     // ---------------------------------------------------
-    // MÈtodos asociados a los casos de uso: Consulta
+    // M√©todos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
     
     public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, String nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente) throws Exception
@@ -164,7 +164,7 @@ public class ConsultaDAO {
     	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
     	PreparedStatement prepStmt = null;
     	
-    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE FECHA_EXPIRACION LIKE TO_DATE ('" +nFechaExpiracion+"','dd/mm/yyyy') AND NEGOCIADO LIKE '" +nNegociado+"' AND TIPO_VALOR LIKE ";
+    	String consulta = "select * from INSTRUMENTO_FINANCIERO where FECHA_EXPIRACION = to_date ('" +nFechaExpiracion+"','dd/mm/yyyy') and NEGOCIADO = '" +nNegociado+"' and TIPO_VALOR = (select ID FROM TIPO_VALOR where NOMBRE = '"+nTipoValor+"') and ID_RENTABILIDAD = (select ID from RENTABILIDAD where NOMBRE ='"+nTipoRentabilidad+")";
 
     	
     	
@@ -173,17 +173,17 @@ public class ConsultaDAO {
     	{
 			establecerConexion(cadenaConexion, usuario, clave);
 			
-			// -------- AquÌ se extrae el ID del tipo del valor
-			PreparedStatement prepStmt1 = null;
-			String consulta1 = "SELECT ID FROM TIPO_VALOR WHERE NOMBRE LIKE '" +nTipoValor+ "'";
-			prepStmt1 = conexion.prepareStatement(consulta1);
-			ResultSet rs1 = prepStmt1.executeQuery();
-			rs1.next();
-			int tipoValor = rs1.getInt("ID");
+			// -------- Aqu√≠ se extrae el ID del tipo del valor
+			//PreparedStatement prepStmt1 = null;
+			//String consulta1 = "SELECT ID FROM TIPO_VALOR WHERE NOMBRE LIKE '" +nTipoValor+ "'";
+			//prepStmt1 = conexion.prepareStatement(consulta1);
+			//ResultSet rs1 = prepStmt1.executeQuery();
+			//rs1.next();
+			//int tipoValor = rs1.getInt("ID");
 			
 
 			
-			prepStmt = conexion.prepareStatement(consulta + tipoValor);
+			prepStmt = conexion.prepareStatement(consulta);
 			
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next())
@@ -226,7 +226,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
@@ -250,7 +250,7 @@ public class ConsultaDAO {
     {
     	ArrayList<OperacionValue> operaciones = new ArrayList<OperacionValue>();
     	PreparedStatement prepStmt = null;
-    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE '"+nTipoOperacion+"' AND COSTO LIKE "+ nCosto + "AND (FECHA_INICIAL BETWEEN TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') AND TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')) AND (FECHA_FINAL BETWEEN TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') AND TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')) ";
+    	String consulta = "select * from OPERACION_BURSATIL where TIPO = '"+nTipoOperacion+"' and COSTO = "+ nCosto + "and (FECHA_INICIAL between to_date ('"+nFechaInicial+"','dd/mm/yyyy') and to_date ('"+nFechaFinal+"','dd/mm/yyyy')) and (FECHA_FINAL between to_date ('"+nFechaInicial+"','dd/mm/yyyy') AND to_date ('"+nFechaFinal+"','dd/mm/yyyy')) ";
     	OperacionValue  operacionV = new OperacionValue();
     	try 
     	{
@@ -302,7 +302,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
@@ -312,12 +312,12 @@ public class ConsultaDAO {
     }
     
     /**
-     * MÈtodo que se encarga de realizar la consulta en la base de datos
+     * M√©todo que se encarga de realizar la consulta en la base de datos
      * y retorna un ArrayList de elementos tipo VideosValue.
      * @return ArrayList lista que contiene elementos tipo VideosValue.
      * La lista contiene los videos ordenados alfabeticamente
-     * @throws Exception se lanza una excepciÛn si ocurre un error en
-     * la conexiÛn o en la consulta. 
+     * @throws Exception se lanza una excepci√≥n si ocurre un error en
+     * la conexi√≥n o en la consulta. 
      */
     public ArrayList<VideosValue> darVideosDefault() throws Exception
     {
@@ -356,7 +356,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
@@ -365,10 +365,10 @@ public class ConsultaDAO {
     }
     
     /**
-     * MÈtodo que se encarga de ordenar la compra o venta de una nueva operacion bursatil
+     * M√©todo que se encarga de ordenar la compra o venta de una nueva operacion bursatil
      * @return true si se pudo, false de lo contrario
-     * @throws Exception se lanza una excepciÛn si ocurre un error en
-     * la conexiÛn o en la consulta. 
+     * @throws Exception se lanza una excepci√≥n si ocurre un error en
+     * la conexi√≥n o en la consulta. 
      */
     public boolean ordenarOperacion( int id, String tipo, Double valor, int idUsuario1, int idComisionista1, int idInstrumento, String fechaInic) throws Exception
     {
@@ -407,7 +407,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
@@ -420,10 +420,10 @@ public class ConsultaDAO {
     
     
     /**
-     * MÈtodo que se encarga de cancelar la compra de una operacion bursatil
+     * M√©todo que se encarga de cancelar la compra de una operacion bursatil
      * @return true si se pudo, false de lo contrario
-     * @throws Exception se lanza una excepciÛn si ocurre un error en
-     * la conexiÛn o en la consulta. 
+     * @throws Exception se lanza una excepci√≥n si ocurre un error en
+     * la conexi√≥n o en la consulta. 
      */
     public boolean cancelarOperacion( int id,  int idComisionista1) throws Exception
     {
@@ -462,7 +462,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
@@ -474,10 +474,10 @@ public class ConsultaDAO {
     
     
     /**
-     * MÈtodo que se encarga de registrar una operacion bursatil entre dos comisionistas
+     * M√©todo que se encarga de registrar una operacion bursatil entre dos comisionistas
      * @return true si se pudo, false de lo contrario
-     * @throws Exception se lanza una excepciÛn si ocurre un error en
-     * la conexiÛn o en la consulta. 
+     * @throws Exception se lanza una excepci√≥n si ocurre un error en
+     * la conexi√≥n o en la consulta. 
      */
     public boolean registrarOperacion( int id,  int idComisionista1, int idComisionista2,Double valor, String fechaFin) throws Exception
     {
@@ -514,7 +514,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÛn.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi√≥n.");
 				}
 			}
 			closeConnection(conexion);
