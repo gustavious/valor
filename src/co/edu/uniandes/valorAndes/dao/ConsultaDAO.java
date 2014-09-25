@@ -253,7 +253,7 @@ public class ConsultaDAO {
     	PreparedStatement prepStmt = null;
     	
     	//(FECHA_INICIAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') ) AND (TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy'))) AND (FECHA_FINAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy')) AND (TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')))
-    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE '"+nTipoOperacion+"' AND COSTO LIKE "+ nCosto + " AND ID_RENTABILIDAD LIKE (SELECT ID FROM RENTABILIDAD WHERE NOMBRE LIKE'"+nRentabilidad+"') ";
+    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE '"+nTipoOperacion+"' AND VALOR LIKE "+ nCosto + " AND (FECHA_INICIAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') ) AND (TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy'))) AND (FECHA_FINAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy')))" ;
     	OperacionValue  operacionV = new OperacionValue();
     	try 
     	{
