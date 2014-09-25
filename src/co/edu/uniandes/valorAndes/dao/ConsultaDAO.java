@@ -164,7 +164,7 @@ public class ConsultaDAO {
     	ArrayList<ValorValue> valores = new ArrayList<ValorValue>();
     	PreparedStatement prepStmt = null;
     	
-    	String consulta = "select * from INSTRUMENTO_FINANCIERO where FECHA_EXPIRACION = to_date ('" +nFechaExpiracion+"','dd/mm/yyyy') and NEGOCIADO = '" +nNegociado+"' and TIPO_VALOR = (select ID FROM TIPO_VALOR where NOMBRE = '"+nTipoValor+"') and ID_RENTABILIDAD = (select ID from RENTABILIDAD where NOMBRE ='"+nTipoRentabilidad+")";
+    	String consulta = "SELECT * FROM INSTRUMENTO_FINANCIERO WHERE FECHA_EXPIRACION LIKE (TO_DATE ('" +nFechaExpiracion+"','dd/mm/yyyy') ) AND NEGOCIADO LIKE '" +nNegociado+"' AND TIPO_VALOR LIKE (SELECT ID FROM TIPO_VALOR WHERE NOMBRE LIKE '"+nTipoValor+"') AND ID_RENTABILIDAD LIKE (SELECT ID FROM RENTABILIDAD WHERE NOMBRE LIKE'"+nTipoRentabilidad+"')";
 
     	
     	
@@ -184,6 +184,7 @@ public class ConsultaDAO {
 
 			
 			prepStmt = conexion.prepareStatement(consulta);
+			System.out.println(consulta);
 			
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next())
@@ -246,16 +247,19 @@ public class ConsultaDAO {
      * @return
      * @throws Exception
      */
-    public ArrayList<OperacionValue> darOperaciones( String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+    public ArrayList<OperacionValue> darOperaciones( String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, int nCosto, String nRentabilidad ) throws Exception
     {
     	ArrayList<OperacionValue> operaciones = new ArrayList<OperacionValue>();
     	PreparedStatement prepStmt = null;
-    	String consulta = "select * from OPERACION_BURSATIL where TIPO = '"+nTipoOperacion+"' and COSTO = "+ nCosto + "and (FECHA_INICIAL between to_date ('"+nFechaInicial+"','dd/mm/yyyy') and to_date ('"+nFechaFinal+"','dd/mm/yyyy')) and (FECHA_FINAL between to_date ('"+nFechaInicial+"','dd/mm/yyyy') AND to_date ('"+nFechaFinal+"','dd/mm/yyyy')) ";
+    	
+    	//(FECHA_INICIAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy') ) AND (TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy'))) AND (FECHA_FINAL BETWEEN (TO_DATE ('"+nFechaInicial+"','dd/mm/yyyy')) AND (TO_DATE ('"+nFechaFinal+"','dd/mm/yyyy')))
+    	String consulta = "SELECT * FROM OPERACION_BURSATIL WHERE TIPO LIKE '"+nTipoOperacion+"' AND COSTO LIKE "+ nCosto + " AND ID_RENTABILIDAD LIKE (SELECT ID FROM RENTABILIDAD WHERE NOMBRE LIKE'"+nRentabilidad+"') ";
     	OperacionValue  operacionV = new OperacionValue();
     	try 
     	{
 			establecerConexion(cadenaConexion, usuario, clave);
 			prepStmt = conexion.prepareStatement(consulta);
+			System.out.println(consulta);
 			
 			ResultSet rs = prepStmt.executeQuery();
 			while(rs.next())
@@ -263,7 +267,7 @@ public class ConsultaDAO {
 				
 				int id = rs.getInt("ID");
 				String tipo = rs.getString("TIPO");
-				Double valor = rs.getDouble("VALOR");
+				int valor = rs.getInt("VALOR");
 				int idUsuario1 = rs.getInt("ID_USUARIO_1");
 				int idComisionista1 = rs.getInt("ID_COMISIONISTA_1");
 				int idUsuario2 = rs.getInt("ID_USUARIO_2");

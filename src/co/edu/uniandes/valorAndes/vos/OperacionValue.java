@@ -9,7 +9,7 @@ public class OperacionValue
 	
 	private String tipo;
 	
-	private Double valor;
+	private int valor;
 	
 	private int cantidad;
 	
@@ -33,7 +33,7 @@ public class OperacionValue
 	
 
 
-	public OperacionValue(int id, String tipo, Double valor,
+	public OperacionValue(int id, String tipo, int valor,
 			int idUsuario1, int idComisionista1, int idInstrumento,
 			Date fechaInic) {
 		super();
@@ -73,12 +73,12 @@ public class OperacionValue
 	}
 
 
-	public Double getValor() {
+	public int getValor() {
 		return valor;
 	}
 
 
-	public void setValor(Double valor) {
+	public void setValor(int valor) {
 		this.valor = valor;
 	}
 

@@ -2,7 +2,6 @@ package co.edu.uniandes.valorAndes.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +35,7 @@ public class ServletRCF2 extends ServletTemplate
 		String nFechaInicial = request.getParameter("nFechaInicial");
 		String nFechaFinal = request.getParameter("nFechaFinal");
 		String costo = request.getParameter("nCosto");
-		Double nCosto = Double.parseDouble(costo);
+		int nCosto = Integer.parseInt(costo);
 		String nRentabilidad = request.getParameter("nRentabilidad");
 
 		

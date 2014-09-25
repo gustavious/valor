@@ -95,7 +95,7 @@ public class ValorAndes
 	}
 	
 	
-	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, double nCosto, String nRentabilidad ) throws Exception
+	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, int nCosto, String nRentabilidad ) throws Exception
 	{
 		return dao.darOperaciones(nTipoUsuario, nTipoOperacion, nFechaInicial, nFechaFinal, nCosto, nRentabilidad);
 	}
@@ -115,7 +115,7 @@ public class ValorAndes
 	@SuppressWarnings("deprecation")
 	public static void main( String[] args )
 	{
-    	ValorAndes.darInstancia().inicializarRuta("F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent");
+    	ValorAndes.darInstancia().inicializarRuta(RUTA2);
     	
     	
     	Calendar fecha = new GregorianCalendar();
