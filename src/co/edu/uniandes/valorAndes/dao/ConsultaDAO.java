@@ -129,7 +129,7 @@ public class ConsultaDAO {
 	 * @param clave clave de acceso a la base de datos
 	 * @throws SQLException si ocurre un error generando la conexión con la base de datos.
 	 */
-    private void establecerConexion(String url, String usuario, String clave) throws SQLException
+    public void establecerConexion(String url, String usuario, String clave) throws SQLException
     {
     	try
         {
@@ -155,6 +155,21 @@ public class ConsultaDAO {
 		}
     } 
     
+    
+    public String darUsuario()
+    {
+    	return usuario;
+    }
+    
+    public String darClave()
+    {
+    	return clave;
+    }
+    
+    public String darCadenaConexion()
+    {
+    	return cadenaConexion;
+    }
     // ---------------------------------------------------
     // Métodos asociados a los casos de uso: Consulta
     // ---------------------------------------------------
