@@ -530,7 +530,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.COMISIONISTA_PK) violada"));
+			assertTrue("No se debería poder agregar un comisionista con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.COMISIONISTA_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
@@ -583,7 +583,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.INVERSIONISTA_PK) violada"));
+			assertTrue("No se debería poder agregar un inversionista con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.INVERSIONISTA_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
@@ -638,7 +638,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.OFERENTE_PK) violada"));
+			assertTrue("No se debería poder agregar un oferente con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.OFERENTE_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
@@ -693,7 +693,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.TIPO_VALOR_PK) violada"));
+			assertTrue("No se debería poder agregar un tipo de valor con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.TIPO_VALOR_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
@@ -804,7 +804,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.RENTABILIDAD_PK) violada"));
+			assertTrue("No se debería poder agregar un tipo de rentabilidad con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.RENTABILIDAD_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
@@ -859,7 +859,7 @@ public class UnicidadTuplasTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.OPERACION_BURSATIL_PK) violada"));
+			assertTrue("No se debería poder agregar una operacion bursatil con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.OPERACION_BURSATIL_PK) violada"));
 			System.out.println("Error al establecer la conexión");
 		}
 		finally 
