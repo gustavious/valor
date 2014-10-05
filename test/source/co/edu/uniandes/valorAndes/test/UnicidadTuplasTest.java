@@ -225,7 +225,6 @@ public class UnicidadTuplasTest extends TestCase
 					}
 					catch (Exception e) 
 					{
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -530,7 +529,6 @@ public class UnicidadTuplasTest extends TestCase
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			assertTrue("No se debería poder agregar un usuario con una pk existente", e.getMessage().contains("ORA-00001: restricción única (ISIS2304011420.COMISIONISTA_PK) violada"));
 			System.out.println("Error al establecer la conexión");
@@ -538,7 +536,6 @@ public class UnicidadTuplasTest extends TestCase
 		finally 
 		{
 			if (prepStmt != null) 
-
 			{
 				try 
 				{
@@ -546,14 +543,12 @@ public class UnicidadTuplasTest extends TestCase
 				} 
 				catch (SQLException exception) 
 				{
-
 					try
 					{
 						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 					}
 					catch (Exception e) 
 					{
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -564,7 +559,6 @@ public class UnicidadTuplasTest extends TestCase
 			} 
 			catch (Exception e) 
 			{
-				// TODO Auto-generated catch block
 				System.out.println("Error al desconectarse de la base de datos");
 				e.printStackTrace();
 
