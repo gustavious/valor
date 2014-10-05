@@ -88,7 +88,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un usuario un tipo que sea diferente de 'Inversionista','Oferente','Comisionista'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.USUARIO_CHK1) violada"));
+			assertTrue("No se debería poder agregar un usuario un tipo que sea diferente de 'Inversionista','Oferente','Comisionista'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -202,7 +202,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un inversionista cuyo tipo sea diferente de 'Natural' 'Juridica'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.TIPO_CK) violada"));
+			assertTrue("No se debería poder agregar un inversionista cuyo tipo sea diferente de 'Natural' 'Juridica'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -316,7 +316,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un oferente cuyo tipo sea diferente de 'Natural' 'Juridica'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.TIPO_CK_N_J1) violada"));
+			assertTrue("No se debería poder agregar un oferente cuyo tipo sea diferente de 'Natural' 'Juridica'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -424,7 +424,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());;
-			assertTrue("No se debería poder agregar un instrumento financiero que su estado de negociado sea diferente de 'Si' o 'No'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.NEGOCIADO_CK) violada"));
+			assertTrue("No se debería poder agregar un instrumento financiero que su estado de negociado sea diferente de 'Si' o 'No'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -532,7 +532,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar una operación bursatil cuyo tipo sea diferente de 'Venta' o 'Compra'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.TIPO_CK_N_J_2) violada"));
+			assertTrue("No se debería poder agregar una operación bursatil cuyo tipo sea diferente de 'Venta' o 'Compra'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -640,7 +640,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un tipo de rentabilidad cuyo comportamiento sea diferente de 'renta fija' o 'renta variable'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.COMPORTAMIENTO_CK) violada"));
+			assertTrue("No se debería poder agregar un tipo de rentabilidad cuyo comportamiento sea diferente de 'renta fija' o 'renta variable'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
@@ -695,7 +695,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un tipo de rentabilidad cuya duración sea diferente de 'termino fijo' o 'termino indefinido'", e.getMessage().contains("ORA-02290: restricción de control (ISIS2304011420.DURACION_CK) violada"));
+			assertTrue("No se debería poder agregar un tipo de rentabilidad cuya duración sea diferente de 'termino fijo' o 'termino indefinido'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
