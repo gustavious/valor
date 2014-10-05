@@ -463,4 +463,274 @@ public class RestriccionesChequeoTest extends TestCase
 		}
 	}
 	
+	public void setupEscenarioOperacionBursatil()
+	{
+		PreparedStatement prepStmt = null;
+		try 
+		{
+
+			String query = "INSERT INTO OPERACION_BURSATIL VALUES ( 7, 'Venta', 40000000, 7, 6, 13, 3, 4, TO_DATE('01/09/2014','dd/mm/yyyy'), TO_DATE('24/09/2014','dd/mm/yyyy'))";
+			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
+			prepStmt = dao.conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.out.println("Error al establecer la conexi髇");
+		}
+		finally 
+		{
+			if (prepStmt != null) 
+			{
+				try 
+				{
+					prepStmt.close();
+				} 
+				catch (SQLException exception) 
+				{
+
+					try
+					{
+						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi贸n.");
+					}
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			try 
+			{
+				dao.closeConnection(dao.conexion);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error al desconectarse de la base de datos");
+				e.printStackTrace();
+
+			}
+
+		}
+	}
+
+	public void testOperacionBursatil( )
+	{
+		setupEscenarioOperacionBursatil();
+		PreparedStatement prepStmt = null;
+		try 
+		{
+
+			String query2 = "INSERT INTO OPERACION_BURSATIL VALUES ( 10, 'Vendiendo', 40000000, 7, 6, 13, 3, 4, TO_DATE('01/09/2014','dd/mm/yyyy'), TO_DATE('24/09/2014','dd/mm/yyyy'))";
+			String query = "DELETE FROM OPERACION_BURSATIL WHERE ID = 7";
+			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
+			prepStmt = dao.conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+			prepStmt = dao.conexion.prepareStatement(query2);
+			prepStmt.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println(e.getMessage());
+			assertTrue("No se deber韆 poder agregar una operaci髇 bursatil cuyo tipo sea diferente de 'Venta' o 'Compra'", e.getMessage().contains("ORA-02290: restricci髇 de control (ISIS2304011420.TIPO_CK_N_J_2) violada"));
+			System.out.println("Error");
+		}
+		finally 
+		{
+			if (prepStmt != null) 
+
+			{
+				try 
+				{
+					prepStmt.close();
+				} 
+				catch (SQLException exception) 
+				{
+
+					try
+					{
+						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi贸n.");
+					}
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			try 
+			{
+				dao.closeConnection(dao.conexion);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error al desconectarse de la base de datos");
+				e.printStackTrace();
+
+			}
+
+		}
+	}
+	
+	public void setupEscenarioRentabilidad()
+	{
+		PreparedStatement prepStmt = null;
+		try 
+		{
+
+			String query = "INSERT INTO RENTABILIDAD VALUES ( 10, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta fija', 'termino fijo')";
+			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
+			prepStmt = dao.conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			System.out.println("Error al establecer la conexi髇");
+		}
+		finally 
+		{
+			if (prepStmt != null) 
+			{
+				try 
+				{
+					prepStmt.close();
+				} 
+				catch (SQLException exception) 
+				{
+
+					try
+					{
+						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi贸n.");
+					}
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			try 
+			{
+				dao.closeConnection(dao.conexion);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error al desconectarse de la base de datos");
+				e.printStackTrace();
+
+			}
+
+		}
+	}
+
+	public void testRentabilidad1( )
+	{
+		setupEscenarioRentabilidad();
+		PreparedStatement prepStmt = null;
+		try 
+		{
+
+			String query2 = "INSERT INTO RENTABILIDAD VALUES ( 11, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta ', 'termino fijo')";
+			String query = "DELETE FROM RENTABILIDAD WHERE ID = 10";
+			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
+			prepStmt = dao.conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+			prepStmt = dao.conexion.prepareStatement(query2);
+			prepStmt.executeQuery();
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println(e.getMessage());
+			assertTrue("No se deber韆 poder agregar un tipo de rentabilidad cuyo comportamiento sea diferente de 'renta fija' o 'renta variable'", e.getMessage().contains("ORA-02290: restricci髇 de control (ISIS2304011420.COMPORTAMIENTO_CK) violada"));
+			System.out.println("Error");
+		}
+		finally 
+		{
+			if (prepStmt != null) 
+
+			{
+				try 
+				{
+					prepStmt.close();
+				} 
+				catch (SQLException exception) 
+				{
+
+					try
+					{
+						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi贸n.");
+					}
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			try 
+			{
+				dao.closeConnection(dao.conexion);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error al desconectarse de la base de datos");
+				e.printStackTrace();
+
+			}
+
+		}
+	}
+
+	public void testRentabilidad2( )
+	{
+		setupEscenarioRentabilidad();
+		PreparedStatement prepStmt = null;
+		try 
+		{
+
+			String query = "INSERT INTO RENTABILIDAD VALUES ( 11, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta fija', 'termino')";
+			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
+			prepStmt = dao.conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println(e.getMessage());
+			assertTrue("No se deber韆 poder agregar un tipo de rentabilidad cuya duraci髇 sea diferente de 'termino fijo' o 'termino indefinido'", e.getMessage().contains("ORA-02290: restricci髇 de control (ISIS2304011420.DURACION_CK) violada"));
+			System.out.println("Error");
+		}
+		finally 
+		{
+			if (prepStmt != null) 
+
+			{
+				try 
+				{
+					prepStmt.close();
+				} 
+				catch (SQLException exception) 
+				{
+
+					try
+					{
+						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexi贸n.");
+					}
+					catch (Exception e) 
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			try 
+			{
+				dao.closeConnection(dao.conexion);
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Error al desconectarse de la base de datos");
+				e.printStackTrace();
+
+			}
+
+		}
+	}
 }
