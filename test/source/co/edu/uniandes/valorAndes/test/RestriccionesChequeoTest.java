@@ -681,7 +681,6 @@ public class RestriccionesChequeoTest extends TestCase
 
 	public void testRentabilidad2( )
 	{
-		setupEscenarioRentabilidad();
 		PreparedStatement prepStmt = null;
 		try 
 		{
