@@ -108,7 +108,7 @@ public class ServletRegistrar extends ServletTemplate
 	        
 	       
 	        
-	        String fechaFin = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
+	        String fechaFin = año +  String.format("%02d",mes) +  String.format("%02d",dia) + String.format( "%02d%02d",hora, minuto);
 	
 			try {
 				cupi.dao().registrarOperacion(id1, idComisionistaDos, idComisionistaUno, valor1, fechaFin);

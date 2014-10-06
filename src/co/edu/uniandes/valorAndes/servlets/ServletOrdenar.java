@@ -105,7 +105,7 @@ public class ServletOrdenar extends ServletTemplate
 	        
 	       
 	        
-	        String fechaInic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
+	        String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
 	
 			try {
 				cupi.dao().ordenarOperacion(id1, tipo, valor1, idUsuario1, idComisionista1, idInstrumento1, fechaInic);

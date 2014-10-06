@@ -397,8 +397,10 @@ public class ConsultaDAO {
 			establecerConexion(cadenaConexion, usuario, clave);
 			
 			String query = " INSERT INTO OPERACION_BURSATIL (ID, TIPO, VALOR,  ID_USUARIO_1, ID_COMISIONISTA_1, ID_INS_FIN,  FECHA_INICIAL) VALUES ( " + id + ", '" + tipo + "', "+ valor +", "+ idUsuario1 +", "+ idComisionista1+", "+ idInstrumento+ ", TO_DATE('" +  fechaInic +"', 'YYYYMMDDHH24MI'))  ";
-			
-		System.out.println(query);			
+			String query2 = " UPDATE COMISIONISTA SET ID_USUARIO = " + idUsuario1 + " WHERE NUM_REGISTRO LIKE '"+ idComisionista1+  "' AND ( ID_USUARIO IS NULL OR ID_USUARIO LIKE '" + idUsuario1+ "')";
+
+		System.out.println(query);	
+		System.out.println(query2);	
 			
 			
 			prepStmt = conexion.prepareStatement(query );
@@ -408,8 +410,8 @@ public class ConsultaDAO {
 			
 			ResultSet rs = prepStmt.executeQuery();
 			
-			
-			
+			prepStmt = conexion.prepareStatement(query2 );
+			prepStmt.executeQuery();
 			
 			
 		
@@ -417,7 +419,7 @@ public class ConsultaDAO {
 			e.printStackTrace();
 			System.out.println(consultaVideosDefault);
 			
-			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
 		}finally 
 		{
 			if (prepStmt != null) 
@@ -426,7 +428,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
 				}
 			}
 			closeConnection(conexion);
@@ -505,7 +507,7 @@ public class ConsultaDAO {
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 			
-			String query = " UPDATE OPERACION_BURSATIL  SET ID_COMISIONISTA_2 =" + idComisionista2 +",  FECHA_FINAL = TO_DATE('" + fechaFin + "', 'YYYYMMDDHH24MI')  WHERE ID LIKE" + id ;
+			String query = " UPDATE OPERACION_BURSATIL  SET ID_COMISIONISTA_2 =" + idComisionista2 +" ,  FECHA_FINAL = TO_DATE('" + fechaFin + "', 'YYYYMMDDHH24MI')  WHERE ID LIKE " + id ;
 		System.out.println(query);			
 			
 			
@@ -516,8 +518,26 @@ public class ConsultaDAO {
 			
 			ResultSet rs = prepStmt.executeQuery();
 			
+			String query2 = "SELECT ID_USUARIO FROM COMISIONISTA WHERE NUM_REGISTRO LIKE " + idComisionista2;
+			System.out.println(query2);
+			prepStmt = conexion.prepareStatement( query2);
 			
-
+			 rs = prepStmt.executeQuery();
+			 
+			 
+			 String idUsuario2 = "2";
+			
+			while(rs.next()){
+				 idUsuario2 = rs.getString("ID_USUARIO");
+				System.out.println(idUsuario2);
+							
+			}
+			
+			String query3 = "UPDATE OPERACION_BURSATIL  SET ID_USUARIO_2 = " + idUsuario2 + " WHERE ID LIKE " + id;
+			System.out.println(query3);
+			
+			prepStmt = conexion.prepareStatement(query3);
+			prepStmt.executeQuery();
 			
 		
 		} catch (SQLException e) {

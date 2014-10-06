@@ -15,7 +15,7 @@ public class RestriccionesChequeoTest extends TestCase
 	public RestriccionesChequeoTest( )
 	{
 		dao = new ConsultaDAO();
-		dao.inicializar(ValorAndes.RUTA2);
+		dao.inicializar(ValorAndes.RUTA);
 	}
 
 	public void setupEscenarioUsuario()
@@ -302,21 +302,17 @@ public class RestriccionesChequeoTest extends TestCase
 		try 
 		{
 
-			String query2 = "INSERT INTO OFERENTE VALUES ('Paz del rio', 9, 'Industrial', 'Bogota', 5672134, 'Calle 100', 'Mariana Perez', 000111, 110)";
-			String query3 = "DELETE FROM OFERENTE WHERE ID = 8";
-			String query4 = "DELETE FROM USUARIO WHERE ID = 110";
+			String query2 = "INSERT INTO OFERENTE VALUES ('Paz del rio', 9, 'Juridica', 'Bogota', 5672134, 'Calle 100', 'Mariana Perez', 000111, 18)";
+			
 			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
-			prepStmt = dao.conexion.prepareStatement(query3);
-			prepStmt.executeQuery();
-			prepStmt = dao.conexion.prepareStatement(query4);
-			prepStmt.executeQuery();
+			
 			prepStmt = dao.conexion.prepareStatement(query2);
 			prepStmt.executeQuery();
 		} 
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un oferente cuyo tipo sea diferente de 'Natural' 'Juridica'", e.getMessage().contains("ORA-02290"));
+			assertTrue("No se debería poder agregar un oferente cuyo ID no se encuentra en la tabla de usuarios", e.getMessage().contains("ORA-02291"));
 			System.out.println("Error");
 		}
 		finally 
@@ -413,7 +409,7 @@ public class RestriccionesChequeoTest extends TestCase
 		try 
 		{
 
-			String query2 = "INSERT INTO INSTRUMENTO_FINANCIERO VALUES ( 11, 'Bono Aval', 1000000, TO_DATE('10/09/2014', 'dd/mm/yyyy'), 8, 2, 'OK', 1 )";
+			String query2 = "INSERT INTO INSTRUMENTO_FINANCIERO VALUES ( 11, 'Bono Aval', 1000000, TO_DATE('10/09/2014', 'dd/mm/yyyy'), 8, 6, 'Si', 1 )";
 			String query = "DELETE FROM INSTRUMENTO_FINANCIERO WHERE ID = 10";
 			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
 			prepStmt = dao.conexion.prepareStatement(query);
@@ -424,7 +420,7 @@ public class RestriccionesChequeoTest extends TestCase
 		catch (SQLException e) 
 		{
 			System.out.println(e.getMessage());;
-			assertTrue("No se debería poder agregar un instrumento financiero que su estado de negociado sea diferente de 'Si' o 'No'", e.getMessage().contains("ORA-02290"));
+			assertTrue("No se debería poder agregar un instrumento financiero con un ID de un tipo de valor que no existe dentro del sistema", e.getMessage().contains("ORA-02291"));
 			System.out.println("Error");
 		}
 		finally 
@@ -533,168 +529,6 @@ public class RestriccionesChequeoTest extends TestCase
 		{
 			System.out.println(e.getMessage());
 			assertTrue("No se debería poder agregar una operación bursatil cuyo tipo sea diferente de 'Venta' o 'Compra'", e.getMessage().contains("ORA-02290"));
-			System.out.println("Error");
-		}
-		finally 
-		{
-			if (prepStmt != null) 
-
-			{
-				try 
-				{
-					prepStmt.close();
-				} 
-				catch (SQLException exception) 
-				{
-
-					try
-					{
-						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
-					}
-					catch (Exception e) 
-					{
-						e.printStackTrace();
-					}
-				}
-			}
-			try 
-			{
-				dao.closeConnection(dao.conexion);
-			} 
-			catch (Exception e) 
-			{
-				System.out.println("Error al desconectarse de la base de datos");
-				e.printStackTrace();
-
-			}
-
-		}
-	}
-	
-	public void setupEscenarioRentabilidad()
-	{
-		PreparedStatement prepStmt = null;
-		try 
-		{
-
-			String query = "INSERT INTO RENTABILIDAD VALUES ( 10, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta fija', 'termino fijo')";
-			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
-			prepStmt = dao.conexion.prepareStatement(query);
-			prepStmt.executeQuery();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-			System.out.println("Error al establecer la conexión");
-		}
-		finally 
-		{
-			if (prepStmt != null) 
-			{
-				try 
-				{
-					prepStmt.close();
-				} 
-				catch (SQLException exception) 
-				{
-
-					try
-					{
-						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
-					}
-					catch (Exception e) 
-					{
-						e.printStackTrace();
-					}
-				}
-			}
-			try 
-			{
-				dao.closeConnection(dao.conexion);
-			} 
-			catch (Exception e) 
-			{
-				System.out.println("Error al desconectarse de la base de datos");
-				e.printStackTrace();
-
-			}
-
-		}
-	}
-
-	public void testRentabilidad1( )
-	{
-		setupEscenarioRentabilidad();
-		PreparedStatement prepStmt = null;
-		try 
-		{
-
-			String query2 = "INSERT INTO RENTABILIDAD VALUES ( 11, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta ', 'termino fijo')";
-			String query = "DELETE FROM RENTABILIDAD WHERE ID = 10";
-			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
-			prepStmt = dao.conexion.prepareStatement(query);
-			prepStmt.executeQuery();
-			prepStmt = dao.conexion.prepareStatement(query2);
-			prepStmt.executeQuery();
-		} 
-		catch (SQLException e) 
-		{
-			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un tipo de rentabilidad cuyo comportamiento sea diferente de 'renta fija' o 'renta variable'", e.getMessage().contains("ORA-02290"));
-			System.out.println("Error");
-		}
-		finally 
-		{
-			if (prepStmt != null) 
-
-			{
-				try 
-				{
-					prepStmt.close();
-				} 
-				catch (SQLException exception) 
-				{
-
-					try
-					{
-						throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
-					}
-					catch (Exception e) 
-					{
-						e.printStackTrace();
-					}
-				}
-			}
-			try 
-			{
-				dao.closeConnection(dao.conexion);
-			} 
-			catch (Exception e) 
-			{
-				System.out.println("Error al desconectarse de la base de datos");
-				e.printStackTrace();
-
-			}
-
-		}
-	}
-
-	public void testRentabilidad2( )
-	{
-		PreparedStatement prepStmt = null;
-		try 
-		{
-
-			String query = "INSERT INTO RENTABILIDAD VALUES ( 11, 'Rentabilidadp', 'rentabilidad10', 0.10, 'renta fija', 'termino')";
-			dao.establecerConexion(dao.darCadenaConexion(), dao.darUsuario(), dao.darClave());
-			prepStmt = dao.conexion.prepareStatement(query);
-			prepStmt.executeQuery();
-
-		} 
-		catch (SQLException e) 
-		{
-			System.out.println(e.getMessage());
-			assertTrue("No se debería poder agregar un tipo de rentabilidad cuya duración sea diferente de 'termino fijo' o 'termino indefinido'", e.getMessage().contains("ORA-02290"));
 			System.out.println("Error");
 		}
 		finally 
