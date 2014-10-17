@@ -33,7 +33,7 @@ import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
 
 
 @SuppressWarnings("serial")
-public class ServletComisionistas extends ServletTemplate
+public class ServletOferentes extends ServletTemplate
 {
 	// -----------------------------------------------------------------
 	// Atributos
@@ -96,7 +96,7 @@ public class ServletComisionistas extends ServletTemplate
 		
 		
 		try {
-			ArrayList datos = cupi.dao().darComisionistas();
+			ArrayList datos = cupi.dao().darOferentes();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +110,7 @@ public class ServletComisionistas extends ServletTemplate
 		
 		
 
-		respuesta.write("         <h2>Listado de comisionistas:</h2>");
+		respuesta.write("         <h2>Listado de oferentes:</h2>");
 		
 //		aqui hare la tabla :(
 

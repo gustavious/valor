@@ -23,12 +23,20 @@ import java.util.Properties;
 
 
 
+
+
+
+
+
+import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
+import co.edu.uniandes.valorAndes.vos.InversionistaValue;
+import co.edu.uniandes.valorAndes.vos.OferenteValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
 /**
- * Clase ConsultaDAO, encargada de hacer las consultas básicas para el cliente
+ * Clase ConsultaDAO, encargada de hacer las consultas basicas para el cliente
  */
 public class ConsultaDAO {
 
@@ -45,10 +53,7 @@ public class ConsultaDAO {
 	//Consultas
 	//----------------------------------------------------
 	
-	/**
-	 * Consulta que devuelve isan, titulo, y año de los videos en orden alfabetico
-	 */
-	private static final String consultaVideosDefault="SELECT *, FROM ";
+	
 	
 	
 
@@ -347,7 +352,7 @@ public class ConsultaDAO {
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement(consultaVideosDefault);
+			prepStmt = conexion.prepareStatement("");
 			
 			ResultSet rs = prepStmt.executeQuery();
 			
@@ -365,7 +370,7 @@ public class ConsultaDAO {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(consultaVideosDefault);
+			
 			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
 		}finally 
 		{
@@ -417,7 +422,7 @@ public class ConsultaDAO {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(consultaVideosDefault);
+			
 			
 			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
 		}finally 
@@ -472,7 +477,7 @@ public class ConsultaDAO {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(consultaVideosDefault);
+			
 			
 			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
 		}finally 
@@ -569,8 +574,8 @@ public class ConsultaDAO {
     /**
      * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
      * @return true si se pudo, false de lo contrario
-     * @throws Exception se lanza una excepción si ocurre un error en
-     * la conexión o en la consulta. 
+     * @throws Exception se lanza una excepcion si ocurre un error en
+     * la conexion o en la consulta. 
      */
     
     
@@ -578,31 +583,36 @@ public class ConsultaDAO {
     {
     	PreparedStatement prepStmt = null;
     	
-    	ArrayList<VideosValue> videos = new ArrayList<VideosValue>();
-		VideosValue vidValue = new VideosValue();
+    	ArrayList comisionistas = new ArrayList<VideosValue>();
+		
     	
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement(consultaVideosDefault);
+			prepStmt = conexion.prepareStatement("SELECT * FROM COMISIONISTA");
 			
 			ResultSet rs = prepStmt.executeQuery();
 			
 			while(rs.next()){
-				String titVid = rs.getString("titulo");
-				int anyoVid = rs.getInt("anio");
+				String numRegistro = rs.getString("NUM_REGISTRO");
+				String nombreEntidad = rs.getString("NOMBRE");
+				String ciudad = rs.getString("CIUDAD");
+				String direccion = rs.getString("DIRECCION");
+				String telefono = rs.getString("TELEFONO");
+				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
 				
-				vidValue.setTituloOriginal(titVid);
-				vidValue.setAnyo(anyoVid);	
+				ComisionistaValue nuevo = new ComisionistaValue(numRegistro, nombreEntidad, ciudad, direccion, telefono, nomRepresentante);
+				
+				
 			
-				videos.add(vidValue);
-				vidValue = new VideosValue();
+				comisionistas.add(nuevo);
+				
 							
 			}
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(consultaVideosDefault);
-			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+			
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
 		}finally 
 		{
 			if (prepStmt != null) 
@@ -611,12 +621,142 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 					
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
 				}
 			}
 			closeConnection(conexion);
 		}		
-		return videos;
+		return comisionistas;
+    }
+    
+    
+    
+    
+    /**
+     * Metodo que se retornar todos los Oferentes dentro de la bolsa de valores
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepcion si ocurre un error en
+     * la conexion o en la consulta. 
+     */
+    
+    
+    public ArrayList darOferentes() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList oferentes = new ArrayList<VideosValue>();
+		
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM OFERENTE");
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				String id = rs.getString("ID");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				String direccion = rs.getString("DIRECCION");
+				String telefono = rs.getString("TELEFONO");
+				String ciudad = rs.getString("CIUDAD");
+				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
+				
+				
+			
+				
+				OferenteValue nuevo = new OferenteValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante);
+				
+				
+			
+				oferentes.add(nuevo);
+				
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO:  cerrando la conexion.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return oferentes;
+    }
+    
+    
+    
+    
+    /**
+     * Metodo que se retornar todos los Inversionistas dentro de la bolsa de valores
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepcion si ocurre un error en
+     * la conexion o en la consulta. 
+     */
+    
+    
+    public ArrayList darInversionistas() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList inversionistas = new ArrayList<VideosValue>();
+		
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement("SELECT * FROM INVERSIONISTA");
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				String id = rs.getString("ID");
+				String nombre = rs.getString("NOMBRE");
+				String tipo = rs.getString("TIPO");
+				String direccion = rs.getString("DIRECCION");
+				String telefono = rs.getString("TELEFONO");
+				String ciudad = rs.getString("CIUDAD");
+				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
+				
+				
+			
+				
+				InversionistaValue nuevo = new InversionistaValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante);
+				
+				
+			
+				inversionistas.add(nuevo);
+				
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO:  cerrando la conexion.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return inversionistas;
     }
     
     
