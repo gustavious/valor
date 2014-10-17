@@ -79,12 +79,10 @@ public class ServletAdmin extends ServletTemplate
 		String login = request.getParameter( "login" );
 		String password = request.getParameter( "password" );
 		
-		
+	
 	
 
-	
-
-		if(login == "admin" && password == "admin"){
+		if(login.equals("admin") && password.equals("admin")){
 		
 			
 				
