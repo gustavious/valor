@@ -334,6 +334,106 @@ public class ConsultaDAO {
     	
     	return operaciones;
     }
+   
+    
+     public boolean retirarIntermediario( int idUsuario, String nNombreComisionista, int idComisionista ) throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			String query = "";
+			String query2 = " ";
+
+		System.out.println(query);	
+		System.out.println(query2);	
+			
+			
+			prepStmt = conexion.prepareStatement(query );
+			
+			System.out.println(prepStmt);
+			
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			prepStmt = conexion.prepareStatement(query2 );
+			prepStmt.executeQuery();
+			
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
+				}
+			}
+			closeConnection(conexion);
+			
+		}
+		return true;
+		
+    }
+    
+         public boolean recomponerPortafolio( int idPortafolio, ArrayList<ComposicionValue> nComposicion) throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			String query = "";
+			String query2 = " ";
+
+		System.out.println(query);	
+		System.out.println(query2);	
+			
+			
+			prepStmt = conexion.prepareStatement(query );
+			
+			System.out.println(prepStmt);
+			
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			prepStmt = conexion.prepareStatement(query2 );
+			prepStmt.executeQuery();
+			
+			
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+			
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
+				}
+			}
+			closeConnection(conexion);
+			
+		}
+		return true;
+		
+    }
+    
     
     /**
      * Método que se encarga de realizar la consulta en la base de datos
