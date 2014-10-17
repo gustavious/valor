@@ -564,4 +564,60 @@ public class ConsultaDAO {
     }
     
     
+    
+    
+    /**
+     * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+     * @return true si se pudo, false de lo contrario
+     * @throws Exception se lanza una excepción si ocurre un error en
+     * la conexión o en la consulta. 
+     */
+    
+    
+    public ArrayList darComisionistas() throws Exception
+    {
+    	PreparedStatement prepStmt = null;
+    	
+    	ArrayList<VideosValue> videos = new ArrayList<VideosValue>();
+		VideosValue vidValue = new VideosValue();
+    	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			prepStmt = conexion.prepareStatement(consultaVideosDefault);
+			
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				String titVid = rs.getString("titulo");
+				int anyoVid = rs.getInt("anio");
+				
+				vidValue.setTituloOriginal(titVid);
+				vidValue.setAnyo(anyoVid);	
+			
+				videos.add(vidValue);
+				vidValue = new VideosValue();
+							
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(consultaVideosDefault);
+			throw new Exception("ERROR = ConsultaDAO: loadRowsBy(..) Agregando parametros y executando el statement!!!");
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+					
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+				}
+			}
+			closeConnection(conexion);
+		}		
+		return videos;
+    }
+    
+    
 }

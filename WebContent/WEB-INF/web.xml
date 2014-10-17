@@ -47,6 +47,28 @@
       <servlet-name>ServletRCF2</servlet-name>
       <servlet-class>co.edu.uniandes.valorAndes.servlets.ServletRCF2</servlet-class>
    </servlet>
+   
+   <servlet>
+      <servlet-name>ServletAdmin</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletAdmin</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletComisionistas</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletComisionistas</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletOferentes</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletOferentes</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletInversionistas</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletInversionistas</servlet-class>
+   </servlet>
+   
+   
   
   
   <servlet-mapping>
@@ -72,6 +94,26 @@
   <servlet-mapping>
     <servlet-name>ServletRCF2</servlet-name>
     <url-pattern>/rcf2.htm</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ServletAdmin</servlet-name>
+    <url-pattern>/admin.htm</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ServletComisionistas</servlet-name>
+    <url-pattern>/comisionistas.htm</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ServletOferentes</servlet-name>
+    <url-pattern>/oferentes.htm</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>ServletInversionistas</servlet-name>
+    <url-pattern>/inversionistas.htm</url-pattern>
   </servlet-mapping>
   
   
