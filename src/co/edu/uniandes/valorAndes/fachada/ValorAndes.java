@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import javax.servlet.http.HttpServletRequest;
 
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
+import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
@@ -98,6 +99,11 @@ public class ValorAndes
 	public ArrayList<OperacionValue> darOperaciones(String nTipoUsuario, String nTipoOperacion, String nFechaInicial, String nFechaFinal, int nCosto, String nRentabilidad ) throws Exception
 	{
 		return dao.darOperaciones(nTipoUsuario, nTipoOperacion, nFechaInicial, nFechaFinal, nCosto, nRentabilidad);
+	}
+	
+	public ArrayList<ComposicionValue> darComposicionPortafolio(int nIdPortafolio) throws Exception 
+	{
+		return dao.darComposicionPortafolio(nIdPortafolio);
 	}
 	
 	/**
