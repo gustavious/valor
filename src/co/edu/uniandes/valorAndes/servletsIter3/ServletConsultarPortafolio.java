@@ -53,11 +53,11 @@ public class ServletConsultarPortafolio extends ServletTemplate
 				out.println("				  <td id = \"nombreValor"+i+"> "+actual.getNombreValor()+" </td>");
 				out.println("				  <td id = \"porcentaje"+i+"> "+actual.getPorcentaje()+" </td>");
 				out.println("				  <td> ");
-				out.println("				  	<select> ");
+				out.println("				  	<select id = \"opcion"+i+"\"> ");
 				out.println("				  		<option value = \"default\"> default </option>");
-				out.println("				  		<option value = \"ordenarCompra"+i+"\"> ordenar Compra </option>");
-				out.println("				  		<option value = \"ordenarVentaParcial"+i+"\"> ordenar Venta Parcial</option>");
-				out.println("				  		<option value = \"ordenarVentaTotal"+i+"\"> ordenar Venta Total</option>");
+				out.println("				  		<option value = \"ordenarCompra\"> ordenar Compra </option>");
+				out.println("				  		<option value = \"ordenarVentaParcial\"> ordenar Venta Parcial</option>");
+				out.println("				  		<option value = \"ordenarVentaTotal\"> ordenar Venta Total</option>");
 				out.println("				  	</select> ");
 				out.println("				  </td> ");
 				out.println("				  <td> ");
@@ -66,6 +66,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 				out.println("			</tr>");
 			}
 			out.println("		</table>");
+			
 			out.println("		Si desea agregar valores a su portafolio, por favor indique la informaci&oacute;n");
 			out.println("		</table>");
 			out.println("			<tr>");

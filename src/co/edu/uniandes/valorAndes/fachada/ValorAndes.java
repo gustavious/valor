@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
 import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
+import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
@@ -104,6 +105,21 @@ public class ValorAndes
 	public ArrayList<ComposicionValue> darComposicionPortafolio(int nIdPortafolio) throws Exception 
 	{
 		return dao.darComposicionPortafolio(nIdPortafolio);
+	}
+	
+	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ArrayList<ValorAgregarValue> valores) throws Exception
+	{
+		return dao.recomponerPortafolio(decisiones, porcentajes, valores);
+	}
+	
+	public ArrayList<ComposicionValue> darComposicion( )
+	{
+		return dao.darComposicion();
+	}
+	
+	public boolean retirarIntermediario( int idUsuario, int idComisionista) throws Exception
+	{
+		return dao.retirarIntermediario(idUsuario, idComisionista);
 	}
 	
 	/**

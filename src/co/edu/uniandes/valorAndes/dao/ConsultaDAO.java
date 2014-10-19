@@ -73,8 +73,8 @@ public class ConsultaDAO {
 	 * URL al cual se debe conectar para acceder a la base de datos.
 	 */
 	private String cadenaConexion;
-	
-	
+
+
 	private ArrayList<ComposicionValue> composicion;
 
 	/**
@@ -332,32 +332,91 @@ public class ConsultaDAO {
 	}
 
 
-	public boolean retirarIntermediario( int idUsuario, String nNombreComisionista, int idComisionista ) throws Exception
+	public boolean retirarIntermediario( int idUsuario, int idComisionista ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			String query = "";
-			String query2 = " ";
-
-			System.out.println(query);	
-			System.out.println(query2);	
+			int numRegistro = 0;
+			int idUsuarioNuevo = 0;
 
 
-			prepStmt = conexion.prepareStatement(query );
-
-			System.out.println(prepStmt);
-
+			String query = "SELECT NUM_REGISTRO FROM COMISIONISTA WHERE ID_USUARIO = " + (idUsuario+1);
+			prepStmt = conexion.prepareStatement(query);
 
 			ResultSet rs = prepStmt.executeQuery();
+			rs.next();
+			if(rs.next())
+			{
+				numRegistro = rs.getInt("NUM_REGISTRO");
+				idUsuarioNuevo = idUsuario+1;
+			}
+			else
+			{
+				String query2 = "SELECT NUM_REGISTRO FROM COMISIONISTA WHERE ID_USUARIO = " + (idUsuario-1);
+				prepStmt = conexion.prepareStatement(query2);
+				rs = prepStmt.executeQuery();
+				if( rs.next())
+				{
+					numRegistro = rs.getInt("NUM_REGISTRO");
+					idUsuarioNuevo = idUsuario-1;
+				}
+				else
+				{
+					throw new Exception("No hay más intermediarios para intercambiar, no se puede retirar!");
+				}
+			}
 
-			prepStmt = conexion.prepareStatement(query2 );
-			prepStmt.executeQuery();
+			String query4 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_COMISIONISTA = " + idComisionista + " FOR UPDATE";
+			prepStmt = conexion.prepareStatement(query4);
+			prepStmt.executeUpdate();
 
+			String query5 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			prepStmt = conexion.prepareStatement(query5);
+			prepStmt.executeUpdate();
 
+			String query6 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_OFERENTE WHERE ID_COMISIONISTA = " + idComisionista + " FOR UPDATE";
+			prepStmt = conexion.prepareStatement(query6);
+			prepStmt.executeUpdate();
 
+			String query7 = "UPDATE COMISIONISTA_OFERENTE SET ID_COMISIONISTA "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			prepStmt = conexion.prepareStatement(query7);
+			prepStmt.executeUpdate();
+
+			String query8 = "SELECT ID_COMISIONISTA_1 FROM OPERACION_BURSATIL WHERE ID_COMISIONISTA_1 = " + idComisionista + " FOR UPDATE";
+			prepStmt = conexion.prepareStatement(query8);
+			prepStmt.executeUpdate();
+			
+			String query9 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA_1"+ numRegistro +" WHERE ID_COMISIONISTA_1= " + idComisionista ;
+			prepStmt = conexion.prepareStatement(query9);
+			prepStmt.executeUpdate();
+			
+			String query10 = "SELECT ID_COMISIONISTA_2 FROM OPERACION_BURSATIL WHERE ID_COMISIONISTA_2 = " + idComisionista + " FOR UPDATE";
+			prepStmt = conexion.prepareStatement(query10);
+			prepStmt.executeUpdate();
+			
+			String query11 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA_2"+ numRegistro +" WHERE ID_COMISIONISTA_2= " + idComisionista;
+			prepStmt = conexion.prepareStatement(query11);
+			prepStmt.executeUpdate();
+			
+			String query12 = "SELECT ID_USUARIO FROM PORTAFOLIO WHERE ID_USUARIO = " + idUsuario + " FOR UPDATE";
+			prepStmt = conexion.prepareStatement(query12);
+			prepStmt.executeUpdate();
+			
+			String query13 = "UPDATE PORTAFOLIO SET ID_USUARIO"+ idUsuarioNuevo +" WHERE ID_USUARIO= " + idUsuario ;
+			prepStmt = conexion.prepareStatement(query13);
+			prepStmt.executeUpdate();
+			
+			String query14 = "DELETE FROM USUARIO WHERE ID = " + idUsuario;
+			prepStmt = conexion.prepareStatement(query14);
+			prepStmt.executeUpdate();
+			
+			String query15 = "DELETE FROM COMISIONISTA WHERE ID_USUARIO = " + idUsuario;
+			prepStmt = conexion.prepareStatement(query15);
+			prepStmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -397,72 +456,72 @@ public class ConsultaDAO {
 				String decision = (String)decisiones.get(i);
 				Integer porcentaje = (Integer)porcentajes.get(i);
 				ComposicionValue actual = (ComposicionValue)composicion.get(i);
-				if(decision.startsWith("ordenarCompra"))
+				if(decision.startsWith("ordenar Compra"))
 				{
 					Integer anterior = actual.getPorcentaje();
-					
+
 					String query3 = "SELECT PORCENTAJE FROM COMPOSICION WHERE PORCENTAJE = "+ anterior +" FOR UPDATE";
 					prepStmt = conexion.prepareStatement(query3);
 					prepStmt.executeQuery();
-					
+
 					actual.sumarPorcentaje(porcentaje);
 					totalidad += actual.getPorcentaje();
-					
+
 					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
 					prepStmt = conexion.prepareStatement(query4);
 					prepStmt.executeUpdate();
 				}
-				else if(decision.startsWith("ordenarVentaParcial"))
+				else if(decision.startsWith("ordenar Venta Parcial"))
 				{
 					Integer anterior = actual.getPorcentaje();
-					
+
 					String query3 = "SELECT PORCENTAJE FROM COMPOSICION WHERE PORCENTAJE = "+ anterior +" FOR UPDATE";
 					prepStmt = conexion.prepareStatement(query3);
 					prepStmt.executeQuery();
-					
+
 					actual.restarPorcentaje(porcentaje);
 					totalidad += actual.getPorcentaje();
-					
+
 					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
 					prepStmt = conexion.prepareStatement(query4);
 					prepStmt.executeUpdate();
 				}
-				else if(decision.startsWith("ordenarVentaTotal"))
+				else if(decision.startsWith("ordenar Venta Total"))
 				{
 					int idValor = actual.getIdValor();
-					
+
 					String query3 = "SELECT VALOR, ID_USUARIO FROM INSTRUMENTO_FINANCIERO WHERE ID = "+idValor;
 					prepStmt = conexion.prepareStatement(query3);
 					ResultSet rs = prepStmt.executeQuery();
-					
+
 					rs.next();
 					Double valor = rs.getDouble("VALOR");
 					int idUsuario1 = rs.getInt("ID_USUARIO");
-					
+
 					String query4 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario1+")";
 					prepStmt = conexion.prepareStatement(query4);
 					rs = prepStmt.executeQuery();
 					rs.next();
 					int idComisionista1 = rs.getInt("ID_COMISIONISTA");
-					
+
 					String query5 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario1+")";
 					prepStmt = conexion.prepareStatement(query4);
 					rs = prepStmt.executeQuery();
 					rs.next();
 					idComisionista1 = rs.getInt("ID_COMISIONISTA");
-					
+
 					Calendar fecha = new GregorianCalendar();
-			        
-			        int año = fecha.get(Calendar.YEAR);
-			        int mes = fecha.get(Calendar.MONTH) + 1;
-			        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-			        int hora = fecha.get(Calendar.HOUR_OF_DAY);
-			        int minuto = fecha.get(Calendar.MINUTE);
-			        
-			       
-			        
-			        String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
-					
+
+					int año = fecha.get(Calendar.YEAR);
+					int mes = fecha.get(Calendar.MONTH) + 1;
+					int dia = fecha.get(Calendar.DAY_OF_MONTH);
+					int hora = fecha.get(Calendar.HOUR_OF_DAY);
+					int minuto = fecha.get(Calendar.MINUTE);
+
+
+
+					String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
+
 					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
 				}
 				else
@@ -470,7 +529,7 @@ public class ConsultaDAO {
 					continue;
 				}
 			}
-			
+
 			String query2 = "end";
 			prepStmt = conexion.prepareStatement(query2);
 			prepStmt.executeQuery();
@@ -971,5 +1030,9 @@ public class ConsultaDAO {
 		return inversionistas;
 	}
 
+	public ArrayList<ComposicionValue> darComposicion( )
+	{
+		return composicion;
+	}
 
 }
