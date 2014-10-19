@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
@@ -389,7 +391,7 @@ public class ConsultaDAO {
 			String query = "begin";
 			prepStmt = conexion.prepareStatement(query);
 			prepStmt.executeQuery();
-			
+			int totalidad = 0;
 			for(int i = 0; i < composicion.size(); i++)
 			{
 				String decision = (String)decisiones.get(i);
@@ -404,10 +406,11 @@ public class ConsultaDAO {
 					prepStmt.executeQuery();
 					
 					actual.sumarPorcentaje(porcentaje);
+					totalidad += actual.getPorcentaje();
 					
 					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
 					prepStmt = conexion.prepareStatement(query4);
-					prepStmt.executeQuery();
+					prepStmt.executeUpdate();
 				}
 				else if(decision.startsWith("ordenarVentaParcial"))
 				{
@@ -418,22 +421,49 @@ public class ConsultaDAO {
 					prepStmt.executeQuery();
 					
 					actual.restarPorcentaje(porcentaje);
+					totalidad += actual.getPorcentaje();
 					
 					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
 					prepStmt = conexion.prepareStatement(query4);
-					prepStmt.executeQuery();
+					prepStmt.executeUpdate();
 				}
 				else if(decision.startsWith("ordenarVentaTotal"))
 				{
 					int idValor = actual.getIdValor();
+					
 					String query3 = "SELECT VALOR, ID_USUARIO FROM INSTRUMENTO_FINANCIERO WHERE ID = "+idValor;
 					prepStmt = conexion.prepareStatement(query3);
-					prepStmt.executeQuery();
 					ResultSet rs = prepStmt.executeQuery();
+					
 					rs.next();
-					int valor = rs.getInt("VALOR");
+					Double valor = rs.getDouble("VALOR");
 					int idUsuario1 = rs.getInt("ID_USUARIO");
-					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, new Date());
+					
+					String query4 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario1+")";
+					prepStmt = conexion.prepareStatement(query4);
+					rs = prepStmt.executeQuery();
+					rs.next();
+					int idComisionista1 = rs.getInt("ID_COMISIONISTA");
+					
+					String query5 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario1+")";
+					prepStmt = conexion.prepareStatement(query4);
+					rs = prepStmt.executeQuery();
+					rs.next();
+					idComisionista1 = rs.getInt("ID_COMISIONISTA");
+					
+					Calendar fecha = new GregorianCalendar();
+			        
+			        int año = fecha.get(Calendar.YEAR);
+			        int mes = fecha.get(Calendar.MONTH) + 1;
+			        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+			        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+			        int minuto = fecha.get(Calendar.MINUTE);
+			        
+			       
+			        
+			        String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
+					
+					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
 				}
 				else
 				{
@@ -444,9 +474,6 @@ public class ConsultaDAO {
 			String query2 = "end";
 			prepStmt = conexion.prepareStatement(query2);
 			prepStmt.executeQuery();
-
-
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -464,10 +491,8 @@ public class ConsultaDAO {
 				}
 			}
 			closeConnection(conexion);
-
 		}
 		return true;
-
 	}
 
 
