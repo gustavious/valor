@@ -133,16 +133,7 @@ public class ValorAndes
         int minuto = fecha.get(Calendar.MINUTE);
         
        
-        
         String fechainic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
-        
-      
-        
-      
-
-		
-		
-		
     	
 //    	try {
 //			ValorAndes.darInstancia().dao.ordenarOperacion(4, "Compra", (double) 6000, 1,1, 2, "200203151215");

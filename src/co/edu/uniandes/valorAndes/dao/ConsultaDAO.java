@@ -14,26 +14,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
 import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.InversionistaValue;
 import co.edu.uniandes.valorAndes.vos.OferenteValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
+import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
 
@@ -82,13 +71,16 @@ public class ConsultaDAO {
 	 * URL al cual se debe conectar para acceder a la base de datos.
 	 */
 	private String cadenaConexion;
+	
+	
+	private ArrayList<ComposicionValue> composicion;
 
 	/**
 	 * constructor de la clase. No inicializa ningun atributo.
 	 */
 	public ConsultaDAO() 
 	{		
-
+		composicion = new ArrayList<ComposicionValue>();
 	}
 
 	// -------------------------------------------------
@@ -387,28 +379,70 @@ public class ConsultaDAO {
 
 	}
 
-	public boolean recomponerPortafolio( int idPortafolio, ArrayList<ComposicionValue> nComposicion) throws Exception
+	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ArrayList<ValorAgregarValue> valores ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			String query = "";
-			String query2 = " ";
-
-			System.out.println(query);	
-			System.out.println(query2);	
-
-
-			prepStmt = conexion.prepareStatement(query );
-
-			System.out.println(prepStmt);
-
-
-			ResultSet rs = prepStmt.executeQuery();
-
-			prepStmt = conexion.prepareStatement(query2 );
+			String query = "begin";
+			prepStmt = conexion.prepareStatement(query);
+			prepStmt.executeQuery();
+			
+			for(int i = 0; i < composicion.size(); i++)
+			{
+				String decision = (String)decisiones.get(i);
+				Integer porcentaje = (Integer)porcentajes.get(i);
+				ComposicionValue actual = (ComposicionValue)composicion.get(i);
+				if(decision.startsWith("ordenarCompra"))
+				{
+					Integer anterior = actual.getPorcentaje();
+					
+					String query3 = "SELECT PORCENTAJE FROM COMPOSICION WHERE PORCENTAJE = "+ anterior +" FOR UPDATE";
+					prepStmt = conexion.prepareStatement(query3);
+					prepStmt.executeQuery();
+					
+					actual.sumarPorcentaje(porcentaje);
+					
+					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
+					prepStmt = conexion.prepareStatement(query4);
+					prepStmt.executeQuery();
+				}
+				else if(decision.startsWith("ordenarVentaParcial"))
+				{
+					Integer anterior = actual.getPorcentaje();
+					
+					String query3 = "SELECT PORCENTAJE FROM COMPOSICION WHERE PORCENTAJE = "+ anterior +" FOR UPDATE";
+					prepStmt = conexion.prepareStatement(query3);
+					prepStmt.executeQuery();
+					
+					actual.restarPorcentaje(porcentaje);
+					
+					String query4 = "UPDATE COMPOSICION SET PORCENTAJE = "+actual.getPorcentaje()+" WHERE PORCENTAJE = " + anterior;
+					prepStmt = conexion.prepareStatement(query4);
+					prepStmt.executeQuery();
+				}
+				else if(decision.startsWith("ordenarVentaTotal"))
+				{
+					int idValor = actual.getIdValor();
+					String query3 = "SELECT VALOR, ID_USUARIO FROM INSTRUMENTO_FINANCIERO WHERE ID = "+idValor;
+					prepStmt = conexion.prepareStatement(query3);
+					prepStmt.executeQuery();
+					ResultSet rs = prepStmt.executeQuery();
+					rs.next();
+					int valor = rs.getInt("VALOR");
+					int idUsuario1 = rs.getInt("ID_USUARIO");
+					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, new Date());
+				}
+				else
+				{
+					continue;
+				}
+			}
+			
+			String query2 = "end";
+			prepStmt = conexion.prepareStatement(query2);
 			prepStmt.executeQuery();
 
 
@@ -440,7 +474,7 @@ public class ConsultaDAO {
 	public ArrayList<ComposicionValue> darComposicionPortafolio( int nIdPortafolio ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
-		ArrayList<ComposicionValue> composicion = new ArrayList<ComposicionValue>();
+		composicion = new ArrayList<ComposicionValue>();
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
@@ -458,7 +492,7 @@ public class ConsultaDAO {
 				nueva.setIdValor(idValor);
 				String nombreValor = rs.getString("NOMBRE");
 				nueva.setNombreValor(nombreValor);
-				double porcentaje = rs.getDouble("PORCENTAJE");
+				int porcentaje = rs.getInt("PORCENTAJE");
 				nueva.setPorcentaje(porcentaje);
 				composicion.add(nueva);
 				nueva = new ComposicionValue();

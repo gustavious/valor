@@ -8,7 +8,7 @@ public class ComposicionValue
 	
 	private String nombreValor;
 	
-	private double porcentaje;
+	private int porcentaje;
 	
 	public ComposicionValue()
 	{
@@ -39,12 +39,23 @@ public class ComposicionValue
 		this.nombreValor = nombreValor;
 	}
 
-	public double getPorcentaje() {
+	public int getPorcentaje() {
 		return porcentaje;
 	}
 
-	public void setPorcentaje(double porcentaje) {
+	public void setPorcentaje(int porcentaje)
+	{
 		this.porcentaje = porcentaje;
+	}
+	
+	public void sumarPorcentaje( int nPorcentaje)
+	{
+		this.porcentaje += nPorcentaje;
+	}
+	
+	public void restarPorcentaje( int nPorcentaje)
+	{
+		this.porcentaje -= nPorcentaje;
 	}
 	
 	

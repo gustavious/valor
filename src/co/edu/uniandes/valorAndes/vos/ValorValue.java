@@ -1,6 +1,7 @@
 package co.edu.uniandes.valorAndes.vos;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class ValorValue 
 {
@@ -39,8 +40,8 @@ public class ValorValue
 		return fechaExpiracion;
 	}
 
-	public void setFechaExpiracion(Date fechaExpiracion) {
-		this.fechaExpiracion = fechaExpiracion;
+	public void setFechaExpiracion(Date fechaExp) {
+		this.fechaExpiracion = fechaExp;
 	}
 
 	public int getId() {
