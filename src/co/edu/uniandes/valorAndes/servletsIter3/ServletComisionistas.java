@@ -126,6 +126,9 @@ public class ServletComisionistas extends ServletTemplate
 		respuesta.println("          <th>Direccion</th>");
 		respuesta.println("          <th>Telefono</th>");
 		respuesta.println("          <th>Nombre Representante</th>");
+		
+		respuesta.println("          <th>Inversionistas</th>");
+		respuesta.println("          <th>Valores en negociacion</th>");
 		respuesta.println("        </tr>");
 		respuesta.println("      </thead>");
 		respuesta.println("      <tbody>");
@@ -147,6 +150,8 @@ public class ServletComisionistas extends ServletTemplate
 		respuesta.println("          <td>" + actual.getDireccion() + "</td>");
 		respuesta.println("          <td>" + actual.getTelefono() + "</td>");
 		respuesta.println("          <td>" + actual.getNomRepresentante() + "</td>");
+		respuesta.println("          <td>" + actual.stringInversionistas() + "</td>");
+		respuesta.println("          <td>" + actual.stringValores() + "</td>");
 		
 		respuesta.println("        </tr>");
 		

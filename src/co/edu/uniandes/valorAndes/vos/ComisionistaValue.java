@@ -29,9 +29,9 @@ public class ComisionistaValue
 		
 	private ArrayList inversionistas;
 	
-	private ArrayList portafolios;
+
 	
-	private ArrayList valoresEnNegociacion;
+	private ArrayList valores;
 	
 	
 	
@@ -63,6 +63,9 @@ public class ComisionistaValue
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.nomRepresentante = nomRepresentante;
+		
+		inversionistas = new ArrayList();
+		valores = new ArrayList();
 	}
 
 
@@ -210,18 +213,7 @@ public class ComisionistaValue
 
 
 
-	public ArrayList getPortafolios() {
-		return portafolios;
-	}
 
-
-
-
-
-
-	public void setPortafolios(ArrayList portafolios) {
-		this.portafolios = portafolios;
-	}
 
 
 
@@ -229,7 +221,7 @@ public class ComisionistaValue
 
 
 	public ArrayList getValoresEnNegociacion() {
-		return valoresEnNegociacion;
+		return valores;
 	}
 
 
@@ -238,23 +230,68 @@ public class ComisionistaValue
 
 
 	public void setValoresEnNegociacion(ArrayList valoresEnNegociacion) {
-		this.valoresEnNegociacion = valoresEnNegociacion;
+		this.valores = valoresEnNegociacion;
 	}
 
    
 	
 	public void addValoresEnNegociacion(Object e) {
-		valoresEnNegociacion.add(e);
+		valores.add(e);
 	}
 	
 	
-	public void addComisionista(Object e) {
+	public void addInversionista(Object e) {
 		inversionistas.add(e);
 	}
-	
-	public void addVPortafolio(Object e) {
-		portafolios.add(e);
+
+
+
+
+
+
+	public void obtenerValores() {
+		
+		ArrayList valores = new ArrayList();
+		
+		for(int i = 0; i < inversionistas.size() ; i++){
+			
+			inversionistas.addAll(((InversionistaValue) inversionistas.get(i)).getValores());
+			
+		}
+		
+		this.valores = valores;
+		
+		
+		
 	}
+	
+	public String stringValores() {
+		String mensaje = "";
+		
+		for(int i = 0; i < valores.size() ; i++){
+			
+			mensaje += ((ComposicionValue) valores.get(i)).getNombreValor() + "\n";
+			
+		}
+		
+		return mensaje;
+	}
+	
+	
+	public String stringInversionistas() {
+		String mensaje = "";
+		
+		for(int i = 0; i < inversionistas.size() ; i++){
+			
+			mensaje += inversionistas.get(i).toString() + "\n";
+			
+		}
+		
+		return mensaje;
+	}
+	
+	
+	
 	
 	
 	

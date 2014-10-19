@@ -99,7 +99,7 @@ public class ServletInversionistas extends ServletTemplate
 		
 		ArrayList datos = new ArrayList();
 		try {
-			 datos = cupi.dao().darComisionistas();
+			 datos = cupi.dao().darInversionistas();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,6 +128,7 @@ public class ServletInversionistas extends ServletTemplate
 		respuesta.println("          <th>Telefono</th>");
 		respuesta.println("          <th>Ciudad</th>");
 		respuesta.println("          <th>Nombre Representante</th>");
+		respuesta.println("          <th>Valores y distribucion</th>");
 		respuesta.println("        </tr>");
 		respuesta.println("      </thead>");
 		respuesta.println("      <tbody>");
@@ -150,6 +151,7 @@ public class ServletInversionistas extends ServletTemplate
 		respuesta.println("          <td>" + actual.getTelefono() + "</td>");
 		respuesta.println("          <td>" + actual.getCiudad() + "</td>");
 		respuesta.println("          <td>" + actual.getNomRepresentante() + "</td>");
+		respuesta.println("          <td>" + actual.stringValores() + "</td>");
 		
 		respuesta.println("        </tr>");
 		

@@ -58,6 +58,11 @@ public class ComposicionValue
 		this.porcentaje -= nPorcentaje;
 	}
 	
+	public String toString( )
+	{
+		return nombreValor + " " + porcentaje;
+	}
+	
 	
 	
 }

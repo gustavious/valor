@@ -137,19 +137,31 @@ public class ValorAndes
 	@SuppressWarnings("deprecation")
 	public static void main( String[] args )
 	{
-    	ValorAndes.darInstancia().inicializarRuta(RUTA2);
+    	ValorAndes.darInstancia().inicializarRuta(RUTA);
     	
     	
-    	Calendar fecha = new GregorianCalendar();
-        
-        int año = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH) + 1;
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        int hora = fecha.get(Calendar.HOUR_OF_DAY);
-        int minuto = fecha.get(Calendar.MINUTE);
-        
-       
-        String fechainic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
+    	try {
+			ValorAndes.darInstancia().dao().darInversionistas();
+		ValorAndes.darInstancia().dao().darComisionistas();
+			System.out.println("hola");
+			ValorAndes.darInstancia().dao().darOferentes();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+//    	Calendar fecha = new GregorianCalendar();
+//        
+//        int año = fecha.get(Calendar.YEAR);
+//        int mes = fecha.get(Calendar.MONTH) + 1;
+//        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+//        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+//        int minuto = fecha.get(Calendar.MINUTE);
+//        
+//       
+//        String fechainic = año +  String.format("%02d",mes) +   dia  + String.format( "%02d%02d",hora, minuto);
     	
 //    	try {
 //			ValorAndes.darInstancia().dao.ordenarOperacion(4, "Compra", (double) 6000, 1,1, 2, "200203151215");

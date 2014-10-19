@@ -27,6 +27,8 @@ public class OferenteValue
 	
 	private String nomRepresentante;
 	
+	private String idUsuario;
+	
 	private ArrayList valores;
 	
 
@@ -70,10 +72,11 @@ public class OferenteValue
 	 * @param telefono
 	 * @param ciudad
 	 * @param nomRepresentante
+	 * @param idUsuario 
 	 */
 	public OferenteValue(String id, String nombre, String tipo,
 			String direccion, String telefono, String ciudad,
-			String nomRepresentante) {
+			String nomRepresentante, String idUsuario) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -82,6 +85,9 @@ public class OferenteValue
 		this.telefono = telefono;
 		this.ciudad = ciudad;
 		this.nomRepresentante = nomRepresentante;
+		this.idUsuario = idUsuario;
+		
+		valores = new ArrayList();
 	}
 
 
@@ -251,6 +257,19 @@ public class OferenteValue
 	
 	public void addValores(Object e) {
 		this.valores.add(e);
+	}
+	
+	
+	public String stringValores() {
+		String mensaje = "";
+		
+		for(int i = 0; i < valores.size() ; i++){
+			
+			mensaje += valores.get(i) + "\n";
+			
+		}
+		
+		return mensaje;
 	}
 
 

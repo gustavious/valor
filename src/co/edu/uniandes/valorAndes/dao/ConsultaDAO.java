@@ -852,7 +852,12 @@ public class ConsultaDAO {
 
 	public ArrayList darComisionistas() throws Exception
 	{
+		
+		ArrayList inversionistas = darInversionistas();
+		
 		PreparedStatement prepStmt = null;
+		PreparedStatement prepStmt2 = null;
+
 
 		ArrayList comisionistas = new ArrayList<VideosValue>();
 
@@ -862,6 +867,8 @@ public class ConsultaDAO {
 			prepStmt = conexion.prepareStatement("SELECT * FROM COMISIONISTA");
 
 			ResultSet rs = prepStmt.executeQuery();
+			
+			
 
 			while(rs.next()){
 				String numRegistro = rs.getString("NUM_REGISTRO");
@@ -872,8 +879,38 @@ public class ConsultaDAO {
 				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
 
 				ComisionistaValue nuevo = new ComisionistaValue(numRegistro, nombreEntidad, ciudad, direccion, telefono, nomRepresentante);
+				
+				System.out.println("llego");
 
+				prepStmt2 = conexion.prepareStatement("SELECT * FROM COMISIONISTA_INVERSIONISTA WHERE ID_COMISIONISTA LIKE " + numRegistro);
 
+				ResultSet rs2 = prepStmt2.executeQuery();
+				
+				
+
+				while(rs2.next()){
+					String idCom = rs2.getString("ID_COMISIONISTA");
+					String idInv = rs2.getString("ID_INVERSIONISTA");
+					
+				
+				
+				for(int i = 0; i < inversionistas.size(); i++){
+					
+					InversionistaValue actual = (InversionistaValue) inversionistas.get(i);
+					
+					if(actual.getId() == idInv){
+						nuevo.addInversionista(actual);
+					
+						
+						
+					}
+				}
+					
+
+					
+				}
+				
+				nuevo.obtenerValores();
 
 				comisionistas.add(nuevo);
 
@@ -899,6 +936,9 @@ public class ConsultaDAO {
 		}		
 		return comisionistas;
 	}
+	
+	
+	
 
 
 
@@ -914,8 +954,9 @@ public class ConsultaDAO {
 	public ArrayList darOferentes() throws Exception
 	{
 		PreparedStatement prepStmt = null;
+		PreparedStatement prepStmt2 = null;
 
-		ArrayList oferentes = new ArrayList<VideosValue>();
+		ArrayList oferentes = new ArrayList();
 
 
 		try {
@@ -932,11 +973,46 @@ public class ConsultaDAO {
 				String telefono = rs.getString("TELEFONO");
 				String ciudad = rs.getString("CIUDAD");
 				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
+				String idUsuario = rs.getString("ID_USUARIO");
+				
+				
+
+				OferenteValue nuevo = new OferenteValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante, idUsuario);
+				
+				System.out.println(nuevo);
+				
+				
+				
+				prepStmt2 = conexion.prepareStatement("SELECT * FROM INSTRUMENTO_FINANCIERO");
+
+				ResultSet rs2 = prepStmt2.executeQuery();
+
+				while(rs2.next()){
+					String id2 = rs2.getString("ID");
+					String idUser = rs2.getString("ID_USUARIO");
+					String name = rs2.getString("NOMBRE");
+					String value = rs2.getString("VALOR");
+					
+					
+					int num = Integer.parseInt(id2);
+					
+					if(idUser == idUsuario){
+						
+						nuevo.addValores(name + " " + value);
+						
+					}
+					
+	
+					
+				}
+				
+				System.out.println(nombre);
 
 
-
-
-				OferenteValue nuevo = new OferenteValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante);
+				
+				
+				
+				
 
 
 
@@ -979,8 +1055,9 @@ public class ConsultaDAO {
 	public ArrayList darInversionistas() throws Exception
 	{
 		PreparedStatement prepStmt = null;
+		PreparedStatement prepStmt2 = null;
 
-		ArrayList inversionistas = new ArrayList<VideosValue>();
+		ArrayList inversionistas = new ArrayList();
 
 
 		try {
@@ -996,12 +1073,38 @@ public class ConsultaDAO {
 				String direccion = rs.getString("DIRECCION");
 				String telefono = rs.getString("TELEFONO");
 				String ciudad = rs.getString("CIUDAD");
-				String nomRepresentante = rs.getString("NOM_REPRESENTANTE");
+				String nomRepresentante = rs.getString("NOMBRE_REPRESENTANTE");
+				String idUsuario = rs.getString("ID_USUARIO");
+				
+				
 
+				InversionistaValue nuevo = new InversionistaValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante, idUsuario);
+				
+				System.out.println(nuevo);
+				
+				
+				
+				prepStmt2 = conexion.prepareStatement("SELECT * FROM PORTAFOLIO");
 
+				ResultSet rs2 = prepStmt2.executeQuery();
 
-
-				InversionistaValue nuevo = new InversionistaValue(id, nombre, tipo, direccion, telefono, ciudad, nomRepresentante);
+				while(rs2.next()){
+					String id2 = rs2.getString("ID");
+					String idUser = rs2.getString("ID_USUARIO");
+					
+					int num = Integer.parseInt(id2);
+					
+					if(idUser == idUsuario){
+						
+						nuevo.setValores(darComposicionPortafolio(num));
+						
+					}
+					
+	
+					
+				}
+				
+	
 
 
 

@@ -27,6 +27,8 @@ public class InversionistaValue
 	
 	private String nomRepresentante;
 	
+	private String idUsuario;
+	
 	private ArrayList valores;
 	
 
@@ -73,7 +75,7 @@ public class InversionistaValue
 	 */
 	public InversionistaValue(String id, String nombre, String tipo,
 			String direccion, String telefono, String ciudad,
-			String nomRepresentante) {
+			String nomRepresentante, String idUsuario) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -82,6 +84,9 @@ public class InversionistaValue
 		this.telefono = telefono;
 		this.ciudad = ciudad;
 		this.nomRepresentante = nomRepresentante;
+		this.idUsuario = idUsuario;
+		
+		valores = new ArrayList();
 	}
 
 
@@ -238,7 +243,17 @@ public class InversionistaValue
 		return valores;
 	}
 
-
+	public String stringValores() {
+		String mensaje = "";
+		
+		for(int i = 0; i < valores.size() ; i++){
+			
+			mensaje += valores.get(i).toString() + "\n";
+			
+		}
+		
+		return mensaje;
+	}
 
 
 
@@ -251,6 +266,11 @@ public class InversionistaValue
 	
 	public void addValores(Object e) {
 		this.valores.add(e);
+	}
+	
+	
+	public String toString(){
+		return nombre;
 	}
 
 
