@@ -110,7 +110,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("				  </td> ");
 			out.println("			</tr>");
 			out.println("		</table>");
-			out.println("		<button type = \"button\" > <a href = \"recomponerPortafolio.htm\">Recomponer</a></button>");
+			out.println("		<button type = \"button\" > <a href = \"recomponer.htm\">Recomponer</a></button>");
 		}
 		catch(Exception e)
 		{

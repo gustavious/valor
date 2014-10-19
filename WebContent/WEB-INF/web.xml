@@ -68,8 +68,22 @@
       <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletInversionistas</servlet-class>
    </servlet>
    
+   <servlet>
+      <servlet-name>ServletConsultarPortafolio</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletConsultarPortafolio</servlet-class>
+   </servlet>
    
+   <servlet>
+      <servlet-name>ServletRecomponer</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletRecomponer</servlet-class>
+   </servlet>
   
+  <servlet>
+      <servlet-name>ServletRetirarIntermediario</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletRetirarIntermediario</servlet-class>
+   </servlet>
+   
+   
   
   <servlet-mapping>
     <servlet-name>ServletOrdenar</servlet-name>
@@ -116,6 +130,18 @@
     <url-pattern>/inversionistas.htm</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>ServletConsultarPortafolio</servlet-name>
+    <url-pattern>/consultarPortafolio.htm</url-pattern>
+  </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>ServletRecomponer</servlet-name>
+    <url-pattern>/recomponer.htm</url-pattern>
+  </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>ServletRetirarIntermediario</servlet-name>
+    <url-pattern>/retirarIntermediario.htm</url-pattern>
+  </servlet-mapping>
 </web-app>
