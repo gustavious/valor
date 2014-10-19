@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.edu.uniandes.valorAndes.fachada.ValorAndes;
 import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
+import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
 
 
 
@@ -94,9 +95,9 @@ public class ServletComisionistas extends ServletTemplate
 	private void escribirContenido( PrintWriter respuesta )
 	{
 		
-		
+		ArrayList datos = new ArrayList();
 		try {
-			ArrayList datos = cupi.dao().darComisionistas();
+			 datos = cupi.dao().darComisionistas();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,10 +111,53 @@ public class ServletComisionistas extends ServletTemplate
 		
 		
 
-		respuesta.write("         <h2>Listado de comisionistas:</h2>");
 		
-//		aqui hare la tabla :(
-
+		respuesta.println("    <div class=\"panel panel-primary\">");
+		respuesta.println("    <!-- Default panel contents -->");
+		respuesta.println("    <div class=\"panel-heading\">Listado de comisionistas:</div>");
+		respuesta.println("");
+		respuesta.println("    <!-- Table -->");
+		respuesta.println("    <table class=\"table table-hover\">");
+		respuesta.println("      <thead>");
+		respuesta.println("        <tr>");
+		respuesta.println("          <th>Numero de registro</th>");
+		respuesta.println("          <th>Nombre de la entidad</th>");
+		respuesta.println("          <th>Ciudad</th>");
+		respuesta.println("          <th>Direccion</th>");
+		respuesta.println("          <th>Telefono</th>");
+		respuesta.println("          <th>Nombre Representante</th>");
+		respuesta.println("        </tr>");
+		respuesta.println("      </thead>");
+		respuesta.println("      <tbody>");
+		
+		
+		
+		
+		
+		
+		for(int i= 0 ; i < datos.size(); i++){
+			
+		respuesta.println("        <tr>");
+			
+			
+		ComisionistaValue actual =	(ComisionistaValue) datos.get(i);
+		respuesta.println("          <td>" + actual.getNumRegistro() + "</td>");
+		respuesta.println("          <td>" + actual.getNombreEntidad() + "</td>");
+		respuesta.println("          <td>" + actual.getCiudad() + "</td>");
+		respuesta.println("          <td>" + actual.getDireccion() + "</td>");
+		respuesta.println("          <td>" + actual.getTelefono() + "</td>");
+		respuesta.println("          <td>" + actual.getNomRepresentante() + "</td>");
+		
+		respuesta.println("        </tr>");
+		
+		}
+		
+		
+		
+		
+		respuesta.println("      </tbody>");
+		respuesta.println("    </table>");
+		respuesta.println("  </div>");
 
 
 		respuesta.write("          </div><p>&nbsp;</p>");
