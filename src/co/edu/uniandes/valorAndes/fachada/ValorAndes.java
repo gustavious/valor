@@ -34,7 +34,7 @@ public class ValorAndes
 	 * Cosntante que indica la ruta del archivo conexion
 	 */
 	
-	public static final String RUTA2 = "C:/Users/Usuaio/Desktop/Nueva carpeta/EclipseLuna/valor/valor/WebContent";
+	public static final String RUTA2 = "C:/Users/Usuaio/git/valor/WebContent";
 	
 	public static final String RUTA = "F:/Users/Gustavo/SkyDrive/SisTrans/Esqueletos/JBoss/Esqueleto_VideoAndes_Nivel1/WebContent";
 
