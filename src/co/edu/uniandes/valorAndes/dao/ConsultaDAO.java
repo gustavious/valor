@@ -427,11 +427,12 @@ public class ConsultaDAO {
 			prepStmt.executeUpdate();
 			
 			conexion.commit();
-			
+			conexion.setAutoCommit(true);
 		} 
 		catch (SQLException e)
 		{
 			System.out.println(e.getMessage());
+			conexion.setAutoCommit(true);
 			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
 		}
 		finally 
@@ -440,8 +441,10 @@ public class ConsultaDAO {
 			{
 				try {
 					prepStmt.close();
+					conexion.setAutoCommit(true);
 				} catch (SQLException exception) {
 
+					conexion.setAutoCommit(true);
 					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
 				}
 			}
@@ -458,6 +461,8 @@ public class ConsultaDAO {
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
+			conexion.setAutoCommit(false);
+			conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
 //			String query = "begin";
 //			prepStmt = conexion.prepareStatement(query);
@@ -541,13 +546,15 @@ public class ConsultaDAO {
 					continue;
 				}
 			}
-
+			
+			conexion.commit();
+			conexion.setAutoCommit(true);
 //			String query2 = "end";
 //			prepStmt = conexion.prepareStatement(query2);
 //			prepStmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
-
+			conexion.setAutoCommit(true);
 
 			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
 		}finally 
@@ -558,6 +565,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
+					conexion.setAutoCommit(true);
 					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
 				}
 			}
