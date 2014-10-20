@@ -1,8 +1,8 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: ConsultaDAO.java,v 1.10 
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (BogotÃ¡ - Colombia)
+ * Departamento de IngenierÃ­a de Sistemas y ComputaciÃ³n 
  *
  * Ejercicio: VideoAndes
  * Autor: Juan Diego Toro - 1-Marzo-2010
@@ -37,7 +37,7 @@ public class ConsultaDAO {
 	//Constantes
 	//----------------------------------------------------
 	/**
-	 * ruta donde se encuentra el archivo de conexión.
+	 * ruta donde se encuentra el archivo de conexiÃ³n.
 	 */
 	private static final String ARCHIVO_CONEXION = "/conexion.properties";
 
@@ -65,7 +65,7 @@ public class ConsultaDAO {
 	private String usuario;
 
 	/**
-	 * clave de conexión a la base de datos.
+	 * clave de conexiÃ³n a la base de datos.
 	 */
 	private String clave;
 
@@ -86,7 +86,7 @@ public class ConsultaDAO {
 	}
 
 	// -------------------------------------------------
-	// Métodos
+	// MÃ©todos
 	// -------------------------------------------------
 
 	/**
@@ -123,12 +123,12 @@ public class ConsultaDAO {
 
 
 	/**
-	 * Método que se encarga de crear la conexión con el Driver Manager
+	 * MÃ©todo que se encarga de crear la conexiÃ³n con el Driver Manager
 	 * a partir de los parametros recibidos.
 	 * @param url direccion url de la base de datos a la cual se desea conectar
 	 * @param usuario nombre del usuario que se va a conectar a la base de datos
 	 * @param clave clave de acceso a la base de datos
-	 * @throws SQLException si ocurre un error generando la conexión con la base de datos.
+	 * @throws SQLException si ocurre un error generando la conexiÃ³n con la base de datos.
 	 */
 	public void establecerConexion(String url, String usuario, String clave) throws SQLException
 	{
@@ -143,16 +143,16 @@ public class ConsultaDAO {
 	}
 
 	/**
-	 *Cierra la conexión activa a la base de datos. Además, con=null.
-	 * @param con objeto de conexión a la base de datos
-	 * @throws SistemaCinesException Si se presentan errores de conexión
+	 *Cierra la conexiÃ³n activa a la base de datos. AdemÃ¡s, con=null.
+	 * @param con objeto de conexiÃ³n a la base de datos
+	 * @throws SistemaCinesException Si se presentan errores de conexiÃ³n
 	 */
 	public void closeConnection(Connection connection) throws Exception {        
 		try {
 			connection.close();
 			connection = null;
 		} catch (SQLException exception) {
-			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexión.");
+			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexiÃ³n.");
 		}
 	} 
 
@@ -172,7 +172,7 @@ public class ConsultaDAO {
 		return cadenaConexion;
 	}
 	// ---------------------------------------------------
-	// Métodos asociados a los casos de uso: Consulta
+	// MÃ©todos asociados a los casos de uso: Consulta
 	// ---------------------------------------------------
 
 	public ArrayList<ValorValue> darValoresEscogidos( String nTipoValor, String nTipoRentabilidad, String nNegociado, String nFechaExpiracion, int nIdInversionista, int nIdComisionista, int nIdOferente) throws Exception
@@ -189,7 +189,7 @@ public class ConsultaDAO {
 		{
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			// -------- Aquí se extrae el ID del tipo del valor
+			// -------- AquÃ­ se extrae el ID del tipo del valor
 			//PreparedStatement prepStmt1 = null;
 			//String consulta1 = "SELECT ID FROM TIPO_VALOR WHERE NOMBRE LIKE '" +nTipoValor+ "'";
 			//prepStmt1 = conexion.prepareStatement(consulta1);
@@ -243,7 +243,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
 			closeConnection(conexion);
@@ -322,7 +322,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
 			closeConnection(conexion);
@@ -334,54 +334,63 @@ public class ConsultaDAO {
 
 	public boolean retirarIntermediario( int idUsuario, int idComisionista ) throws Exception
 	{
+		System.out.println(idUsuario);
+		System.out.println(idComisionista);
 		PreparedStatement prepStmt = null;
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			int numRegistro = 0;
+			conexion.setAutoCommit(false);
+			conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+			int numRegistro = idComisionista;
 			int idUsuarioNuevo = 0;
 
 
-			String query = "SELECT NUM_REGISTRO FROM COMISIONISTA WHERE ID_USUARIO = " + (idUsuario+1);
+			String query = "SELECT ID_USUARIO FROM COMISIONISTA WHERE NUM_REGISTRO = " + (idComisionista+1);
 			prepStmt = conexion.prepareStatement(query);
 
 			ResultSet rs = prepStmt.executeQuery();
-			rs.next();
 			if(rs.next())
 			{
-				numRegistro = rs.getInt("NUM_REGISTRO");
-				idUsuarioNuevo = idUsuario+1;
+				idUsuarioNuevo = rs.getInt("ID_USUARIO");
+				System.out.println(idUsuarioNuevo);
+				++numRegistro;
+				System.out.println(numRegistro);
 			}
 			else
 			{
-				String query2 = "SELECT NUM_REGISTRO FROM COMISIONISTA WHERE ID_USUARIO = " + (idUsuario-1);
+				String query2 = "SELECT ID_USUARIO FROM COMISIONISTA WHERE NUM_REGISTRO = " + (idComisionista-1);
 				prepStmt = conexion.prepareStatement(query2);
 				rs = prepStmt.executeQuery();
 				if( rs.next())
 				{
-					numRegistro = rs.getInt("NUM_REGISTRO");
-					idUsuarioNuevo = idUsuario-1;
+					idUsuarioNuevo = rs.getInt("ID_USUARIO");
+					--numRegistro;
 				}
 				else
 				{
-					throw new Exception("No hay m�s intermediarios para intercambiar, no se puede retirar!");
+					throw new Exception("No hay más intermediarios para intercambiar, no se puede retirar!");
 				}
 			}
 
 			String query4 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_COMISIONISTA = " + idComisionista + " FOR UPDATE";
+			System.out.println(idComisionista);
 			prepStmt = conexion.prepareStatement(query4);
 			prepStmt.executeUpdate();
 
-			String query5 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			String query5 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA = "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			System.out.println(numRegistro);
 			prepStmt = conexion.prepareStatement(query5);
 			prepStmt.executeUpdate();
 
 			String query6 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_OFERENTE WHERE ID_COMISIONISTA = " + idComisionista + " FOR UPDATE";
+			System.out.println(idComisionista);
 			prepStmt = conexion.prepareStatement(query6);
 			prepStmt.executeUpdate();
 
-			String query7 = "UPDATE COMISIONISTA_OFERENTE SET ID_COMISIONISTA "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			String query7 = "UPDATE COMISIONISTA_OFERENTE SET ID_COMISIONISTA = "+ numRegistro +" WHERE ID_COMISIONISTA = " + idComisionista;
+			System.out.println(numRegistro);
 			prepStmt = conexion.prepareStatement(query7);
 			prepStmt.executeUpdate();
 
@@ -389,7 +398,7 @@ public class ConsultaDAO {
 			prepStmt = conexion.prepareStatement(query8);
 			prepStmt.executeUpdate();
 			
-			String query9 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA_1"+ numRegistro +" WHERE ID_COMISIONISTA_1= " + idComisionista ;
+			String query9 = "UPDATE OPERACION_BURSATIL SET ID_COMISIONISTA_1 = "+ numRegistro +" WHERE ID_COMISIONISTA_1 = " + idComisionista ;
 			prepStmt = conexion.prepareStatement(query9);
 			prepStmt.executeUpdate();
 			
@@ -397,7 +406,7 @@ public class ConsultaDAO {
 			prepStmt = conexion.prepareStatement(query10);
 			prepStmt.executeUpdate();
 			
-			String query11 = "UPDATE COMISIONISTA_INVERSIONISTA SET ID_COMISIONISTA_2"+ numRegistro +" WHERE ID_COMISIONISTA_2= " + idComisionista;
+			String query11 = "UPDATE OPERACION_BURSATIL SET ID_COMISIONISTA_2 = "+ numRegistro +" WHERE ID_COMISIONISTA_2 = " + idComisionista;
 			prepStmt = conexion.prepareStatement(query11);
 			prepStmt.executeUpdate();
 			
@@ -405,24 +414,27 @@ public class ConsultaDAO {
 			prepStmt = conexion.prepareStatement(query12);
 			prepStmt.executeUpdate();
 			
-			String query13 = "UPDATE PORTAFOLIO SET ID_USUARIO"+ idUsuarioNuevo +" WHERE ID_USUARIO= " + idUsuario ;
+			String query13 = "UPDATE PORTAFOLIO SET ID_USUARIO = "+ idUsuarioNuevo +" WHERE ID_USUARIO = " + idUsuario ;
 			prepStmt = conexion.prepareStatement(query13);
-			prepStmt.executeUpdate();
-			
-			String query14 = "DELETE FROM USUARIO WHERE ID = " + idUsuario;
-			prepStmt = conexion.prepareStatement(query14);
 			prepStmt.executeUpdate();
 			
 			String query15 = "DELETE FROM COMISIONISTA WHERE ID_USUARIO = " + idUsuario;
 			prepStmt = conexion.prepareStatement(query15);
 			prepStmt.executeUpdate();
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-
+			String query14 = "DELETE FROM USUARIO WHERE ID = " + idUsuario;
+			prepStmt = conexion.prepareStatement(query14);
+			prepStmt.executeUpdate();
+			
+			conexion.commit();
+			
+		} 
+		catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
 			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
-		}finally 
+		}
+		finally 
 		{
 			if (prepStmt != null) 
 			{
@@ -447,9 +459,9 @@ public class ConsultaDAO {
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			String query = "begin";
-			prepStmt = conexion.prepareStatement(query);
-			prepStmt.executeQuery();
+//			String query = "begin";
+//			prepStmt = conexion.prepareStatement(query);
+//			prepStmt.executeQuery();
 			int totalidad = 0;
 			for(int i = 0; i < composicion.size(); i++)
 			{
@@ -512,7 +524,7 @@ public class ConsultaDAO {
 
 					Calendar fecha = new GregorianCalendar();
 
-					int a�o = fecha.get(Calendar.YEAR);
+					int año = fecha.get(Calendar.YEAR);
 					int mes = fecha.get(Calendar.MONTH) + 1;
 					int dia = fecha.get(Calendar.DAY_OF_MONTH);
 					int hora = fecha.get(Calendar.HOUR_OF_DAY);
@@ -520,7 +532,7 @@ public class ConsultaDAO {
 
 
 
-					String fechaInic = a�o +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
+					String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
 
 					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
 				}
@@ -530,9 +542,9 @@ public class ConsultaDAO {
 				}
 			}
 
-			String query2 = "end";
-			prepStmt = conexion.prepareStatement(query2);
-			prepStmt.executeQuery();
+//			String query2 = "end";
+//			prepStmt = conexion.prepareStatement(query2);
+//			prepStmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -606,13 +618,14 @@ public class ConsultaDAO {
 
 	}
 
+
 	/**
-	 * Método que se encarga de realizar la consulta en la base de datos
+	 * MÃ©todo que se encarga de realizar la consulta en la base de datos
 	 * y retorna un ArrayList de elementos tipo VideosValue.
 	 * @return ArrayList lista que contiene elementos tipo VideosValue.
 	 * La lista contiene los videos ordenados alfabeticamente
-	 * @throws Exception se lanza una excepción si ocurre un error en
-	 * la conexión o en la consulta. 
+	 * @throws Exception se lanza una excepciÃ³n si ocurre un error en
+	 * la conexiÃ³n o en la consulta. 
 	 */
 	public ArrayList<VideosValue> darVideosDefault() throws Exception
 	{
@@ -651,7 +664,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
 			closeConnection(conexion);
@@ -660,10 +673,10 @@ public class ConsultaDAO {
 	}
 
 	/**
-	 * Método que se encarga de ordenar la compra o venta de una nueva operacion bursatil
+	 * MÃ©todo que se encarga de ordenar la compra o venta de una nueva operacion bursatil
 	 * @return true si se pudo, false de lo contrario
-	 * @throws Exception se lanza una excepción si ocurre un error en
-	 * la conexión o en la consulta. 
+	 * @throws Exception se lanza una excepciÃ³n si ocurre un error en
+	 * la conexiÃ³n o en la consulta. 
 	 */
 	public boolean ordenarOperacion( int id, String tipo, Double valor, int idUsuario1, int idComisionista1, int idInstrumento, String fechaInic) throws Exception
 	{
@@ -717,10 +730,10 @@ public class ConsultaDAO {
 
 
 	/**
-	 * Método que se encarga de cancelar la compra de una operacion bursatil
+	 * MÃ©todo que se encarga de cancelar la compra de una operacion bursatil
 	 * @return true si se pudo, false de lo contrario
-	 * @throws Exception se lanza una excepción si ocurre un error en
-	 * la conexión o en la consulta. 
+	 * @throws Exception se lanza una excepciÃ³n si ocurre un error en
+	 * la conexiÃ³n o en la consulta. 
 	 */
 	public boolean cancelarOperacion( int id,  int idComisionista1) throws Exception
 	{
@@ -759,7 +772,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
 			closeConnection(conexion);
@@ -771,10 +784,10 @@ public class ConsultaDAO {
 
 
 	/**
-	 * Método que se encarga de registrar una operacion bursatil entre dos comisionistas
+	 * MÃ©todo que se encarga de registrar una operacion bursatil entre dos comisionistas
 	 * @return true si se pudo, false de lo contrario
-	 * @throws Exception se lanza una excepción si ocurre un error en
-	 * la conexión o en la consulta. 
+	 * @throws Exception se lanza una excepciÃ³n si ocurre un error en
+	 * la conexiÃ³n o en la consulta. 
 	 */
 	public boolean registrarOperacion( int id,  int idComisionista1, int idComisionista2,Double valor, String fechaFin) throws Exception
 	{
@@ -829,7 +842,7 @@ public class ConsultaDAO {
 					prepStmt.close();
 				} catch (SQLException exception) {
 
-					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexión.");
+					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
 			closeConnection(conexion);
