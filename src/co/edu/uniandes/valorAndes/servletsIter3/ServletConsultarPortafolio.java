@@ -39,6 +39,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("		<br/>");
 			out.println("		<br/>");
 			out.println("		<br/>");
+			out.println("		<form role=\"form\"  id=\"form1\" name=\"form1\" method=\"post\" action=\"recomponer.htm\">");
 			out.println("		<table>");
 			out.println("			<tr>");
 			out.println("				  <td><h3><strong><p align=\"center\"> Id del Portafolio </p></strong></h3></td>");
@@ -88,6 +89,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("			</tr>");
 			out.println("		</table>");
 			out.println("		<button type = \"button\" align=\"center\"> <a href = \"recomponer.htm\">Recomponer</a></button>");
+			out.println("		</form>");
 		}
 		catch(Exception e)
 		{
