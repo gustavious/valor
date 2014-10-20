@@ -13,7 +13,7 @@ import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 
 public class ServletRecomponer extends ServletTemplate{
 
-@Override
+	@Override
 	public String darTituloPagina(HttpServletRequest request) 
 	{
 		// TODO Auto-generated method stub
@@ -32,38 +32,41 @@ public class ServletRecomponer extends ServletTemplate{
 	{
 		ArrayList<String> decisiones = new ArrayList<String>();
 		ArrayList<Integer> porcentajes = new ArrayList<Integer>();
-		ArrayList<ValorAgregarValue> valores = new ArrayList<ValorAgregarValue>();
+		ValorAgregarValue nuevo = new ValorAgregarValue();
 		int tamanio = valorAndes.darComposicion().size();
 		for( int i = 0; i<tamanio; i++)
 		{
+			System.out.println("opcion"+i);
 			String decision = request.getParameter("opcion"+i);
+			System.out.println(decision);
 			decisiones.add(decision);
-			
-			Integer porcentaje = Integer.parseInt(request.getParameter("porcentajeO"+i));
+
+			System.out.println("porcentajeOperacion"+i);
+			Integer porcentaje = Integer.parseInt(request.getParameter("porcentajeOperacion"+i));
+			System.out.println(porcentaje);
 			porcentajes.add(porcentaje);
 		}
-		
-		for(int i = 1; i<6; i++)
+
+
+		int idValor = 0;
+		if(request.getParameter("idValorNuevo") != null && !request.getParameter("idValorNuevo").equals(""))
 		{
-			ValorAgregarValue nuevo = new ValorAgregarValue();
-			int idValor = 0;
-			if(request.getParameter("idValor"+i) != null && !request.getParameter("idValor"+i).equals(""))
-			{
-				idValor = Integer.parseInt(request.getParameter("idValor"+i));
-			}
-			
-			String nombreValor = request.getParameter("nombreValor"+i);
-			nuevo.setIdValor(idValor);
-			nuevo.setNombreValor(nombreValor);
+			idValor = Integer.parseInt(request.getParameter("idValorNuevo"));
 		}
-		
+
+		String nombreValor = request.getParameter("nombreValorNuevo");
+		int porcentajeValorNuevo = Integer.parseInt(request.getParameter("porcentajeValorNuevo"));
+		nuevo.setIdValor(idValor);
+		nuevo.setNombreValor(nombreValor);
+		nuevo.setPorcentaje(porcentajeValorNuevo);
+
 		PrintWriter out = response.getWriter( );
 		int nIdPortafolio = ((ComposicionValue)valorAndes.darComposicion().get(0)).getIdPortafolio();
-		
+
 		ArrayList<ComposicionValue> composicion = new ArrayList<ComposicionValue>();
 		try
 		{
-			valorAndes.recomponerPortafolio(decisiones, porcentajes, valores);
+			valorAndes.recomponerPortafolio(decisiones, porcentajes, nuevo);
 
 			composicion = valorAndes.darComposicionPortafolio(nIdPortafolio);
 			out.println("		<table>");
@@ -84,7 +87,7 @@ public class ServletRecomponer extends ServletTemplate{
 				out.println("			</tr>");
 			}
 			out.println("		</table>");
-			
+
 		}
 		catch(Exception e)
 		{

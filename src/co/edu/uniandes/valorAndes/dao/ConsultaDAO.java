@@ -455,7 +455,7 @@ public class ConsultaDAO {
 
 	}
 
-	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ArrayList<ValorAgregarValue> valores ) throws Exception
+	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ValorAgregarValue valorNuevo ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
 
@@ -521,11 +521,6 @@ public class ConsultaDAO {
 					rs.next();
 					int idComisionista1 = rs.getInt("ID_COMISIONISTA");
 
-					String query5 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario1+")";
-					prepStmt = conexion.prepareStatement(query4);
-					rs = prepStmt.executeQuery();
-					rs.next();
-					idComisionista1 = rs.getInt("ID_COMISIONISTA");
 
 					Calendar fecha = new GregorianCalendar();
 
@@ -539,11 +534,62 @@ public class ConsultaDAO {
 
 					String fechaInic = anio +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
 
-					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
+					ordenarOperacion(((int)Math.random()), "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
 				}
 				else
 				{
 					continue;
+				}
+			}
+			
+			if( valorNuevo != null )
+			{
+				int idValorNuevo = valorNuevo.getIdValor();
+				if(  idValorNuevo > 0 )
+				{
+					
+					String query20 = "SELECT VALOR FROM INSTRUMENTO_FINANCIERO WHERE ID = "+ valorNuevo.getIdValor();
+					PreparedStatement ps = conexion.prepareStatement(query20);
+					ResultSet rs1 = ps.executeQuery();
+					if(rs1.next( ))
+					{
+						Double valor2 = rs1.getDouble("VALOR");
+						Calendar fecha = new GregorianCalendar();
+						
+						String query3 = "SELECT ID_USUARIO FROM INSTRUMENTO_FINANCIERO WHERE ID = "+((ComposicionValue)composicion.get(0)).getIdValor();
+						prepStmt = conexion.prepareStatement(query3);
+						ResultSet rs = prepStmt.executeQuery();
+
+						rs.next();
+						int idUsuario2 = rs.getInt("ID_USUARIO");
+
+						String query4 = "SELECT ID_COMISIONISTA FROM COMISIONISTA_INVERSIONISTA WHERE ID_INVERSIONISTA = (SELECT ID FROM INVERSIONISTA WHERE ID_USUARIO = "+idUsuario2+")";
+						prepStmt = conexion.prepareStatement(query4);
+						rs = prepStmt.executeQuery();
+						rs.next();
+						int idComisionista2 = rs.getInt("ID_COMISIONISTA");
+
+						int anio = fecha.get(Calendar.YEAR);
+						int mes = fecha.get(Calendar.MONTH) + 1;
+						int dia = fecha.get(Calendar.DAY_OF_MONTH);
+						int hora = fecha.get(Calendar.HOUR_OF_DAY);
+						int minuto = fecha.get(Calendar.MINUTE);
+						
+
+						String fechaInic = anio +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
+						ordenarOperacion(((int)Math.random()), "Compra", valor2, idUsuario2, idComisionista2, idValorNuevo, fechaInic);
+						
+						
+						String query23 = "INSERT INTO COMPOSICION VALUES ( "+((ComposicionValue)composicion.get(0)).getIdPortafolio()+", "+idValorNuevo+", "+valorNuevo.getPorcentaje()+" )";
+						prepStmt = conexion.prepareStatement(query23);
+						prepStmt.executeUpdate();
+						
+					}
+					else
+					{
+						conexion.setAutoCommit(true);
+						throw new Exception( "La transacci&oacute;n no se pudo completar porque el valor con id que sea comprar no existe");
+					}
 				}
 			}
 			

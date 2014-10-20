@@ -6,6 +6,8 @@ public class ValorAgregarValue
 	
 	private String nombreValor;
 	
+	private int porcentaje;
+	
 	public ValorAgregarValue( )
 	{
 		
@@ -26,5 +28,15 @@ public class ValorAgregarValue
 	public void setNombreValor(String nombreValor) {
 		this.nombreValor = nombreValor;
 	}
+
+	public int getPorcentaje() {
+		return porcentaje;
+	}
+
+	public void setPorcentaje(int porcentaje) {
+		this.porcentaje = porcentaje;
+	}
+	
+	
 	
 }

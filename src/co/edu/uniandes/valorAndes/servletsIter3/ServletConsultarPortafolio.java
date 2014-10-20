@@ -47,13 +47,14 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("				  <td><h3><strong><p align=\"center\"> Operaci&oacute;n </p></strong></h3></td>");
 			out.println("				  <td><h3><strong><p align=\"center\"> Porcentaje de la Operaci&oacute;n </h3></strong></h2></td>");
 			out.println("			</tr>");
-			for (int i =0 ; i<composicion.size(); i++)
+			int tamanio = composicion.size();
+			for (int i =0 ; i<tamanio; i++)
 			{
 				ComposicionValue actual = (ComposicionValue)composicion.get(i);
 				out.println("			<tr>");
-				out.println("				  <td id = \"idPortafolio"+i+"><h4><p align=\"center\"> "+ actual.getIdPortafolio() +"</p></h4></td>");
-				out.println("				  <td id = \"idValor"+i+"><h4><p align=\"center\">"+actual.getIdValor()+"</p></h4></td>");
-				out.println("				  <td id = \"porcentaje"+i+"><h4><p align=\"center\">"+actual.getPorcentaje()+"</p></h4></td>");
+				out.println("				  <td id = \"idPortafolio><h4><p align=\"center\"> "+ actual.getIdPortafolio() +"</p></h4></td>");
+				out.println("				  <td id = \"idValor><h4><p align=\"center\">"+actual.getIdValor()+"</p></h4></td>");
+				out.println("				  <td id = \"porcentaje><h4><p align=\"center\">"+actual.getPorcentaje()+"</p></h4></td>");
 				out.println("				  <td><h4><p align=\"center\">");
 				out.println("				  	<select id = \"opcion"+i+"\"> ");
 				out.println("				  		<option value = \"default\"> default </option>");
@@ -63,7 +64,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 				out.println("				  	</select> <p align=\"center\">");
 				out.println("				  </p></h4></td> ");
 				out.println("				  <td><h4><p align=\"center\">");
-				out.println("				  <input type= \"text\" name=\"porcentajeO"+i+"\" placeholder=\"Porcentaje de la operaci&oacute;n\">");
+				out.println("				  <input type= \"text\" name=\"porcentajeOperacion"+i+"\" placeholder=\"Porcentaje de la operaci&oacute;n\">");
 				out.println("				  </p></h4></td>");
 				out.println("			</tr>");
 			}
@@ -76,42 +77,13 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("		<table align=\"center\">");
 			out.println("			<tr>");
 			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"idValor1\" align=\"center\" placeholder=\"id del Valor\">");
+			out.println("				  <input type= \"text\" name=\"idValorNuevo\" align=\"center\" placeholder=\"id del Valor\">");
 			out.println("				  </td> ");
 			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"nombreValor1\" align=\"center\" placeholder=\"nombre del Valor\">");
-			out.println("				  </td> ");
-			out.println("			</tr>");
-			out.println("			<tr>");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"idValor2\" align=\"center\" placeholder=\"id del Valor\">");
+			out.println("				  <input type= \"text\" name=\"nombreValorNuevo\" align=\"center\" placeholder=\"nombre del Valor\">");
 			out.println("				  </td> ");
 			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"nombreValor2\" align=\"center\" placeholder=\"nombre del Valor\">");
-			out.println("				  </td> ");
-			out.println("			</tr>");
-			out.println("			<tr>");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"idValor3\" align=\"center\" placeholder=\"id del Valor\">");
-			out.println("				  </td> ");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"nombreValor3\" align=\"center\" placeholder=\"nombre del Valor\">");
-			out.println("				  </td> ");
-			out.println("			</tr>");
-			out.println("			<tr>");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"idValor4\" align=\"center\" placeholder=\"id del Valor\">");
-			out.println("				  </td> ");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"nombreValor4\" align=\"center\" placeholder=\"nombre del Valor\">");
-			out.println("				  </td> ");
-			out.println("			</tr>");
-			out.println("			<tr>");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"idValor5\" align=\"center\" placeholder=\"id del Valor\">");
-			out.println("				  </td> ");
-			out.println("				  <td> ");
-			out.println("				  <input type= \"text\" name=\"nombreValor5\" align=\"center\" placeholder=\"nombre del Valor\">");
+			out.println("				  <input type= \"text\" name=\"porcentajeValorNuevo\" align=\"center\" placeholder=\"porcentaje del Valor\">");
 			out.println("				  </td> ");
 			out.println("			</tr>");
 			out.println("		</table>");

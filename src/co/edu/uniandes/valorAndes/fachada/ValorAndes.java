@@ -107,7 +107,7 @@ public class ValorAndes
 		return dao.darComposicionPortafolio(nIdPortafolio);
 	}
 	
-	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ArrayList<ValorAgregarValue> valores) throws Exception
+	public boolean recomponerPortafolio( ArrayList<String> decisiones, ArrayList<Integer> porcentajes, ValorAgregarValue valores) throws Exception
 	{
 		return dao.recomponerPortafolio(decisiones, porcentajes, valores);
 	}
