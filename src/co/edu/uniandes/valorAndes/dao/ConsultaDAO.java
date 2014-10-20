@@ -735,6 +735,9 @@ public class ConsultaDAO {
 	 */
 	public boolean ordenarOperacion( int id, String tipo, Double valor, int idUsuario1, int idComisionista1, int idInstrumento, String fechaInic) throws Exception
 	{
+		
+		conexion.setAutoCommit(false);
+		conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 		PreparedStatement prepStmt = null;
 		
 		
@@ -797,6 +800,9 @@ public class ConsultaDAO {
 	 */
 	public boolean cancelarOperacion( int id,  int idComisionista1) throws Exception
 	{
+		
+		conexion.setAutoCommit(false);
+		conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 		PreparedStatement prepStmt = null;
 
 		try {
@@ -852,6 +858,8 @@ public class ConsultaDAO {
 	 */
 	public boolean registrarOperacion( int id,  int idComisionista1, int idComisionista2,Double valor, String fechaFin) throws Exception
 	{
+		conexion.setAutoCommit(false);
+		conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 		PreparedStatement prepStmt = null;
 
 		try {
