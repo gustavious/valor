@@ -524,7 +524,7 @@ public class ConsultaDAO {
 
 					Calendar fecha = new GregorianCalendar();
 
-					int año = fecha.get(Calendar.YEAR);
+					int anio = fecha.get(Calendar.YEAR);
 					int mes = fecha.get(Calendar.MONTH) + 1;
 					int dia = fecha.get(Calendar.DAY_OF_MONTH);
 					int hora = fecha.get(Calendar.HOUR_OF_DAY);
@@ -532,7 +532,7 @@ public class ConsultaDAO {
 
 
 
-					String fechaInic = año +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
+					String fechaInic = anio +  String.format("%02d",mes) +  String.format("%02d",dia)  + String.format( "%02d%02d",hora, minuto);
 
 					ordenarOperacion(200, "Venta", valor, idUsuario1, idComisionista1, idValor, fechaInic);
 				}
