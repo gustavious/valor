@@ -13,7 +13,7 @@ import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 
 public class ServletRecomponer extends ServletTemplate{
 
-	@Override
+@Override
 	public String darTituloPagina(HttpServletRequest request) 
 	{
 		// TODO Auto-generated method stub
@@ -46,7 +46,12 @@ public class ServletRecomponer extends ServletTemplate{
 		for(int i = 1; i<6; i++)
 		{
 			ValorAgregarValue nuevo = new ValorAgregarValue();
-			int idValor = Integer.parseInt(request.getParameter("idValor"+i));
+			int idValor = 0;
+			if(request.getParameter("idValor"+i) != null && !request.getParameter("idValor"+i).equals(""))
+			{
+				idValor = Integer.parseInt(request.getParameter("idValor"+i));
+			}
+			
 			String nombreValor = request.getParameter("nombreValor"+i);
 			nuevo.setIdValor(idValor);
 			nuevo.setNombreValor(nombreValor);
