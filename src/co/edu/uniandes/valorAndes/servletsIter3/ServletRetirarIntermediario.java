@@ -10,7 +10,6 @@ import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
 
 public class ServletRetirarIntermediario extends ServletTemplate
 {
-
 	@Override
 	public String darTituloPagina(HttpServletRequest request) 
 	{
@@ -27,12 +26,12 @@ public class ServletRetirarIntermediario extends ServletTemplate
 	public void escribirContenido(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		PrintWriter out = response.getWriter( );
-		int idUsuario = Integer.parseInt("idUsuario");
-		int idComisionista = Integer.parseInt("idComisionista");
+		int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+		int idComisionista = Integer.parseInt(request.getParameter("idComisionista"));
 		try
 		{
 			valorAndes.retirarIntermediario(idUsuario, idComisionista);
-			out.println("LA TRANSACCIÓN SE REALIZO EXISTOSAMENTE!");
+			out.println("LA TRANSACCIÃ“N SE REALIZO EXISTOSAMENTE!");
 		} 
 		catch (Exception e) 
 		{
@@ -41,5 +40,4 @@ public class ServletRetirarIntermediario extends ServletTemplate
 			e.printStackTrace();
 		}
 	}
-
 }
