@@ -135,6 +135,7 @@ public class ConsultaDAO {
 		try
 		{
 			conexion = DriverManager.getConnection(url,usuario,clave);
+			conexion.setAutoCommit(false);
 		}
 		catch( SQLException exception )
 		{
@@ -735,11 +736,15 @@ public class ConsultaDAO {
 	public boolean ordenarOperacion( int id, String tipo, Double valor, int idUsuario1, int idComisionista1, int idInstrumento, String fechaInic) throws Exception
 	{
 		PreparedStatement prepStmt = null;
+		
+		
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
+			
+		
 
-			String query = " INSERT INTO OPERACION_BURSATIL (ID, TIPO, VALOR,  ID_USUARIO_1, ID_COMISIONISTA_1, ID_INS_FIN,  FECHA_INICIAL) VALUES ( " + id + ", '" + tipo + "', "+ valor +", "+ idUsuario1 +", "+ idComisionista1+", "+ idInstrumento+ ", TO_DATE('" +  fechaInic +"', 'YYYYMMDDHH24MI'))  ";
+			String query = "  INSERT INTO OPERACION_BURSATIL (ID, TIPO, VALOR,  ID_USUARIO_1, ID_COMISIONISTA_1, ID_INS_FIN,  FECHA_INICIAL) VALUES ( " + id + ", '" + tipo + "', "+ valor +", "+ idUsuario1 +", "+ idComisionista1+", "+ idInstrumento+ ", TO_DATE('" +  fechaInic +"', 'YYYYMMDDHH24MI'))  ";
 			String query2 = " UPDATE COMISIONISTA SET ID_USUARIO = " + idUsuario1 + " WHERE NUM_REGISTRO LIKE '"+ idComisionista1+  "' AND ( ID_USUARIO IS NULL OR ID_USUARIO LIKE '" + idUsuario1+ "')";
 
 			System.out.println(query);	
@@ -774,6 +779,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexion.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 
 		}
@@ -829,6 +835,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 
 		}
@@ -899,6 +906,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO: loadRow() =  cerrando una conexiÃ³n.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 
 		}
@@ -978,7 +986,7 @@ public class ConsultaDAO {
 				}
 				
 				nuevo.obtenerValores();
-
+				
 				comisionistas.add(nuevo);
 
 
@@ -999,6 +1007,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 		}		
 		return comisionistas;
@@ -1103,6 +1112,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO:  cerrando la conexion.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 		}		
 		return oferentes;
@@ -1195,6 +1205,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO:  cerrando la conexion.");
 				}
 			}
+			conexion.commit();
 			closeConnection(conexion);
 		}		
 		return inversionistas;
