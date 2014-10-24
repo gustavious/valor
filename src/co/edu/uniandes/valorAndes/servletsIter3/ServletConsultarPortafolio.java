@@ -65,7 +65,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 				out.println("				  	</select> <p align=\"center\">");
 				out.println("				  </p></h4></td> ");
 				out.println("				  <td><h4><p align=\"center\">");
-				out.println("				  <input type= \"text\" name=\"porcentajeOperacion"+i+"\" placeholder=\"Porcentaje de la operaci&oacute;n\">");
+				out.println("				  <input type= \"number\" name=\"porcentajeOperacion"+i+"\" placeholder=\"Porcentaje de la operaci&oacute;n\">");
 				out.println("				  </p></h4></td>");
 				out.println("			</tr>");
 			}
@@ -88,7 +88,9 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("				  </td> ");
 			out.println("			</tr>");
 			out.println("		</table>");
-			out.println("		<button type = \"button\" align=\"center\"> <a href = \"recomponer.htm\">Recomponer</a></button>");
+			out.println("		<input type=\"submit\" name=\"submit\" id=\"submi\" value=\"Recomponer\n\" class=\"btn btn-info pull-right\">");
+			
+			
 			out.println("		</form>");
 		}
 		catch(Exception e)
