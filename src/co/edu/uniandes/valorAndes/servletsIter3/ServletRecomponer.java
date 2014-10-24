@@ -55,10 +55,13 @@ public class ServletRecomponer extends ServletTemplate{
 		}
 
 		String nombreValor = request.getParameter("nombreValorNuevo");
-		int porcentajeValorNuevo = Integer.parseInt(request.getParameter("porcentajeValorNuevo"));
-		nuevo.setIdValor(idValor);
-		nuevo.setNombreValor(nombreValor);
-		nuevo.setPorcentaje(porcentajeValorNuevo);
+		if(request.getParameter("porcentajeValorNuevo") != ""){
+			int porcentajeValorNuevo = Integer.parseInt(request.getParameter("porcentajeValorNuevo"));
+			nuevo.setIdValor(idValor);
+			nuevo.setNombreValor(nombreValor);
+			nuevo.setPorcentaje(porcentajeValorNuevo);
+		}
+		
 
 		PrintWriter out = response.getWriter( );
 		int nIdPortafolio = ((ComposicionValue)valorAndes.darComposicion().get(0)).getIdPortafolio();

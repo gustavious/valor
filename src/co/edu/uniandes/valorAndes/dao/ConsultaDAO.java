@@ -471,9 +471,18 @@ public class ConsultaDAO {
 			int totalidad = 0;
 			for(int i = 0; i < composicion.size(); i++)
 			{
-				String decision = (String)decisiones.get(i);
-				Integer porcentaje = (Integer)porcentajes.get(i);
-				ComposicionValue actual = (ComposicionValue)composicion.get(i);
+				String decision = "";
+
+				
+			if(decisiones.get(i) != null)
+				 decision = (String)decisiones.get(i);
+				
+			Integer porcentaje = (Integer)porcentajes.get(i);
+				
+		
+			ComposicionValue actual = (ComposicionValue)composicion.get(i);
+				
+				
 				if(decision.startsWith("ordenar Compra"))
 				{
 					Integer anterior = actual.getPorcentaje();
