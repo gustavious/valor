@@ -265,7 +265,7 @@ public class OferenteValue
 		
 		for(int i = 0; i < valores.size() ; i++){
 			
-			mensaje += valores.get(i) + "\n";
+			mensaje += valores.get(i) + "<BR>";
 			
 		}
 		
