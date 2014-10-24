@@ -255,7 +255,7 @@ public class OferenteValue
 	}
 
 	
-	public void addValores(Object e) {
+	public void addValores(String e) {
 		this.valores.add(e);
 	}
 	

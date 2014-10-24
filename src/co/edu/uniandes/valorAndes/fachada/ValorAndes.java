@@ -141,10 +141,10 @@ public class ValorAndes
     	
     	
     	try {
-			ValorAndes.darInstancia().dao().darInversionistas();
-		ValorAndes.darInstancia().dao().darComisionistas();
+//			ValorAndes.darInstancia().dao().darInversionistas();
+	ValorAndes.darInstancia().dao().darComisionistas();
 			System.out.println("hola");
-			ValorAndes.darInstancia().dao().darOferentes();
+//			ValorAndes.darInstancia().dao().darOferentes();
 			
 			
 		} catch (Exception e) {

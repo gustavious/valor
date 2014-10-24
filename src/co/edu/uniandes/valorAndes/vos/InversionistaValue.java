@@ -248,7 +248,7 @@ public class InversionistaValue
 		
 		for(int i = 0; i < valores.size() ; i++){
 			
-			mensaje += valores.get(i).toString() + "\n";
+			mensaje += valores.get(i).toString() + "<BR>";
 			
 		}
 		

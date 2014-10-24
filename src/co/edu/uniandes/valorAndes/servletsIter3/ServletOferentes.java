@@ -152,6 +152,11 @@ public class ServletOferentes extends ServletTemplate
 		respuesta.println("          <td>" + actual.getTelefono() + "</td>");
 		respuesta.println("          <td>" + actual.getCiudad() + "</td>");
 		respuesta.println("          <td>" + actual.getNomRepresentante() + "</td>");
+		
+		System.out.println("jajajajaja" + actual.stringValores());
+		
+		
+		
 		respuesta.println("          <td>" + actual.stringValores()+ "</td>");
 		
 		respuesta.println("        </tr>");

@@ -153,7 +153,7 @@ public class ConsultaDAO {
 			connection.close();
 			connection = null;
 		} catch (SQLException exception) {
-			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexiÃ³n.");
+			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexion.");
 		}
 	} 
 
@@ -972,7 +972,7 @@ public class ConsultaDAO {
 
 				ComisionistaValue nuevo = new ComisionistaValue(numRegistro, nombreEntidad, ciudad, direccion, telefono, nomRepresentante);
 				
-				System.out.println("llego");
+				System.out.println(nuevo);
 
 				prepStmt2 = conexion.prepareStatement("SELECT * FROM COMISIONISTA_INVERSIONISTA WHERE ID_COMISIONISTA LIKE " + numRegistro);
 
@@ -990,7 +990,17 @@ public class ConsultaDAO {
 					
 					InversionistaValue actual = (InversionistaValue) inversionistas.get(i);
 					
-					if(actual.getId() == idInv){
+					if(actual.getId().equals(idInv)){
+						
+						System.out.println("paso");
+						System.out.println("paso");
+
+						System.out.println("paso");
+
+						System.out.println("paso");
+
+						
+						
 						nuevo.addInversionista(actual);
 					
 						
@@ -1024,7 +1034,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
 				}
 			}
-			conexion.commit();
+			
 			closeConnection(conexion);
 		}		
 		return comisionistas;
@@ -1089,7 +1099,11 @@ public class ConsultaDAO {
 					
 					int num = Integer.parseInt(id2);
 					
-					if(idUser == idUsuario){
+					
+					
+					if(idUser.equals(idUsuario)){
+						
+						System.out.println(idUser + "----" + idUsuario);
 						
 						nuevo.addValores(name + " " + value);
 						
@@ -1178,9 +1192,9 @@ public class ConsultaDAO {
 				
 				
 				
-				prepStmt2 = conexion.prepareStatement("SELECT * FROM PORTAFOLIO");
+			prepStmt2 = conexion.prepareStatement("SELECT * FROM PORTAFOLIO WHERE ID_USUARIO LIKE " + idUsuario );
 
-				ResultSet rs2 = prepStmt2.executeQuery();
+			ResultSet rs2 = prepStmt2.executeQuery();
 
 				while(rs2.next()){
 					String id2 = rs2.getString("ID");
@@ -1188,17 +1202,15 @@ public class ConsultaDAO {
 					
 					int num = Integer.parseInt(id2);
 					
-					if(idUser == idUsuario){
+					if(idUser.equals(idUsuario)){
 						
 						nuevo.setValores(darComposicionPortafolio(num));
+						establecerConexion(cadenaConexion, usuario, clave);
 						
 					}
 					
-	
-					
 				}
 				
-	
 
 
 
@@ -1222,7 +1234,7 @@ public class ConsultaDAO {
 					throw new Exception("ERROR: ConsultaDAO:  cerrando la conexion.");
 				}
 			}
-			conexion.commit();
+			
 			closeConnection(conexion);
 		}		
 		return inversionistas;

@@ -253,9 +253,12 @@ public class ComisionistaValue
 		
 		ArrayList valores = new ArrayList();
 		
+		
 		for(int i = 0; i < inversionistas.size() ; i++){
 			
-			inversionistas.addAll(((InversionistaValue) inversionistas.get(i)).getValores());
+			InversionistaValue actual = (InversionistaValue) inversionistas.get(i);
+			
+			valores.addAll(actual.getValores());
 			
 		}
 		
@@ -270,7 +273,7 @@ public class ComisionistaValue
 		
 		for(int i = 0; i < valores.size() ; i++){
 			
-			mensaje += ((ComposicionValue) valores.get(i)).getNombreValor() + "\n";
+			mensaje += ((ComposicionValue) valores.get(i)).getNombreValor() + "<BR>";
 			
 		}
 		
@@ -283,14 +286,18 @@ public class ComisionistaValue
 		
 		for(int i = 0; i < inversionistas.size() ; i++){
 			
-			mensaje += inversionistas.get(i).toString() + "\n";
+			mensaje += inversionistas.get(i).toString() + "<BR>";
 			
 		}
 		
 		return mensaje;
 	}
 	
-	
+	public String toString() {
+		
+		
+		return nombreEntidad;
+	}
 	
 	
 	
