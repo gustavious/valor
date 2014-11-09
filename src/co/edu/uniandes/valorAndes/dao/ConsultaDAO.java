@@ -24,6 +24,7 @@ import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.InversionistaValue;
 import co.edu.uniandes.valorAndes.vos.OferenteValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
+import co.edu.uniandes.valorAndes.vos.PortafolioValue;
 import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
@@ -1244,5 +1245,279 @@ public class ConsultaDAO {
 	{
 		return composicion;
 	}
+	
+	
+	/**
+	 * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+	 * @return true si se pudo, false de lo contrario
+	 * @throws Exception se lanza una excepcion si ocurre un error en
+	 * la conexion o en la consulta. 
+	 */
+
+
+	public ArrayList mov(String inic, String fin, String criterio) throws Exception
+	{
+		
+
+		
+		PreparedStatement prepStmt = null;
+		
+
+
+		ArrayList movimientos = new ArrayList();
+		
+
+
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			
+			String query ="SELECT * FROM ((((OPERACION_BURSATIL JOIN ((INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID )"
+					+ " JOIN RENTABILIDAD ON ID_RENTABILIDAD = RENTABILIDAD.ID )ON ID_INS_FIN = INSTRUMENTO_FINANCIERO.ID) JOIN COMISIONISTA ON COMISIONISTA.NUM_REGISTRO = ID_COMISIONISTA_2)"
+					+ " JOIN INVERSIONISTA ON INVERSIONISTA.ID = ID_INVERSIONISTA) JOIN OFERENTE ON OFERENTE.ID = ID_OFERENTE) "
+					+ "WHERE FECHA_FINAL BETWEEN TO_DATE('"+inic+"', 'dd/mm/yyyy') AND TO_DATE('"+fin+"', 'dd/mm/yyyy') AND " + criterio ;
+			
+			System.out.println(query);
+			
+			prepStmt = conexion.prepareStatement(query);
+
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+
+			int count = metaData.getColumnCount();
+			for (int i = 1; i <= count; i++)
+			{
+			   
+			    System.out.println( metaData.getColumnName(i)+" " +i);
+			   
+			}
+			
+
+			while(rs.next()){
+				
+			
+				
+				
+				String numRegistro = rs.getString("ID");
+				String tipoOP = rs.getString("TIPO");
+				String fecha = rs.getString("FECHA_FINAL");
+				String nomInstrumento = rs.getString("NOMBRE");
+				String valorIns = rs.getString(15);
+				String tipoValor = rs.getString(22);
+				String rentabilidad = rs.getString(25);
+				
+				String nomComisionista = rs.getString("NOM_REPRESENTANTE");
+				String nomInversionista = rs.getString("NOMBRE_REPRESENTANTE");
+				String nomOferente = rs.getString(53);
+
+				
+				OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
+				
+
+				
+				movimientos.add(nuevo);
+
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+
+					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
+				}
+			}
+			
+			closeConnection(conexion);
+		}		
+		return movimientos;
+	}
+
+	/**
+	 * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+	 * @return true si se pudo, false de lo contrario
+	 * @throws Exception se lanza una excepcion si ocurre un error en
+	 * la conexion o en la consulta. 
+	 */
+	
+	
+	public ArrayList portafolios(String tipo, String valor) throws Exception
+	{
+		
+	
+		
+		PreparedStatement prepStmt = null;
+		
+	
+	
+		ArrayList portafolios = new ArrayList();
+		
+	
+	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			
+			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN"
+				+	"(INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID ) "
+				+ "ON INSTRUMENTO_FINANCIERO.ID = ID_VALOR WHERE TIPO_VALOR.NOMBRE LIKE '"+tipo+"' AND VALOR >"+valor+";" ;
+			
+			System.out.println(query);
+			
+			prepStmt = conexion.prepareStatement(query);
+	
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+	
+			int count = metaData.getColumnCount();
+			for (int i = 1; i <= count; i++)
+			{
+			   
+			    System.out.println( metaData.getColumnName(i)+" " +i);
+			   
+			}
+			
+	
+			while(rs.next()){
+				
+			
+				
+				
+				String id = rs.getString("ID");
+				String nivelRiesgo = rs.getString("NIVEL_RIESGO");
+				String IdUsuario = rs.getString("ID_USUARIO");
+			
+	
+				
+				PortafolioValue nuevo = new PortafolioValue(id, nivelRiesgo, IdUsuario);
+				
+	
+				
+				portafolios.add(nuevo);
+	
+	
+			}
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+	
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+	
+					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
+				}
+			}
+			
+			closeConnection(conexion);
+		}		
+		return portafolios;
+	}
+
+	/**
+	 * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+	 * @return true si se pudo, false de lo contrario
+	 * @throws Exception se lanza una excepcion si ocurre un error en
+	 * la conexion o en la consulta. 
+	 */
+	
+	
+	public ArrayList valores2(String id) throws Exception
+	{
+		
+	
+		
+		PreparedStatement prepStmt = null;
+		
+	
+	
+		ArrayList portafolios = new ArrayList();
+		
+	
+	
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+			
+			
+			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN"
+				+	"(INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID ) "
+				+ "ON INSTRUMENTO_FINANCIERO.ID = ID_VALOR WHERE INSTRUMENTO_FINANCIERO.ID LIKE '"+id+"'";
+			
+			System.out.println(query);
+			
+			prepStmt = conexion.prepareStatement(query);
+	
+			ResultSet rs = prepStmt.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+	
+			int count = metaData.getColumnCount();
+			for (int i = 1; i <= count; i++)
+			{
+			   
+			    System.out.println( metaData.getColumnName(i)+" " +i);
+			   
+			}
+			
+	
+			while(rs.next()){
+				
+			
+				
+				
+				String id1 = rs.getString("ID");
+				String nivelRiesgo = rs.getString("NIVEL_RIESGO");
+				String IdUsuario = rs.getString("ID_USUARIO");
+			
+	
+				
+				PortafolioValue nuevo = new PortafolioValue(id1, nivelRiesgo, IdUsuario);
+				
+	
+				
+				portafolios.add(nuevo);
+	
+	
+			}
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+	
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+	
+					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
+				}
+			}
+			
+			closeConnection(conexion);
+		}		
+		return portafolios;
+	}
+	
 
 }

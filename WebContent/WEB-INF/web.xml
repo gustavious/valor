@@ -50,7 +50,7 @@
    
    <servlet>
       <servlet-name>ServletAdmin</servlet-name>
-      <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletAdmin</servlet-class>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletAdmin</servlet-class>
    </servlet>
    
     <servlet>
@@ -81,6 +81,26 @@
   <servlet>
       <servlet-name>ServletRetirarIntermediario</servlet-name>
       <servlet-class>co.edu.uniandes.valorAndes.servletsIter3.ServletRetirarIntermediario</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletMovimientos1</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletMovimientos1</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletMovimientos2</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletMovimientos2</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletPortafolios</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletPortafolios</servlet-class>
+   </servlet>
+   
+    <servlet>
+      <servlet-name>ServletValores2</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletValores2</servlet-class>
    </servlet>
    
    
@@ -143,5 +163,25 @@
   <servlet-mapping>
     <servlet-name>ServletRetirarIntermediario</servlet-name>
     <url-pattern>/retirarIntermediario.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletMovimientos1</servlet-name>
+    <url-pattern>/movimientos1.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletMovimientos2</servlet-name>
+    <url-pattern>/movimientos2.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletPortafolios</servlet-name>
+    <url-pattern>/portafolios.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletValores2</servlet-name>
+    <url-pattern>/valores2.htm</url-pattern>
   </servlet-mapping>
 </web-app>

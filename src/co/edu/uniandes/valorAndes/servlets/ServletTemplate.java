@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import co.edu.uniandes.valorAndes.fachada.ValorAndes;
 
 
+
 /**
  * Clase abstacta que implementa un Servlet.
  */
@@ -123,6 +124,13 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("    <!-- Custom CSS -->");
         out.println("    <link href=\"css/landing-page.css\" rel=\"stylesheet\">");
         out.println("");
+        
+       
+
+		 out.println("  <script src=\"//code.jquery.com/jquery-1.11.1.min.js\"></script>");
+        
+        
+        
         out.println("    <!-- Custom Fonts -->");
         out.println("    <link href=\"font-awesome-4.1.0/css/font-awesome.min.css\" rel=\"stylesheet\" type=\"text/css\">");
         out.println("    <link href=\"http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic\" rel=\"stylesheet\" type=\"text/css\">");
@@ -239,9 +247,14 @@ public abstract class ServletTemplate extends HttpServlet {
         out.println("        </div>");
         out.println("    </footer>");
         out.println("");
-        out.println("    <!-- jQuery Version 1.11.0 -->");
-        out.println("    <script src=\"js/jquery-1.11.0.js\"></script>");
-        out.println("");
+        
+        
+        
+        out.println(" <script>");
+        out.println(" $(document).ready(function() {");
+        out.println("     $('#tabla').DataTable();");
+        out.println(" } );	");
+        out.println(" 		</script>");
         out.println("    <!-- Bootstrap Core JavaScript -->");
         out.println("    <script src=\"js/bootstrap.min.js\"></script>");
         out.println("");

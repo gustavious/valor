@@ -27,30 +27,42 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-</head>
-
-<body>
-
-<!-- Libreria jQuery -->
-		<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    
+    
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>;
+<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>;
+<script>
+$(function () {
+$("#datepicker").datepicker();
+});
+</script>;
+ 
+ 
+ 
  
 		<!-- Acción sobre el botó con id=boton y actualizamos el div con id=capa -->
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$("#boton").click(function(event) {
-					$("#capa").load("oferentes.htm", function(response, status, xhr) {
+					$("#capa").load("admin.htm", {login:'admin', password:'admin'}, function(response, status, xhr) {
 						  if (status == "error") {
 						    var msg = "Error!, algo ha sucedido: ";
 						    $("#capa").html(msg + xhr.status + " " + xhr.statusText);
 						  }
 						});
 				});
-			});			
-		</script>
+			});		
+		</script>;
+        
+       
+        
+        
+        
+        </head>
 
 
-
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -93,7 +105,7 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>Valores De Los Andes</h1>
-                        <h3>Modo admin</h3>
+                        <h3>Seguridad y confiabilidad</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
@@ -119,125 +131,47 @@
     <!-- Page Content -->
     
     
-    <div class="content-section-b">
+<div class="content-section-b">
 
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Visualiza los usuarios de la bolsa de valores: <br> </h2>
-                    <span class="section-heading><a href="ordenar.htm" ><a href="comisionistas.htm">Visualizar Intermediarios</a></a></span> <BR>
-                    
-                    <span class="section-heading><a href="inversionistas.htm" ><a href="inversionistas.htm">Visualizar Inversionistas</a></a></span> <BR>
-                    
-                    <span class="section-heading><a href="oferentes.htm" ><a href="oferentes.htm">Visualizar oferentes</a></a></span>  <BR>
-
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/climb.png" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
+            
+            <div class="form-group">Fechas entre las cuales se realizo el movimiento
+              <div class="input-group">
+              
+              Inicial
+                <input type="text" id="datepicker2">
+                
+                
+                
+                              Final
+<input type="text" id="datepicker">
+                       
+              </div>
+              </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+              <div id="capa2">Pulsa 'Actualizar capa' y este texto se actualizará</div>
+                <br>
+                <input name="boton" id="boton" type="button" value="Actualizar capa" />
+          </div>
+          
+          
 
         </div>
         <!-- /.container -->
 
     </div>
-    <!-- /.content-section-a -->
-    
-    
-    <div id="capa">Pulsa 'Actualizar capa' y este texto se actualizará</div>
-	<br>
-   	<input name="boton" id="boton" type="button" value="Actualizar capa" />
-	
-	
-	<div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Retira un intermediario de la bolsa: <br> </h2>
-                    <span class="section-heading><a href="retirarComisionista.html" ><a href="retirarComisionista.html">Retirar Intermediario</a></a></span> <BR>
-
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/comisionista.jpg" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    
-    
-    
-     <!-- /.content-section-a -->
-
-    <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="consultarOperaciones.html">Consulta las operaciones en la bolsa</a></h2>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/stair.png" alt=""  width="260" height="350">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Reorganiza un portafolio de valores: <br> </h2>
-                    <span class="section-heading> <a href="recomponerPortafolio.html" ><a href="recomponerPortafolio.html">Recomponer portafolio</a></a></span> <BR>
-
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/portafolio.jpg" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    
-    
-    
-    
-
-    
-   
-
-        
-   
-    <!-- /.content-section-b -->
+    <!-- /.content-section-a --><!-- /.content-section-a --><!-- /.content-section-b --><div id="capa"><!-- /.content-section-b -->
 
     <!--<div class="content-section-b">
 
@@ -267,31 +201,10 @@
     
     
     
-    <!-- /.content-section-a -->
-
-    <div class="banner">
-
-        <div class="container">
-
-            <div class="row">
-              <div class="col-lg-10">
-                   
-                   
-                   
-                
-                   
-                   
-                   
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
+    <!-- /.content-section-a --><!-- /.banner -->
 
     <!-- Footer -->
+    </div>
     <footer>
         <div class="container">
             <div class="row">

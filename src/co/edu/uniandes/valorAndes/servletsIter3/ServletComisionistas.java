@@ -105,10 +105,20 @@ public class ServletComisionistas extends ServletTemplate
 
 
 
+		respuesta.write(" <link rel=\"stylesheet\" href=\"//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css\">");
+		
+		respuesta.write(" <script src=\"//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js\"></script>");
 		
 		respuesta.write("          <p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p> <div class=\"col-lg-12\">");
 		
+
+		
+		respuesta.write(" <script>");
+		respuesta.write(" $(document).ready(function() {");
+		respuesta.write("     $('#tabla').DataTable();");
+		respuesta.write(" } );	");
+		respuesta.write(" 		</script>");
 		
 
 		
@@ -117,7 +127,7 @@ public class ServletComisionistas extends ServletTemplate
 		respuesta.println("    <div class=\"panel-heading\">Listado de comisionistas:</div>");
 		respuesta.println("");
 		respuesta.println("    <!-- Table -->");
-		respuesta.println("    <table class=\"table table-hover\">");
+		respuesta.println("    <table class=\"table\" id=\"tabla\" >");
 		respuesta.println("      <thead>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero de registro</th>");

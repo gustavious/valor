@@ -1,6 +1,6 @@
 
 
-package co.edu.uniandes.valorAndes.servletsIter3;
+package co.edu.uniandes.valorAndes.servletsIter4;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +21,7 @@ import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
 
 
 @SuppressWarnings("serial")
-public class ServletAdmin extends ServletTemplate
+public class ServletAdmin extends ServletTemplateAjax
 {
 	// -----------------------------------------------------------------
 	// Atributos
@@ -86,7 +86,6 @@ public class ServletAdmin extends ServletTemplate
 			this.imprimirMensajeError(respuesta, "Este usuario no existe dentro de nuestra base de datos ");
 
 		}   
-
 
 
 

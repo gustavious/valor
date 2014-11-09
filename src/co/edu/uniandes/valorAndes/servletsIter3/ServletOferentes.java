@@ -107,11 +107,20 @@ public class ServletOferentes extends ServletTemplate
 		}
 
 
-
+	
+		respuesta.write(" <link rel=\"stylesheet\" href=\"//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css\">");
+		respuesta.write(" <script src=\"//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js\"></script>");
+		
+		
+		
+		
 		
 		respuesta.write("          <p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p> <div class=\"col-lg-12\">");
 		
+
+		
+	
 		
 
 		respuesta.println("    <div class=\"panel panel-primary\">");
@@ -119,7 +128,7 @@ public class ServletOferentes extends ServletTemplate
 		respuesta.println("    <div class=\"panel-heading\">Listado de inversionistas:</div>");
 		respuesta.println("");
 		respuesta.println("    <!-- Table -->");
-		respuesta.println("    <table class=\"table table-hover\">");
+		respuesta.println("    <table class=\"table\" id=\"tabla\">" );
 		respuesta.println("      <thead>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero de registro</th>");
@@ -133,6 +142,10 @@ public class ServletOferentes extends ServletTemplate
 		respuesta.println("        </tr>");
 		respuesta.println("      </thead>");
 		respuesta.println("      <tbody>");
+		
+		
+		
+		
 		
 		
 		
@@ -175,6 +188,9 @@ public class ServletOferentes extends ServletTemplate
 
 		respuesta.write("          </div><p>&nbsp;</p>");
 		respuesta.write("          <p>&nbsp;</p>");
+		
+		
+	
 		
 	}
 

@@ -27,30 +27,111 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
-</head>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
 
-<body>
 
-<!-- Libreria jQuery -->
-		<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+		<!-- Acción sobre el botó con id=boton y actualizamos el div con id=capa -->
+		
+        
+        <script>
+		$(function() {
+    $( "#inicio" ).datepicker({
+	dateFormat: "dd/mm/yy",
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#fin" ).datepicker( "option", "minDate", selectedDate );
+      }, 
+    });
+	
+    $( "#fin" ).datepicker({
+	dateFormat: "dd/mm/yy",
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#inicio" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+	
+	
+	 
+   
+    $( "#criterio" ).selectmenu({
+		
+		change: function( event, data ) {
+     $('#palabra').show(); 
+	 $('#lblboton').show();
+	 $('#boton').show(); 
+		}
+	 
+	   });
+    
+	
+	
+	
+  });
+  </script>
+  
+  
  
 		<!-- Acción sobre el botó con id=boton y actualizamos el div con id=capa -->
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$("#boton").click(function(event) {
-					$("#capa").load("oferentes.htm", function(response, status, xhr) {
+					
+					var inicio = $( "#inicio" ).val();
+					var fin = $( "#fin" ).val();
+					
+					var criterio = $( "#criterio" ).val();
+					var palabra = $( "#palabra" ).val();
+					
+					
+					$("#capa").load("movimientos1.htm", {inicio:inicio, fin:fin, criterio:criterio, palabra:palabra}, function(response, status, xhr) {
 						  if (status == "error") {
 						    var msg = "Error!, algo ha sucedido: ";
 						    $("#capa").html(msg + xhr.status + " " + xhr.statusText);
 						  }
 						});
 				});
-			});			
+			});	
+			
+		
+$(document).ready(function() {
+    $('#tabla').DataTable();
+} );	
+			
+				
 		</script>
+ 
+        
+        
+        
+        </head>
 
 
-
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -93,7 +174,7 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>Valores De Los Andes</h1>
-                        <h3>Modo admin</h3>
+                        <h3>Seguridad y confiabilidad</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>
@@ -119,125 +200,64 @@
     <!-- Page Content -->
     
     
-    <div class="content-section-b">
+<div class="content-section-b">
 
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Visualiza los usuarios de la bolsa de valores: <br> </h2>
-                    <span class="section-heading><a href="ordenar.htm" ><a href="comisionistas.htm">Visualizar Intermediarios</a></a></span> <BR>
-                    
-                    <span class="section-heading><a href="inversionistas.htm" ><a href="inversionistas.htm">Visualizar Inversionistas</a></a></span> <BR>
-                    
-                    <span class="section-heading><a href="oferentes.htm" ><a href="oferentes.htm">Visualizar oferentes</a></a></span>  <BR>
+            
+            <div class="form-group">Fechas entre las cuales se realizó el movimiento
+              <div class="input-group">
+              
+              <label for="from">Desde</label>
+<input type="text" id="inicio" name="inicio" required>
+<label for="to">Hasta</label>
+<input type="text" id="fin" name="fin" required>
+                       
+              </div>
+              </div>
+              <BR>
+              <BR>
+              
+              
+               <label for="criterio">seleccione un criterio:</label>
+    <select name="criterio" id="criterio">
+      <option value="nombre">Nombre del valor</option>
+      <option value="tipo">Tipo del valor</option>
+      <option value="rentabilidad" >Tipo de rentabilidad</option>
+      <option value="comisionista">Nombre del comisionista</option>
+      <option value="oferente">Nombre del oferente</option>
+      <option value="inversionista">Nombre del inversionista</option>
+    </select>
+<BR><BR>
 
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/climb.png" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-    
-    
-    <div id="capa">Pulsa 'Actualizar capa' y este texto se actualizará</div>
-	<br>
-   	<input name="boton" id="boton" type="button" value="Actualizar capa" />
-	
-	
-	<div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Retira un intermediario de la bolsa: <br> </h2>
-                    <span class="section-heading><a href="retirarComisionista.html" ><a href="retirarComisionista.html">Retirar Intermediario</a></a></span> <BR>
-
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/comisionista.jpg" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    
-    
-    
-     <!-- /.content-section-a -->
-
-    <div class="content-section-b">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading"><a href="consultarOperaciones.html">Consulta las operaciones en la bolsa</a></h2>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="img/stair.png" alt=""  width="260" height="350">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="content-section-a">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Reorganiza un portafolio de valores: <br> </h2>
-                    <span class="section-heading> <a href="recomponerPortafolio.html" ><a href="recomponerPortafolio.html">Recomponer portafolio</a></a></span> <BR>
-
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img src="img/portafolio.jpg" alt="" width="260" height="350" class="img-responsive">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    
-    
-    
-    
-
-    
-   
-
+            
+            <label  id="lblboton" style="display:none;" >Ingrese el criterio deseado</label>
+            
+            <input type="text" id="palabra" name="filtro" style="display:none;" >
+ 
+                
+                <input name="boton" id="boton" type="button" value="Realizar búsqueda"  style="display:none;" />
+          </div>
+          </div>
+          
+          </div>
+          
+<div class="container-fluid">      
+        <div id="capa">
+              
+              
+              
+              
+              
+              </div>
+         </div>
         
-   
-    <!-- /.content-section-b -->
+        
+        
+
+    </div>
+    <!-- /.content-section-a --><!-- /.content-section-a --><!-- /.content-section-b --><!-- /.content-section-b -->
 
     <!--<div class="content-section-b">
 
@@ -267,31 +287,10 @@
     
     
     
-    <!-- /.content-section-a -->
-
-    <div class="banner">
-
-        <div class="container">
-
-            <div class="row">
-              <div class="col-lg-10">
-                   
-                   
-                   
-                
-                   
-                   
-                   
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
+    <!-- /.content-section-a --><!-- /.banner -->
 
     <!-- Footer -->
+    </div>
     <footer>
         <div class="container">
             <div class="row">
@@ -317,11 +316,7 @@
         </div>
     </footer>
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+ 
 
 </body>
 

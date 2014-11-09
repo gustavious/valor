@@ -27,9 +27,25 @@ public class OperacionValue
 	
 	private Date fechaFin;
 	
+	private String nomComisionista;
 	
+	private String nomInstrumento;
 	
-
+	private String rentabilidad;
+	
+	private String valorIns;
+	
+	private String nomOferente;
+	
+	private String nomInversionista;
+	
+	private String numRegistro;
+	
+	private String tipoOP;
+	
+	private String fecha;
+	
+	private String tipoValor;
 	
 
 
@@ -52,6 +68,28 @@ public class OperacionValue
 		
 	}
 
+
+	public OperacionValue(String numRegistro, String tipoOP, String fecha,
+			String nomInstrumento2, String valorIns2, String tipoValor,
+			String rentabilidad2, String nomComisionista2,
+			String nomInversionista2, String nomOferente2) {
+		
+		this.numRegistro = numRegistro;
+		this.tipoOP = tipoOP;
+		this.fecha = fecha;
+		this.nomInstrumento = nomInstrumento2;
+		this.valorIns = valorIns2;
+		this.tipoValor = tipoValor;
+		this.rentabilidad = rentabilidad2;
+		this.nomComisionista = nomComisionista2;
+		this.nomInversionista = nomInversionista2;
+		this.nomOferente = nomOferente2;
+				
+		
+		
+		
+		
+	}
 
 	public int getId() {
 		return id;
@@ -160,6 +198,86 @@ public class OperacionValue
 
 	public void setIdComisionista2(int idComisionista2) {
 		this.idComisionista2 = idComisionista2;
+	}
+
+	public String getNomComisionista() {
+		return nomComisionista;
+	}
+
+	public void setNomComisionista(String nomComisionista) {
+		this.nomComisionista = nomComisionista;
+	}
+
+	public String getNomInstrumento() {
+		return nomInstrumento;
+	}
+
+	public void setNomInstrumento(String nomInstrumento) {
+		this.nomInstrumento = nomInstrumento;
+	}
+
+	public String getRentabilidad() {
+		return rentabilidad;
+	}
+
+	public void setRentabilidad(String rentabilidad) {
+		this.rentabilidad = rentabilidad;
+	}
+
+	public String getValorIns() {
+		return valorIns;
+	}
+
+	public void setValorIns(String valorIns) {
+		this.valorIns = valorIns;
+	}
+
+	public String getNomOferente() {
+		return nomOferente;
+	}
+
+	public void setNomOferente(String nomOferente) {
+		this.nomOferente = nomOferente;
+	}
+
+	public String getNomInversionista() {
+		return nomInversionista;
+	}
+
+	public void setNomInversionista(String nomInversionista) {
+		this.nomInversionista = nomInversionista;
+	}
+
+	public String getNumRegistro() {
+		return numRegistro;
+	}
+
+	public void setNumRegistro(String numRegistro) {
+		this.numRegistro = numRegistro;
+	}
+
+	public String getTipoOP() {
+		return tipoOP;
+	}
+
+	public void setTipoOP(String tipoOP) {
+		this.tipoOP = tipoOP;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getTipoValor() {
+		return tipoValor;
+	}
+
+	public void setTipoValor(String tipoValor) {
+		this.tipoValor = tipoValor;
 	}
 	
 	
