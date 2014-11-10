@@ -88,22 +88,22 @@ public class ServletMovimientos1 extends ServletTemplateAjax
 		String decision = "";
 
 		if(criterio.equals("nombre")){
-			decision = "ISTRUMENTO_FINANCIERO.NOMBRE LIKE '" +palabra+ "'";
+			decision = "ISNTRUMENTO_FINANCIERO.NOMBRE = '" +palabra+ "'";
 		}
 		else if(criterio.equals("tipo")){
-			decision = "TIPO_VALOR.NOMBRE LIKE '" +palabra+ "'";
+			decision = "TIPO_VALOR.NOMBRE = '" +palabra+ "'";
 		}
 		else if(criterio.equals("rentabilidad")){
-			decision = "RENTABILIDAD.NOMBRE LIKE '" +palabra+ "'";
+			decision = "RENTABILIDAD.NOMBRE = '" +palabra+ "'";
 		}
 		else if(criterio.equals("comisionista")){
-			decision = "COMISIONISTA.NOM_REPRESENTANTE LIKE '" +palabra+ "'";
+			decision = "COMISIONISTA.NOM_REPRESENTANTE = '" +palabra+ "'";
 		}
 		else if(criterio.equals("inversionista")){
-			decision = "NOMBRE_REPRESENTANTE LIKE '" +palabra+ "'";
+			decision = "NOMBRE_REPRESENTANTE = '" +palabra+ "'";
 		}
 		else if(criterio.equals("oferente")){
-			decision = "OFERENTE.NOM_REPRESENTANTE LIKE '" +palabra+ "'";
+			decision = "OFERENTE.NOM_REPRESENTANTE = '" +palabra+ "'";
 		}
 
 

@@ -1065,7 +1065,7 @@ public class ConsultaDAO {
 
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
-			prepStmt = conexion.prepareStatement("SELECT * FROM OFERENTE");
+			prepStmt = conexion.prepareStatement("SELECT * FROM OFERENTE WHERE ID < 30");
 
 			ResultSet rs = prepStmt.executeQuery();
 
@@ -1087,7 +1087,7 @@ public class ConsultaDAO {
 				
 				
 				
-				prepStmt2 = conexion.prepareStatement("SELECT * FROM INSTRUMENTO_FINANCIERO");
+				prepStmt2 = conexion.prepareStatement("SELECT * FROM INSTRUMENTO_FINANCIERO WHERE ID < 100");
 
 				ResultSet rs2 = prepStmt2.executeQuery();
 
@@ -1368,9 +1368,9 @@ public class ConsultaDAO {
 			establecerConexion(cadenaConexion, usuario, clave);
 			
 			
-			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN"
+			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN "
 				+	"(INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID ) "
-				+ "ON INSTRUMENTO_FINANCIERO.ID = ID_VALOR WHERE TIPO_VALOR.NOMBRE LIKE '"+tipo+"' AND VALOR >"+valor+";" ;
+				+ "ON INSTRUMENTO_FINANCIERO.ID = ID_VALOR WHERE TIPO_VALOR.NOMBRE  '"+tipo+"' AND VALOR > "+valor+";" ;
 			
 			System.out.println(query);
 			

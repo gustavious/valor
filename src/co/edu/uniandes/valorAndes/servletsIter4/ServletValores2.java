@@ -151,8 +151,9 @@ public class ServletValores2 extends ServletTemplateAjax
 		respuesta.println("      <thead>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero del portafolio</th>");
-		respuesta.println("          <th>Tipo de movimiento</th>");
-		respuesta.println("          <th>Fecha</th>");
+		respuesta.println("          <th>ID del usuario</th>");
+		respuesta.println("          <th>Tipo de portafolio</th>");
+
 		
 		respuesta.println("        </tr>");
 		respuesta.println("      </thead>");
@@ -162,8 +163,8 @@ public class ServletValores2 extends ServletTemplateAjax
 		respuesta.println("      <tfoot>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero del portafolio</th>");
-		respuesta.println("          <th>Tipo de movimiento</th>");
-		respuesta.println("          <th>Fecha</th>");
+		respuesta.println("          <th>ID del usuario</th>");
+		respuesta.println("          <th>Tipo de portafolio</th>");
 
 		
 		respuesta.println("        </tr>");
