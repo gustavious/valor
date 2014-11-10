@@ -1311,6 +1311,8 @@ public class ConsultaDAO {
 				String nomComisionista = rs.getString("NOM_REPRESENTANTE");
 				String nomInversionista = rs.getString("NOMBRE_REPRESENTANTE");
 				String nomOferente = rs.getString(53);
+				
+				System.out.println(numRegistro);
 
 				
 				OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
@@ -1500,7 +1502,7 @@ public class ConsultaDAO {
 				String IdUsuario = rs.getString("ID_USUARIO");
 				String nombre = rs.getString("NOMBRE");
 				String fechaExp = rs.getString("FECHA_EXPIRACION");
-			
+		System.out.println(id1);
 	
 				
 				PortafolioValue nuevo = new PortafolioValue(id1, nivelRiesgo, IdUsuario, nombre, fechaExp);

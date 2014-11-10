@@ -23,7 +23,7 @@ Autor: Juan Diego Toro
 	
 	<target name="init" description="Inicializa las propiedades">
 		<!-- Cambie esta línea según el punto en el que esté instalado JBboss -->
-		<property name="jboss.home" value="F:\Users\Gustavo\SkyDrive\SisTrans\jboss-4.0.5.GA"/>
+		<property name="jboss.home" value="C:\Users\USUARIO\SkyDrive\SisTrans\jboss-4.0.2"/>
 		
 		<!-- Definición de propiedades -->
 		<property name="server.path" value="server/default" />
