@@ -19,13 +19,35 @@ public class PortafolioValue {
 	private String fechaInicio;
 	
 	private String fechaFin;
+
+	private String nombre;
+
+	private String fechaExp;
 	
 
-	public PortafolioValue(String idUsuario, String niveRiesgo, String id) {
+	public PortafolioValue(String idUsuario, String niveRiesgo, String id, String nombre, String fechaExp) {
 		super();
 		this.idUsuario = idUsuario;
 		this.niveRiesgo = niveRiesgo;
 		this.id = id;
+		this.nombre = nombre;
+		this.fechaExp = fechaExp; 
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getFechaExp() {
+		return fechaExp;
+	}
+
+	public void setFechaExp(String fechaExp) {
+		this.fechaExp = fechaExp;
 	}
 
 	public String getIdUsuario() {

@@ -1318,6 +1318,10 @@ public class ConsultaDAO {
 
 				
 				movimientos.add(nuevo);
+				
+				if(movimientos.size()>5000){
+					break;
+				}
 
 
 			}
@@ -1367,10 +1371,11 @@ public class ConsultaDAO {
 		try {
 			establecerConexion(cadenaConexion, usuario, clave);
 			
-			
-			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN "
-				+	"(INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID ) "
-				+ "ON INSTRUMENTO_FINANCIERO.ID = ID_VALOR WHERE TIPO_VALOR.NOMBRE  = '"+tipo+"' AND VALOR > '"+valor+"';" ;
+			int numero = Integer.parseInt(valor);
+			String query ="SELECT * FROM (PORTAFOLIO JOIN COMPOSICION ON COMPOSICION.ID_PORTAFOLIO = PORTAFOLIO.ID) JOIN "
+				+	"(INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON INSTRUMENTO_FINANCIERO.TIPO_VALOR = TIPO_VALOR.ID ) "
+				+ "ON INSTRUMENTO_FINANCIERO.ID = COMPOSICION.ID_VALOR WHERE TIPO_VALOR.NOMBRE  = '"+tipo+"' "
+					+ "AND INSTRUMENTO_FINANCIERO.VALOR > "+numero+"" ;
 			
 			System.out.println(query);
 			
@@ -1379,16 +1384,16 @@ public class ConsultaDAO {
 			ResultSet rs = prepStmt.executeQuery();
 			
 			
-			ResultSetMetaData metaData = rs.getMetaData();
-	
-			int count = metaData.getColumnCount();
-			for (int i = 1; i <= count; i++)
-			{
-			   
-			    System.out.println( metaData.getColumnName(i)+" " +i);
-			   
-			}
-			
+//			ResultSetMetaData metaData = rs.getMetaData();
+//	
+//			int count = metaData.getColumnCount();
+//			for (int i = 1; i <= count; i++)
+//			{
+//			   
+//			    System.out.println( metaData.getColumnName(i)+" " +i);
+//			   
+//			}
+//			
 	
 			while(rs.next()){
 				
@@ -1398,14 +1403,21 @@ public class ConsultaDAO {
 				String id = rs.getString("ID");
 				String nivelRiesgo = rs.getString("NIVEL_RIESGO");
 				String IdUsuario = rs.getString("ID_USUARIO");
+				String nombre = rs.getString("NOMBRE");
+				String fechaExp = rs.getString("FECHA_EXPIRACION");
+				System.out.println(id);
 			
 	
 				
-				PortafolioValue nuevo = new PortafolioValue(id, nivelRiesgo, IdUsuario);
+				PortafolioValue nuevo = new PortafolioValue(id, nivelRiesgo, IdUsuario,nombre, fechaExp);
 				
 	
 				
 				portafolios.add(nuevo);
+				
+				if(portafolios.size()>5000){
+					break;
+				}
 	
 	
 			}
@@ -1486,14 +1498,20 @@ public class ConsultaDAO {
 				String id1 = rs.getString("ID");
 				String nivelRiesgo = rs.getString("NIVEL_RIESGO");
 				String IdUsuario = rs.getString("ID_USUARIO");
+				String nombre = rs.getString("NOMBRE");
+				String fechaExp = rs.getString("FECHA_EXPIRACION");
 			
 	
 				
-				PortafolioValue nuevo = new PortafolioValue(id1, nivelRiesgo, IdUsuario);
+				PortafolioValue nuevo = new PortafolioValue(id1, nivelRiesgo, IdUsuario, nombre, fechaExp);
 				
 	
 				
 				portafolios.add(nuevo);
+				
+				if(portafolios.size()>5000){
+					break;
+				}
 	
 	
 			}

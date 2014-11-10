@@ -151,8 +151,10 @@ public class ServletPortafolios extends ServletTemplateAjax
 		respuesta.println("      <thead>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero del portafolio</th>");
-		respuesta.println("          <th>Tipo de movimiento</th>");
-		respuesta.println("          <th>Fecha</th>");
+		respuesta.println("          <th>Tipo de portafolio</th>");
+		respuesta.println("          <th>ID del usuario</th>");
+		respuesta.println("          <th>Nobre Valor</th>");
+		respuesta.println("          <th>Fecha Actividad Portafolio</th>");
 		
 		respuesta.println("        </tr>");
 		respuesta.println("      </thead>");
@@ -162,8 +164,10 @@ public class ServletPortafolios extends ServletTemplateAjax
 		respuesta.println("      <tfoot>");
 		respuesta.println("        <tr>");
 		respuesta.println("          <th>Numero del portafolio</th>");
-		respuesta.println("          <th>Tipo de movimiento</th>");
-		respuesta.println("          <th>Fecha</th>");
+		respuesta.println("          <th>Tipo de portafolio</th>");
+		respuesta.println("          <th>ID del usuario</th>");
+		respuesta.println("          <th>Nobre Valor</th>");
+		respuesta.println("          <th>Fecha Actividad Portafolio</th>");
 
 		
 		respuesta.println("        </tr>");
@@ -196,6 +200,8 @@ public class ServletPortafolios extends ServletTemplateAjax
 			respuesta.println("          <td>" + actual.getId() + "</td>");
 			respuesta.println("          <td>" + actual.getNiveRiesgo() + "</td>");
 			respuesta.println("          <td>" + actual.getIdUsuario() + "</td>");
+			respuesta.println("          <td>" + actual.getNombre() + "</td>");
+			respuesta.println("          <td>" + actual.getFechaExp() + "</td>");
 		
 
 			respuesta.println("        </tr>");
