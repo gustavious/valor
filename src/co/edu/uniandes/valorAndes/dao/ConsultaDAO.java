@@ -19,6 +19,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.naming.InitialContext;
+
 import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
 import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.InversionistaValue;
@@ -77,17 +83,58 @@ public class ConsultaDAO {
 
 
 	private ArrayList<ComposicionValue> composicion;
+	
+	
+	private ConnectionFactory cf;
+	
+	private Connection conex;
+	
+	private Session sesion;
+	
+	private Destination destino;
+	
+	private MessageProducer mp;
 
+
+	
+
+	
+	
 	/**
-	 * constructor de la clase. No inicializa ningun atributo.
+	 * Método constructor de la clase DAO. Inicializa los atributos por medio de
+	 * JNDI.
 	 */
-	public ConsultaDAO() 
-	{		
+	public ConsultaDAO() {
+		
 		composicion = new ArrayList<ComposicionValue>();
+		try {
+			// Inicia el contexto según la interfaz dada por JBOSS.
+			InitialContext init = new InitialContext();
+			this.cf = (ConnectionFactory) init.lookup("RemoteConnectionFactory");
+			this.destino = (Destination) init.lookup("queue/testCola");
+			this.conex = (Connection) this.cf.createConnection("sistrans", "test");
+			((javax.jms.Connection) this.conex).start();
+			this.sesion = ((javax.jms.Connection) this.conex).createSession(false, Session.AUTO_ACKNOWLEDGE);
+			this.mp = this.sesion.createProducer(this.destino);
+
+
+			System.out.println("ValorAndes - Se conecto a la fabrica de conexiones de forma adecuada..");
+		} catch (Exception e) {
+			// Ocurrio un error y se imprimira por consola
+			e.printStackTrace();
+		}
+
 	}
 
+	
+	
+	
+	
+	
+
+
 	// -------------------------------------------------
-	// MÃƒÂ©todos
+	// Metodos
 	// -------------------------------------------------
 
 	/**
@@ -143,6 +190,22 @@ public class ConsultaDAO {
 			throw new SQLException( "ERROR: ConsultaDAO obteniendo una conexion." );
 		}
 	}
+	
+	
+	
+	/**
+	 * Método que abre las conexiones para realizar transacciones.
+	 */
+
+	private void iniciarConexion() {
+		try {
+			System.out.println("ValorAndes 1 - Abriendo conexiones..");
+			conex = (Connection) cf.createConnection();
+		} catch (Exception e) {
+			// Error al crear las conexiones
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 *Cierra la conexiÃƒÂ³n activa a la base de datos. AdemÃƒÂ¡s, con=null.
@@ -157,6 +220,21 @@ public class ConsultaDAO {
 			throw new Exception("ERROR: ConsultaDAO: closeConnection() = cerrando una conexion.");
 		}
 	} 
+	
+	
+	/**
+	 * Método que cierra las conexiones una vez se ha realizado la transacción.
+	 */
+
+	private void cerrarConexion() {
+		System.out.println("WebApp 1 - Cerrando.. conexiones");
+		try {
+			conex.close();
+		} catch (Exception e) {
+			// Error al cerrar las conexiones
+			e.printStackTrace();
+		}
+	}
 
 
 	public String darUsuario()
