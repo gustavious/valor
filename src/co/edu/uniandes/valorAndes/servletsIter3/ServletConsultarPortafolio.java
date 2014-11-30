@@ -39,7 +39,7 @@ public class ServletConsultarPortafolio extends ServletTemplate
 			out.println("		<br/>");
 			out.println("		<br/>");
 			out.println("		<br/>");
-			out.println("		<form role=\"form\"  id=\"form1\" name=\"form1\" method=\"post\" action=\"recomponer.htm\">");
+			out.println("		<form role=\"form\"  id=\"form1\" name=\"form1\" method=\"post\" action=\"asegurarRecomponer.html\">");
 			out.println("		<table>");
 			out.println("			<tr>");
 			out.println("				  <td><h3><strong><p align=\"center\"> Id del Portafolio </p></strong></h3></td>");

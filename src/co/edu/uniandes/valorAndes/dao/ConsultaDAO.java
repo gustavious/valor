@@ -937,6 +937,12 @@ public class ConsultaDAO {
 			prepStmt = conexion.prepareStatement(query );
 			System.out.println(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
+			if( rs == null )
+			{
+				sender.enviarMensaje("ConsultarPortafolio: " + nIdPortafolio );
+				return null;
+			}
+			else{
 			while(rs.next())
 			{
 				int idPortafolio = rs.getInt("ID_PORTAFOLIO");
@@ -951,7 +957,7 @@ public class ConsultaDAO {
 				nueva = new ComposicionValue();
 			}
 			return composicion;
-
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
