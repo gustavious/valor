@@ -30,6 +30,11 @@ public class Sender {
     	
   	}
 	
+	public Sender( )
+	{
+		
+	}
+	
 	public boolean enviarMensaje(String mensaje) throws IOException
 	{
 		boolean ya = false;
