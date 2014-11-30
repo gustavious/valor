@@ -1,4 +1,6 @@
 package co.edu.uniandes.valorAndes.serveletsFinal;
+import java.io.IOException;
+
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
@@ -27,4 +29,28 @@ public class Sender {
     	connection.close();
     	
   	}
+	
+	public boolean enviarMensaje(String mensaje) throws IOException
+	{
+		boolean ya = false;
+		ConnectionFactory factory = new ConnectionFactory();
+	    factory.setHost("localhost");
+//		factory.setHost("157.253.220.84");
+		factory.setPort(5672);
+		factory.setUsername("tavo");
+		factory.setPassword("tavo");
+		
+		Connection connection = factory.newConnection();
+	    Channel channel = connection.createChannel();
+//	    String message = "hola hola";
+	   
+	    //channel.queueDeclare("SC", false, false, false, null);
+		
+	    channel.basicPublish("", QUEUE_NAME, null, mensaje.getBytes());
+	    
+	    System.out.println(" [x] Sent '" + mensaje + "'");
+	    channel.close();
+    	connection.close();
+    	return ya;
+	}
 }
