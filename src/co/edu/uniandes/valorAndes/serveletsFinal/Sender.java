@@ -5,7 +5,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
-public class Sender {
+public class Sender implements Runnable {
 	private final static String QUEUE_NAME = "CF";
 
 	public static void main(String[] argv) throws java.io.IOException {
@@ -57,5 +57,16 @@ public class Sender {
 	    channel.close();
     	connection.close();
     	return ya;
+	}
+
+	@Override
+	public void run() {
+		try {
+			this.main(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
