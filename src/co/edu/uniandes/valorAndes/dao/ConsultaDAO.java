@@ -25,6 +25,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 
+import co.edu.uniandes.valorAndes.serveletsFinal.Reciver;
 import co.edu.uniandes.valorAndes.serveletsFinal.Sender;
 import co.edu.uniandes.valorAndes.vos.ComisionistaValue;
 import co.edu.uniandes.valorAndes.vos.ComposicionValue;
@@ -86,6 +87,8 @@ public class ConsultaDAO {
 
 	private ArrayList<ComposicionValue> composicion;
 
+	private Reciver receiver;
+	
 	private Sender sender;
 
 	private ConnectionFactory cf;
@@ -111,6 +114,7 @@ public class ConsultaDAO {
 
 		composicion = new ArrayList<ComposicionValue>();
 		sender = new Sender();
+		receiver = new Reciver();
 		try {
 			// Inicia el contexto según la interfaz dada por JBOSS.
 			InitialContext init = new InitialContext();
@@ -632,6 +636,15 @@ public class ConsultaDAO {
 			if( !rs1980.next())
 			{
 				sender.enviarMensaje("RequerimientoRetirarIntermediario: el idComisionista es = "+ idComisionista);
+				String mensaje = receiver.recibirMensaje();
+				if( mensaje.contains("Se realizo existosamente"))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 			else
 			{

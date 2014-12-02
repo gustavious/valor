@@ -1,4 +1,4 @@
-package co.edu.uniandes.valorAndes.servletsIter3;
+package co.edu.uniandes.valorAndes.servletsIter5;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
 
-public class ServletRetirarIntermediario extends ServletTemplate
+public class ServletRetirarTotal extends ServletTemplate
 {
+
 	@Override
 	public String darTituloPagina(HttpServletRequest request) 
 	{
-		return "Retirando Intermediarios";
+		return "Retirando Intermediario";
 	}
 
 	@Override
@@ -40,4 +41,5 @@ public class ServletRetirarIntermediario extends ServletTemplate
 			e.printStackTrace();
 		}
 	}
+
 }

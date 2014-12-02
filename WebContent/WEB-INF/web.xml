@@ -21,6 +21,10 @@
   </servlet>
   
   
+  <servlet>
+      <servlet-name>ServletRetirarTotal</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter5.ServletRetirarTotal</servlet-class>
+   </servlet>
   
   
   <servlet>
@@ -103,6 +107,11 @@
       <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletValores2</servlet-class>
    </servlet>
    
+   
+   <servlet-mapping>
+    <servlet-name>ServletRetirarTotal</servlet-name>
+    <url-pattern>/retirarIntermediarioTotal.htm</url-pattern>
+  </servlet-mapping>
    
   
   <servlet-mapping>
