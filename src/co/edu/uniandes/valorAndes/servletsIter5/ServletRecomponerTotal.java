@@ -33,9 +33,13 @@ public class ServletRecomponerTotal extends ServletTemplate
 		for(int i=0; i<5; i++)
 		{
 			RecomponerValue actual = new RecomponerValue();
-			int idValor=Integer.parseInt(request.getParameter("idValor"+i));
-			int porcentaje = Integer.parseInt(request.getParameter("porcentaje"+i));
+			String valor = request.getParameter("idValor"+i)
+			String por = request.getParameter("porcentaje"+i);
 			String decision = request.getParameter("decision"+i);
+			if( valor != null && !valor.equals("") && por!= null && !por.equals("") && decision!= null && !decision.equals(""))
+			int idValor=Integer.parseInt(valor);
+			int porcentaje = Integer.parseInt(por);
+		
 			actual.setDecision(decision);
 			actual.setValorVenta(porcentaje);
 			actual.setIdValor(idValor);
