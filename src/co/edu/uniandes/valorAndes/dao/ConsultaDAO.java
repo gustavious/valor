@@ -57,10 +57,6 @@ public class ConsultaDAO {
 	//----------------------------------------------------
 
 
-
-
-
-
 	//----------------------------------------------------
 	//Atributos
 	//----------------------------------------------------
@@ -88,7 +84,7 @@ public class ConsultaDAO {
 	private ArrayList<ComposicionValue> composicion;
 
 	private Reciver receiver;
-	
+
 	private Sender sender;
 
 	private ConnectionFactory cf;
@@ -543,51 +539,56 @@ public class ConsultaDAO {
 
 	}
 
-	
-	public boolean recomponerPortafolioNuevo( int idPortafolio, ArrayList<RecomponerValue> valores ) throws Exception
+
+	public String recomponerPortafolioNuevo( int idPortafolio, ArrayList<RecomponerValue> valores ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
 		try
 		{
 			establecerConexion(cadenaConexion, usuario, clave);
 
-			conexion.setAutoCommit(false);
-			conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+			String query123 = "SELECT * FROM PORTAFOLIO WHERE ID = " + idPortafolio;
+			prepStmt = conexion.prepareStatement(query123);
+			ResultSet rs = prepStmt.executeQuery();
 
-			
-			
-			for( int i = 0; i< valores.size(); i++)
+			if( !rs.next() )
 			{
-				RecomponerValue valor = (RecomponerValue) valores.get(i);
-				if( valor.getDecision() == RecomponerValue.VENTA_PARCIAL)
+				String message = idPortafolio + ";";
+				for(int i = 0; i< valores.size(); i++)
 				{
-					String query1980 = "UPDATE COMPOSICION SET PORCENTAJE = " + valor.getValorVenta() + " WHERE ID_PORTAFOLIO = "+ idPortafolio + " AND ID_VALOR = " + valor.getIdValor() ;
-					prepStmt = conexion.prepareStatement(query1980);
-					prepStmt.executeUpdate();
+					RecomponerValue actual = (RecomponerValue) valores.get(i);
+					message += actual.getIdValor()+"-"+actual.getDecision()+";";
 				}
-				else if( valor.getDecision() == RecomponerValue.VENTA_TOTAL)
-				{
-					String query1980 = "DELETE FROM COMPOSICION WHERE ID_PORTAFOLIO = "+ idPortafolio +" AND ID_VALOR = " + valor.getIdValor();
-					prepStmt = conexion.prepareStatement(query1980);
-					prepStmt.executeUpdate();
-				}
-				else if( valor.getDecision() == RecomponerValue.COMPRA_PARCIAL)
-				{
-					String query1980 = "UPDATE COMPOSICION SET PORCENTAJE = " + valor.getValorVenta() + " WHERE ID_PORTAFOLIO = "+ idPortafolio + " AND ID_VALOR = " + valor.getIdValor() ;
-					prepStmt = conexion.prepareStatement(query1980);
-					prepStmt.executeUpdate();
-				}
-				else if( valor.getDecision() == RecomponerValue.COMPRA_TOTAL)
-				{
-					String query1980 = "INSERT INTO COMPOSICION (ID_PORTAFOLIO, ID_VALOR, PORCENTAJE) VALUES ( "+ idPortafolio +" , "+ valor.getIdValor() + " , " + valor.getValorVenta()+" )" ;
-					prepStmt = conexion.prepareStatement(query1980);
-					prepStmt.executeUpdate();
-				}
+				sender.enviarMensaje("");
+				String mensaje = receiver.recibirMensaje();
+				return mensaje;
 			}
-			
-			conexion.commit();
-			conexion.setAutoCommit(true);
-			
+			else
+			{
+
+				conexion.setAutoCommit(false);
+				conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+				for( int i = 0; i< valores.size(); i++)
+				{
+					RecomponerValue valor = (RecomponerValue) valores.get(i);
+					if( valor.getDecision() == RecomponerValue.VENTA)
+					{
+						String query1980 = "DELETE FROM COMPOSICION WHERE ID_PORTAFOLIO = "+ idPortafolio +" AND ID_VALOR = " + valor.getIdValor();
+						prepStmt = conexion.prepareStatement(query1980);
+						prepStmt.executeUpdate();
+					}
+					else if( valor.getDecision() == RecomponerValue.COMPRA)
+					{
+						String query1980 = "INSERT INTO COMPOSICION (ID_PORTAFOLIO, ID_VALOR, PORCENTAJE) VALUES ( "+ idPortafolio +" , "+ valor.getIdValor() + " , " + valor.getValorVenta()+" )" ;
+						prepStmt = conexion.prepareStatement(query1980);
+						prepStmt.executeUpdate();
+					}
+				}
+
+				conexion.commit();
+				conexion.setAutoCommit(true);
+				return "La transaccion fue realizada exitosamente, el codigo de verificacion es: " + Math.random();
+			}
 		}
 		catch (SQLException e)
 		{
@@ -611,12 +612,11 @@ public class ConsultaDAO {
 			closeConnection(conexion);
 
 		}
-		return true;
-		
+
 	}
-	
-	
-	
+
+
+
 	public boolean retirarIntermediario2( int idUsuario, int idComisionista ) throws Exception
 	{
 		System.out.println(idUsuario);
@@ -956,20 +956,20 @@ public class ConsultaDAO {
 				return null;
 			}
 			else{
-			while(rs.next())
-			{
-				int idPortafolio = rs.getInt("ID_PORTAFOLIO");
-				nueva.setIdPortafolio(nIdPortafolio);
-				int idValor = rs.getInt("ID_VALOR");
-				nueva.setIdValor(idValor);
-				String nombreValor = rs.getString("NOMBRE");
-				nueva.setNombreValor(nombreValor);
-				int porcentaje = rs.getInt("PORCENTAJE");
-				nueva.setPorcentaje(porcentaje);
-				composicion.add(nueva);
-				nueva = new ComposicionValue();
-			}
-			return composicion;
+				while(rs.next())
+				{
+					int idPortafolio = rs.getInt("ID_PORTAFOLIO");
+					nueva.setIdPortafolio(nIdPortafolio);
+					int idValor = rs.getInt("ID_VALOR");
+					nueva.setIdValor(idValor);
+					String nombreValor = rs.getString("NOMBRE");
+					nueva.setNombreValor(nombreValor);
+					int porcentaje = rs.getInt("PORCENTAJE");
+					nueva.setPorcentaje(porcentaje);
+					composicion.add(nueva);
+					nueva = new ComposicionValue();
+				}
+				return composicion;
 			}
 
 		} catch (SQLException e) {

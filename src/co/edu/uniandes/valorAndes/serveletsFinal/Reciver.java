@@ -27,7 +27,30 @@ public class Reciver implements Runnable {
 		}
 	}
 	
+	public Reciver()
+	{
+		
+	}
 	
+	public String recibirMensaje( ) throws Exception
+	{
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setHost("localhost");
+		factory.setUsername("gus");
+		factory.setPassword("gus");
+		Connection connection = factory.newConnection();
+		Channel channel = connection.createChannel();
+		//channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+		QueueingConsumer consumer = new QueueingConsumer(channel);
+		channel.basicConsume(QUEUE_NAME, true, consumer);
+		while (true) {
+			QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+			String message = new String(delivery.getBody());
+			System.out.println(" [x] Received '" + message + "'");
+			return message;
+		}
+	}
 	@Override
 	public void run() {
 		try {

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import co.edu.uniandes.valorAndes.dao.ConsultaDAO;
 import co.edu.uniandes.valorAndes.vos.ComposicionValue;
 import co.edu.uniandes.valorAndes.vos.OperacionValue;
+import co.edu.uniandes.valorAndes.vos.RecomponerValue;
 import co.edu.uniandes.valorAndes.vos.ValorAgregarValue;
 import co.edu.uniandes.valorAndes.vos.ValorValue;
 import co.edu.uniandes.valorAndes.vos.VideosValue;
@@ -120,6 +121,17 @@ public class ValorAndes
 	public boolean retirarIntermediario( int idUsuario, int idComisionista) throws Exception
 	{
 		return dao.retirarIntermediario(idUsuario, idComisionista);
+	}
+	
+	
+	public boolean retirarNuevo(int idUsuario, int idComisionista) throws Exception
+	{
+		return dao.retirarIntermediario2(idUsuario, idComisionista);
+	}
+	
+	public String recomponerPortafolioNuevo( int idPortafolio, ArrayList<RecomponerValue> valores) throws Exception
+	{
+		return dao.recomponerPortafolioNuevo(idPortafolio, valores);
 	}
 	
 	/**

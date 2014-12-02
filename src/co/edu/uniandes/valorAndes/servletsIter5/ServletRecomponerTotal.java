@@ -2,19 +2,20 @@ package co.edu.uniandes.valorAndes.servletsIter5;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.edu.uniandes.valorAndes.servlets.ServletTemplate;
+import co.edu.uniandes.valorAndes.vos.RecomponerValue;
 
-public class ServletRetirarTotal extends ServletTemplate
+public class ServletRecomponerTotal extends ServletTemplate
 {
-
 	@Override
 	public String darTituloPagina(HttpServletRequest request) 
 	{
-		return "Retirando Intermediario";
+		return "Recomponer Portafolio";
 	}
 
 	@Override
@@ -27,11 +28,11 @@ public class ServletRetirarTotal extends ServletTemplate
 	public void escribirContenido(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		PrintWriter out = response.getWriter( );
-		int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-		int idComisionista = Integer.parseInt(request.getParameter("idComisionista"));
+		int idPortafolio = Integer.parseInt(request.getParameter("idPortafolio"));
+		ArrayList<RecomponerValue> valores = new ArrayList<RecomponerValue>();
 		try
 		{
-			valorAndes.retirarNuevo(idUsuario, idComisionista);
+			valorAndes.recomponerPortafolioNuevo(idPortafolio, valores);
 			out.println("<h2>LA TRANSACCION SE REALIZO EXISTOSAMENTE!</h2>");
 		} 
 		catch (Exception e) 
