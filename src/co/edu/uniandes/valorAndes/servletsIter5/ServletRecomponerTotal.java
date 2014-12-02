@@ -30,6 +30,17 @@ public class ServletRecomponerTotal extends ServletTemplate
 		PrintWriter out = response.getWriter( );
 		int idPortafolio = Integer.parseInt(request.getParameter("idPortafolio"));
 		ArrayList<RecomponerValue> valores = new ArrayList<RecomponerValue>();
+		for(int i=0; i<5; i++)
+		{
+			RecomponerValue actual = new RecomponerValue();
+			int idValor=Integer.parseInt(request.getParameter("idValor"+i));
+			int porcentaje = Integer.parseInt(request.getParameter("porcentaje"+i));
+			String decision = request.getParameter("decision"+i);
+			actual.setDecision(decision);
+			actual.setValorVenta(porcentaje);
+			actual.setIdValor(idValor);
+			valores.add(actual);
+		}
 		try
 		{
 			valorAndes.recomponerPortafolioNuevo(idPortafolio, valores);
