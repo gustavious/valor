@@ -31,8 +31,8 @@ public class ServletRetirarTotal extends ServletTemplate
 		int idComisionista = Integer.parseInt(request.getParameter("idComisionista"));
 		try
 		{
-			valorAndes.retirarIntermediario(idUsuario, idComisionista);
-			out.println("LA TRANSACCION SE REALIZO EXISTOSAMENTE!");
+			valorAndes.retirarNuevo(idUsuario, idComisionista);
+			out.println("<h2>LA TRANSACCION SE REALIZO EXISTOSAMENTE!</h2>");
 		} 
 		catch (Exception e) 
 		{

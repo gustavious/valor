@@ -2,13 +2,10 @@ package co.edu.uniandes.valorAndes.vos;
 
 public class RecomponerValue 
 {
-	public final static String VENTA_TOTAL = "Venta Total";
+	public final static String VENTA = "VENTA";
 	
-	public final static String VENTA_PARCIAL = "Venta Parcial";
+	public final static String COMPRA = "COMPRA";
 	
-	public final static String COMPRA_TOTAL = "Compra Total";
-	
-	public final static String COMPRA_PARCIAL = "Compra Parcial";
 	
 	private int idValor;
 	
