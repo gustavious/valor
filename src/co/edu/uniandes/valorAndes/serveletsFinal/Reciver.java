@@ -1,9 +1,13 @@
 package co.edu.uniandes.valorAndes.serveletsFinal;
+
+import java.io.IOException;
+
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
-public class Reciver {
+public class Reciver implements Runnable {
+	
 	private final static String QUEUE_NAME = "CF";
 	public static void main(String[] argv) throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();
@@ -21,5 +25,20 @@ public class Reciver {
 			String message = new String(delivery.getBody());
 			System.out.println(" [x] Received '" + message + "'");
 		}
+	}
+	
+	
+	@Override
+	public void run() {
+		try {
+			this.main(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
