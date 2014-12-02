@@ -87,8 +87,8 @@ public class ConsultaDAO {
 
 	private ArrayList<ComposicionValue> composicion;
 
-	private Reciver receiver;
-	
+	private Reciver reciver;
+
 	private Sender sender;
 
 	private ConnectionFactory cf;
@@ -114,7 +114,7 @@ public class ConsultaDAO {
 
 		composicion = new ArrayList<ComposicionValue>();
 		sender = new Sender();
-		receiver = new Reciver();
+		reciver = new Reciver();
 		try {
 			// Inicia el contexto según la interfaz dada por JBOSS.
 			InitialContext init = new InitialContext();
@@ -543,7 +543,7 @@ public class ConsultaDAO {
 
 	}
 
-	
+
 	public boolean recomponerPortafolioNuevo( int idPortafolio, ArrayList<RecomponerValue> valores ) throws Exception
 	{
 		PreparedStatement prepStmt = null;
@@ -554,8 +554,8 @@ public class ConsultaDAO {
 			conexion.setAutoCommit(false);
 			conexion.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
-			
-			
+
+
 			for( int i = 0; i< valores.size(); i++)
 			{
 				RecomponerValue valor = (RecomponerValue) valores.get(i);
@@ -584,10 +584,10 @@ public class ConsultaDAO {
 					prepStmt.executeUpdate();
 				}
 			}
-			
+
 			conexion.commit();
 			conexion.setAutoCommit(true);
-			
+
 		}
 		catch (SQLException e)
 		{
@@ -612,11 +612,11 @@ public class ConsultaDAO {
 
 		}
 		return true;
-		
+
 	}
-	
-	
-	
+
+
+
 	public boolean retirarIntermediario2( int idUsuario, int idComisionista ) throws Exception
 	{
 		System.out.println(idUsuario);
@@ -636,7 +636,7 @@ public class ConsultaDAO {
 			if( !rs1980.next())
 			{
 				sender.enviarMensaje("RequerimientoRetirarIntermediario: el idComisionista es = "+ idComisionista);
-				String mensaje = receiver.recibirMensaje();
+				String mensaje = reciver.recibir();
 				if( mensaje.contains("Se realizo existosamente"))
 				{
 					return true;
@@ -956,20 +956,20 @@ public class ConsultaDAO {
 				return null;
 			}
 			else{
-			while(rs.next())
-			{
-				int idPortafolio = rs.getInt("ID_PORTAFOLIO");
-				nueva.setIdPortafolio(nIdPortafolio);
-				int idValor = rs.getInt("ID_VALOR");
-				nueva.setIdValor(idValor);
-				String nombreValor = rs.getString("NOMBRE");
-				nueva.setNombreValor(nombreValor);
-				int porcentaje = rs.getInt("PORCENTAJE");
-				nueva.setPorcentaje(porcentaje);
-				composicion.add(nueva);
-				nueva = new ComposicionValue();
-			}
-			return composicion;
+				while(rs.next())
+				{
+					int idPortafolio = rs.getInt("ID_PORTAFOLIO");
+					nueva.setIdPortafolio(nIdPortafolio);
+					int idValor = rs.getInt("ID_VALOR");
+					nueva.setIdValor(idValor);
+					String nombreValor = rs.getString("NOMBRE");
+					nueva.setNombreValor(nombreValor);
+					int porcentaje = rs.getInt("PORCENTAJE");
+					nueva.setPorcentaje(porcentaje);
+					composicion.add(nueva);
+					nueva = new ComposicionValue();
+				}
+				return composicion;
 			}
 
 		} catch (SQLException e) {
@@ -1850,5 +1850,283 @@ public class ConsultaDAO {
 		return portafolios;
 	}
 
+
+
+
+	
+	/**
+	 * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+	 * @return true si se pudo, false de lo contrario
+	 * @throws Exception se lanza una excepcion si ocurre un error en
+	 * la conexion o en la consulta. 
+	 */
+
+
+	public ArrayList masDinamicos(String inic, String fin) throws Exception
+	{
+
+
+
+		PreparedStatement prepStmt = null;
+
+
+
+		ArrayList movimientos = new ArrayList();
+
+
+
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+
+
+			String query ="SELECT * FROM ((((OPERACION_BURSATIL JOIN ((INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID )"
+					+ " JOIN RENTABILIDAD ON ID_RENTABILIDAD = RENTABILIDAD.ID )ON ID_INS_FIN = INSTRUMENTO_FINANCIERO.ID) JOIN COMISIONISTA ON COMISIONISTA.NUM_REGISTRO = ID_COMISIONISTA_2)"
+					+ " JOIN INVERSIONISTA ON INVERSIONISTA.ID = ID_INVERSIONISTA) JOIN OFERENTE ON OFERENTE.ID = ID_OFERENTE) "
+					+ "WHERE FECHA_FINAL BETWEEN TO_DATE('"+inic+"', 'dd/mm/yyyy') AND TO_DATE('"+fin+"', 'dd/mm/yyyy') AND " ;
+
+			System.out.println(query);
+
+			prepStmt = conexion.prepareStatement(query);
+
+			ResultSet rs = prepStmt.executeQuery();
+
+
+			ResultSetMetaData metaData = rs.getMetaData();
+
+			int count = metaData.getColumnCount();
+
+
+
+			sender.enviarMensaje("MasDinamicos:"+inic+","+fin);
+			String mensaje = reciver.recibir();
+
+			if( mensaje.length() > 0 )
+			{
+
+				String[] movis = mensaje.split(";");
+
+				for(int i = 0; i<movis.length;i++){
+					String[] attrs = (String[]) movis[i].split(",");
+
+					String numRegistro =attrs[0];
+					String tipoOP = attrs[1];
+					String fecha =attrs[2];
+					String nomInstrumento = attrs[3];
+					String valorIns = attrs[4];
+					String tipoValor = attrs[5];
+					String rentabilidad = attrs[0];
+
+					String nomComisionista =attrs[0];
+					String nomInversionista = attrs[0];
+					String nomOferente = attrs[0];
+
+					OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
+
+
+					movimientos.add(nuevo);
+
+				}
+			}
+
+
+				while(rs.next()){
+
+
+
+
+					String numRegistro = rs.getString("ID");
+					String tipoOP = rs.getString("TIPO");
+					String fecha = rs.getString("FECHA_FINAL");
+					String nomInstrumento = rs.getString("NOMBRE");
+					String valorIns = rs.getString(15);
+					String tipoValor = rs.getString(22);
+					String rentabilidad = rs.getString(25);
+
+					String nomComisionista = rs.getString("NOM_REPRESENTANTE");
+					String nomInversionista = rs.getString("NOMBRE_REPRESENTANTE");
+					String nomOferente = rs.getString(53);
+
+					System.out.println(numRegistro);
+
+
+					OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
+
+
+
+					movimientos.add(nuevo);
+
+					if(movimientos.size()>5){
+						break;
+					}
+
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+
+				throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+			}finally 
+			{
+				if (prepStmt != null) 
+				{
+					try {
+						prepStmt.close();
+					} catch (SQLException exception) {
+
+						throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
+					}
+				}
+
+				closeConnection(conexion);
+			}		
+			return movimientos;
+		}
+
+
+	
+
+
+
+
+	/**
+	 * Metodo que se retornar todos los comisionistas dentro de la bolsa de valores
+	 * @return true si se pudo, false de lo contrario
+	 * @throws Exception se lanza una excepcion si ocurre un error en
+	 * la conexion o en la consulta. 
+	 */
+
+
+	public ArrayList mov2(String inic, String fin, String criterio) throws Exception
+	{
+
+
+
+		PreparedStatement prepStmt = null;
+
+
+
+		ArrayList movimientos = new ArrayList();
+
+
+
+		try {
+			establecerConexion(cadenaConexion, usuario, clave);
+
+
+			String query ="SELECT * FROM ((((OPERACION_BURSATIL JOIN ((INSTRUMENTO_FINANCIERO JOIN TIPO_VALOR ON TIPO_VALOR = TIPO_VALOR.ID )"
+					+ " JOIN RENTABILIDAD ON ID_RENTABILIDAD = RENTABILIDAD.ID )ON ID_INS_FIN = INSTRUMENTO_FINANCIERO.ID) JOIN COMISIONISTA ON COMISIONISTA.NUM_REGISTRO = ID_COMISIONISTA_2)"
+					+ " JOIN INVERSIONISTA ON INVERSIONISTA.ID = ID_INVERSIONISTA) JOIN OFERENTE ON OFERENTE.ID = ID_OFERENTE) "
+					+ "WHERE FECHA_FINAL BETWEEN TO_DATE('"+inic+"', 'dd/mm/yyyy') AND TO_DATE('"+fin+"', 'dd/mm/yyyy') AND " + criterio ;
+
+			System.out.println(query);
+
+			prepStmt = conexion.prepareStatement(query);
+
+			ResultSet rs = prepStmt.executeQuery();
+
+
+			ResultSetMetaData metaData = rs.getMetaData();
+
+			int count = metaData.getColumnCount();
+
+			sender.enviarMensaje("MovimientoValores:"+inic+","+fin+","+criterio);
+			String mensaje = reciver.recibir();
+
+			if( mensaje.length() > 0 )
+			{
+				String[] movis = mensaje.split(";");
+
+				for(int i = 0; i<movis.length;i++){
+					String[] attrs = (String[]) movis[i].split(",");
+
+					String numRegistro =attrs[0];
+					String tipoOP = attrs[1];
+					String fecha =attrs[2];
+					String nomInstrumento = attrs[3];
+					String valorIns = attrs[4];
+					String tipoValor = attrs[5];
+					String rentabilidad = attrs[0];
+
+					String nomComisionista =attrs[0];
+					String nomInversionista = attrs[0];
+					String nomOferente = attrs[0];
+
+					OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
+
+
+					movimientos.add(nuevo);
+
+
+
+
+				}
+			}
+
+
+
+
+			while(rs.next()){
+
+
+
+
+				String numRegistro = rs.getString("ID");
+				String tipoOP = rs.getString("TIPO");
+				String fecha = rs.getString("FECHA_FINAL");
+				String nomInstrumento = rs.getString("NOMBRE");
+				String valorIns = rs.getString(15);
+				String tipoValor = rs.getString(22);
+				String rentabilidad = rs.getString(25);
+
+				String nomComisionista = rs.getString("NOM_REPRESENTANTE");
+				String nomInversionista = rs.getString("NOMBRE_REPRESENTANTE");
+				String nomOferente = rs.getString(53);
+
+				System.out.println(numRegistro);
+
+
+				OperacionValue nuevo = new OperacionValue(numRegistro, tipoOP, fecha, nomInstrumento, valorIns, tipoValor,rentabilidad, nomComisionista, nomInversionista, nomOferente);
+
+
+
+				movimientos.add(nuevo);
+
+				if(movimientos.size()>5000){
+					break;
+				}
+
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw new Exception("ERROR = ConsultaDAO: " + e.getMessage());
+		}finally 
+		{
+			if (prepStmt != null) 
+			{
+				try {
+					prepStmt.close();
+				} catch (SQLException exception) {
+
+					throw new Exception("ERROR: ConsultaDAO: cerrando la conexion.");
+				}
+			}
+
+			closeConnection(conexion);
+		}		
+		return movimientos;
+	}
+
+
+
+
+
+
+
+
+	
 
 }

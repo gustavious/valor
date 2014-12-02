@@ -107,6 +107,11 @@
       <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletValores2</servlet-class>
    </servlet>
    
+    <servlet>
+      <servlet-name>ServletDinamicos</servlet-name>
+      <servlet-class>co.edu.uniandes.valorAndes.servletsIter4.ServletDinamico</servlet-class>
+   </servlet>
+   
    
    <servlet-mapping>
     <servlet-name>ServletRetirarTotal</servlet-name>
@@ -192,5 +197,10 @@
   <servlet-mapping>
     <servlet-name>ServletValores2</servlet-name>
     <url-pattern>/valores2.htm</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ServletDinamicos</servlet-name>
+    <url-pattern>/dinamicos.htm</url-pattern>
   </servlet-mapping>
 </web-app>
